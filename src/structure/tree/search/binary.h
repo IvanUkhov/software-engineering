@@ -8,10 +8,10 @@ struct Node;
 class Binary {
  public:
   void Insert(int value);
-  Node* root() const;
+  std::shared_ptr<Node> root() const;
 
  private:
-  std::unique_ptr<Node> root_;
+  std::shared_ptr<Node> root_;
 };
 
 struct Node {

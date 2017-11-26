@@ -1,12 +1,12 @@
 #include "structure/tree/search/binary.h"
 
-Node* Binary::root() const {
-  return this->root_.get();
+std::shared_ptr<Node> Binary::root() const {
+  return this->root_;
 }
 
 void Binary::Insert(int value) {
   if (!this->root_) {
-    this->root_ = std::unique_ptr<Node>(new Node(value));
+    this->root_ = std::shared_ptr<Node>(new Node(value));
   } else {
     Node *current = this->root_.get();
     while (true) {
