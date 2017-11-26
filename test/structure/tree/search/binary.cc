@@ -3,7 +3,7 @@
 
 void populate(Binary& tree);
 
-TEST(BinaryTest, Query) {
+TEST(BinaryTest, Insert) {
   Binary tree;
   populate(tree);
   ASSERT_EQ(tree.root()->right->right->left->value, 13);

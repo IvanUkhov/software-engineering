@@ -12,6 +12,7 @@ include_directories(
 
 add_library(
   interview
+  src/structure/tree/heap/binary.cc
   src/structure/tree/search/binary.cc
   )
 
@@ -38,6 +39,7 @@ add_library(googletest ${GOOGLETEST_SOURCES})
 add_executable(
   tester
   test/main.cc
+  test/structure/tree/heap/binary.cc
   test/structure/tree/search/binary.cc
   )
 
