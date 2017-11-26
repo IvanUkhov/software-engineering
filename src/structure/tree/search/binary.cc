@@ -8,20 +8,20 @@ void Binary::Insert(int value) {
   if (!this->root_) {
     this->root_ = std::shared_ptr<Node>(new Node(value));
   } else {
-    Node *current = this->root_.get();
+    std::shared_ptr<Node> current = this->root_;
     while (true) {
       if (value <= current->value) {
         if (current->left) {
-          current = current->left.get();
+          current = current->left;
         } else {
-          current->left = std::unique_ptr<Node>(new Node(value));
+          current->left = std::shared_ptr<Node>(new Node(value));
           return;
         }
       } else {
         if (current->right) {
-          current = current->right.get();
+          current = current->right;
         } else {
-          current->right = std::unique_ptr<Node>(new Node(value));
+          current->right = std::shared_ptr<Node>(new Node(value));
           return;
         }
       }

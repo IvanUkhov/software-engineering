@@ -18,8 +18,8 @@ struct Node {
   Node(int value) : value(value) {}
 
   int value;
-  std::unique_ptr<Node> left;
-  std::unique_ptr<Node> right;
+  std::shared_ptr<Node> left;
+  std::shared_ptr<Node> right;
 };
 
 #endif // INTERVIEW_STRUCTURE_TREE_SEARCH_BINARY_H_
