@@ -5,7 +5,6 @@ struct Node;
 
 class Binary {
  public:
-  Binary();
   ~Binary();
 
   void Insert(int value);

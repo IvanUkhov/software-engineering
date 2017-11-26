@@ -1,8 +1,5 @@
 #include "structure/tree/search/binary.h"
 
-Binary::Binary() {
-}
-
 Binary::~Binary() {
   if (this->root_) delete this->root_;
 }
