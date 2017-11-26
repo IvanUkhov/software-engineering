@@ -8,4 +8,4 @@ test:
 clean:
 	rm -rf "${build}"
 
-.PHONY: clean test
+.PHONY: all clean test
