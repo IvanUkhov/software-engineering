@@ -1,26 +1,25 @@
 #ifndef INTERVIEW_STRUCTURE_TREE_SEARCH_BINARY_H_
 #define INTERVIEW_STRUCTURE_TREE_SEARCH_BINARY_H_
 
+#include <memory>
+
 struct Node;
 
 class Binary {
  public:
-  ~Binary();
-
   void Insert(int value);
   Node* root() const;
 
  private:
-  Node* root_ = nullptr;
+  std::unique_ptr<Node> root_;
 };
 
 struct Node {
   Node(int value) : value(value) {}
-  ~Node();
 
   int value;
-  Node* left = nullptr;
-  Node* right = nullptr;
+  std::unique_ptr<Node> left;
+  std::unique_ptr<Node> right;
 };
 
 #endif // INTERVIEW_STRUCTURE_TREE_SEARCH_BINARY_H_

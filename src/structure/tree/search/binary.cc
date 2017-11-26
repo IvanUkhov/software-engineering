@@ -1,39 +1,30 @@
 #include "structure/tree/search/binary.h"
 
-Binary::~Binary() {
-  if (this->root_) delete this->root_;
-}
-
 Node* Binary::root() const {
-  return this->root_;
+  return this->root_.get();
 }
 
 void Binary::Insert(int value) {
   if (!this->root_) {
-    this->root_ = new Node(value);
+    this->root_ = std::unique_ptr<Node>(new Node(value));
   } else {
-    Node *current = this->root_;
+    Node *current = this->root_.get();
     while (true) {
       if (value <= current->value) {
         if (current->left) {
-          current = current->left;
+          current = current->left.get();
         } else {
-          current->left = new Node(value);
+          current->left = std::unique_ptr<Node>(new Node(value));
           return;
         }
       } else {
         if (current->right) {
-          current = current->right;
+          current = current->right.get();
         } else {
-          current->right = new Node(value);
+          current->right = std::unique_ptr<Node>(new Node(value));
           return;
         }
       }
     }
   }
-}
-
-Node::~Node() {
-  if (this->left) delete this->left;
-  if (this->right) delete this->right;
 }
