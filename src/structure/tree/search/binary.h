@@ -8,7 +8,6 @@ class Binary {
   ~Binary();
 
   void Insert(int value);
-  bool Query();
   Node* root() const;
 
  private:
@@ -16,7 +15,7 @@ class Binary {
 };
 
 struct Node {
-  Node(int value);
+  Node(int value) : value(value) {}
   ~Node();
 
   int value;

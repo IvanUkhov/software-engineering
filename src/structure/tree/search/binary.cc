@@ -34,13 +34,6 @@ void Binary::Insert(int value) {
   }
 }
 
-bool Binary::Query() {
-  return true;
-}
-
-Node::Node(int value) : value(value) {
-}
-
 Node::~Node() {
   if (this->left) delete this->left;
   if (this->right) delete this->right;
