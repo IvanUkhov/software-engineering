@@ -32,15 +32,15 @@ endforeach()
 add_library(googletest ${GOOGLETEST_SOURCES})
 
 add_executable(
-  test
+  tester
   test/main.cc
   test/structure/tree/search/binary.cc
   )
 
-add_dependencies(test googletest)
+add_dependencies(tester googletest)
 
 target_link_libraries(
-  test
+  tester
   googletest
   interview
   pthread
