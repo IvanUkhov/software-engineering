@@ -11,7 +11,6 @@ Node* Binary::root() const {
 void Binary::Insert(int value) {
   if (!this->root_) {
     this->root_ = new Node(value);
-    this->root_->value = value;
   } else {
     Node *current = this->root_;
     while (true) {
