@@ -1,14 +1,13 @@
 #include <algorithm>
-#include <cstdlib>
 #include <ctime>
 
 #include "gtest/gtest.h"
 #include "structure/tree/heap/binary.h"
 
-const size_t kCount = 100;
+const std::size_t kCount = 100;
 
 std::vector<int> Drain(Binary& heap);
-std::vector<int> Generate(size_t count);
+std::vector<int> Generate(std::size_t count);
 
 TEST(BinaryTest, New) {
   std::srand(std::time(0));
@@ -28,7 +27,7 @@ TEST(BinaryTest, Push) {
   std::sort(expected.begin(), expected.end(), std::greater<int>());
 
   Binary heap;
-  for (size_t i = 0; i < kCount; i++) {
+  for (std::size_t i = 0; i < kCount; i++) {
     heap.Push(data[i]);
   }
   std::vector<int> actual = Drain(heap);
@@ -36,19 +35,19 @@ TEST(BinaryTest, Push) {
 }
 
 std::vector<int> Drain(Binary& heap) {
-  size_t size = heap.Size();
+  std::size_t size = heap.Size();
   std::vector<int> data;
   data.reserve(size);
-  for (size_t i = 0; i < size; i++) {
+  for (std::size_t i = 0; i < size; i++) {
     data.push_back(heap.Pop());
   }
   return data;
 }
 
-std::vector<int> Generate(size_t size) {
+std::vector<int> Generate(std::size_t size) {
   std::vector<int> data;
   data.reserve(size);
-  for (size_t i = 0; i < size; i++) {
+  for (std::size_t i = 0; i < size; i++) {
     data.push_back(std::rand());
   }
   return data;

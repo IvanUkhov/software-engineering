@@ -28,7 +28,7 @@ void Binary::Push(int value) {
   Up(this->data_, (int)this->Size() - 1);
 }
 
-size_t Binary::Size() const {
+std::size_t Binary::Size() const {
   return this->data_.size();
 }
 

@@ -1,6 +1,7 @@
 #ifndef INTERVIEW_STRUCTURE_TREE_HEAP_BINARY_H_
 #define INTERVIEW_STRUCTURE_TREE_HEAP_BINARY_H_
 
+#include <cstddef>
 #include <vector>
 
 class Binary {
@@ -10,7 +11,7 @@ class Binary {
   void Arrange();
   int Pop();
   void Push(int value);
-  size_t Size() const;
+  std::size_t Size() const;
 
  private:
   std::vector<int> data_;
