@@ -1,0 +1,8 @@
+language: cpp
+
+script:
+  - cd build && cmake .. && make && ./test
+
+notifications:
+  email:
+    on_success: never

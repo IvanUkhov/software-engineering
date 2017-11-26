@@ -1,0 +1,10 @@
+#ifndef INTERVIEW_STRUCTURE_TREE_SEARCH_BINARY_H_
+#define INTERVIEW_STRUCTURE_TREE_SEARCH_BINARY_H_
+
+class Binary {
+ public:
+  Binary() {}
+  bool Query();
+};
+
+#endif // INTERVIEW_STRUCTURE_TREE_SEARCH_BINARY_H_
