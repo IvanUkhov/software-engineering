@@ -15,11 +15,8 @@ add_library(
   src/structure/tree/search/binary.cc
   )
 
-set(GOOGLETEST_SOURCE_DIR vendor/googletest/googletest CACHE STRING "Google Test")
-
-include_directories(
-  ${PROJECT_SOURCE_DIR}/${GOOGLETEST_SOURCE_DIR}
-  ${PROJECT_SOURCE_DIR}/${GOOGLETEST_SOURCE_DIR}/include
+set(GOOGLETEST_SOURCE_DIR
+  vendor/googletest/googletest CACHE STRING "Google Test"
   )
 
 set(GOOGLETEST_SOURCES
@@ -27,8 +24,13 @@ set(GOOGLETEST_SOURCES
   ${PROJECT_SOURCE_DIR}/${GOOGLETEST_SOURCE_DIR}/src/gtest_main.cc
   )
 
-foreach(_source ${GOOGLETEST_SOURCES})
-  set_source_files_properties(${_source} PROPERTIES GENERATED 1)
+include_directories(
+  ${PROJECT_SOURCE_DIR}/${GOOGLETEST_SOURCE_DIR}
+  ${PROJECT_SOURCE_DIR}/${GOOGLETEST_SOURCE_DIR}/include
+  )
+
+foreach(source ${GOOGLETEST_SOURCES})
+  set_source_files_properties(${source} PROPERTIES GENERATED 1)
 endforeach()
 
 add_library(googletest ${GOOGLETEST_SOURCES})
@@ -47,8 +49,3 @@ target_link_libraries(
   interview
   pthread
   )
-
-include(CTest)
-enable_testing()
-
-add_test(test ${PROJECT_BINARY_DIR}/test)
