@@ -7,23 +7,23 @@ std::shared_ptr<Node> Binary::root() const {
 void Binary::Insert(int value) {
   if (!this->root_) {
     this->root_ = std::shared_ptr<Node>(new Node(value));
-  } else {
-    std::shared_ptr<Node> current = this->root_;
-    while (true) {
-      if (value <= current->value) {
-        if (current->left) {
-          current = current->left;
-        } else {
-          current->left = std::shared_ptr<Node>(new Node(value));
-          return;
-        }
+    return;
+  }
+  std::shared_ptr<Node> current = this->root_;
+  while (true) {
+    if (value <= current->value) {
+      if (current->left) {
+        current = current->left;
       } else {
-        if (current->right) {
-          current = current->right;
-        } else {
-          current->right = std::shared_ptr<Node>(new Node(value));
-          return;
-        }
+        current->left = std::shared_ptr<Node>(new Node(value));
+        return;
+      }
+    } else {
+      if (current->right) {
+        current = current->right;
+      } else {
+        current->right = std::shared_ptr<Node>(new Node(value));
+        return;
       }
     }
   }

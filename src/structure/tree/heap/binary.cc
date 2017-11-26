@@ -1,52 +1,66 @@
 #include "structure/tree/heap/binary.h"
 
+void Down(std::vector<int>& data, int i, int size);
+void Up(std::vector<int>& data, int i);
+
 Binary::Binary(std::vector<int> data) : data_(data) {
   this->Arrange();
 }
 
 void Binary::Arrange() {
-  for (int i = ((int)this->Size() - 1 - 1) / 2; i >= 0; i--) this->Down(i);
+  int size = (int)this->Size();
+  for (int i = (size - 1 - 1) / 2; i >= 0; i--) {
+    Down(this->data_, i, size);
+  }
 }
 
 int Binary::Pop() {
-  int value = this->data_.front();
-  this->data_[0] = this->data_.back();
+  int size = (int)this->Size() - 1;
+  int value = this->data_[0];
+  this->data_[0] = this->data_[size];
   this->data_.pop_back();
-  this->Down(0);
+  Down(this->data_, 0, size);
   return value;
 }
 
 void Binary::Push(int value) {
   this->data_.push_back(value);
-  this->Up((int)this->Size() - 1);
+  Up(this->data_, (int)this->Size() - 1);
 }
 
 size_t Binary::Size() const {
   return this->data_.size();
 }
 
-void Binary::Down(int i) {
-  int size = (int)this->Size();
+void Down(std::vector<int>& data, int i, int size) {
   while (true) {
     int j = 2 * i + 1;
-    if (j >= size) break;
+    if (j >= size) {
+      return;
+    }
     int k = j + 1;
-    if (k < size && this->data_[k] > this->data_[j]) j = k;
-    int value = this->data_[i];
-    if (this->data_[j] <= value) break;
-    this->data_[i] = this->data_[j];
-    this->data_[j] = value;
+    if (k < size && data[k] > data[j]) {
+      j = k;
+    }
+    int value = data[i];
+    if (data[j] <= value) {
+      return;
+    }
+    data[i] = data[j];
+    data[j] = value;
     i = j;
   }
 }
 
-void Binary::Up(int i) {
+void Up(std::vector<int>& data, int i) {
   while (i > 0) {
     int j = (i - 1) / 2;
-    int value = this->data_[i];
-    if (this->data_[j] >= value) break;
-    this->data_[i] = this->data_[j];
-    this->data_[j] = value;
+    int value = data[i];
+    if (data[j] >= value) {
+      return;
+    }
+    data[i] = data[j];
+    data[j] = value;
     i = j;
   }
 }

@@ -1,15 +1,15 @@
 #include "gtest/gtest.h"
 #include "structure/tree/search/binary.h"
 
-void populate(Binary& tree);
+void Populate(Binary& tree);
 
 TEST(BinaryTest, Insert) {
   Binary tree;
-  populate(tree);
+  Populate(tree);
   ASSERT_EQ(tree.root()->right->right->left->value, 13);
 }
 
-void populate(Binary& tree) {
+void Populate(Binary& tree) {
   tree.Insert(8);
   tree.Insert(3);
   tree.Insert(1);
