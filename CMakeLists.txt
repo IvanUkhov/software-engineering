@@ -4,6 +4,8 @@ project(interview)
 
 enable_language(CXX)
 
+set (CMAKE_CXX_STANDARD 11)
+
 include_directories(
   ${PROJECT_SOURCE_DIR}/src
   )
