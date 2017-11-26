@@ -13,6 +13,9 @@ class Binary {
   size_t Size() const;
 
  private:
+  void Down(int i);
+  void Up(int i);
+
   std::vector<int> data_;
 };
 
