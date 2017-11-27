@@ -1,6 +1,7 @@
 #ifndef FIXTURE_H_
 #define FIXTURE_H_
 
+#include <cstdlib>
 #include <vector>
 
 namespace fixture {
@@ -13,7 +14,7 @@ std::vector<T> Generate(typename std::vector<T>::size_type size) {
   std::vector<T> data;
   data.reserve(size);
   for (int i = 0; i < size; i++) {
-    data.push_back((T)std::rand());
+    data.push_back(std::rand());
   }
   return data;
 }
