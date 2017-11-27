@@ -29,6 +29,7 @@ add_executable(
   fixture.cc
   algorithm/search/binary.cc
   algorithm/sort/bubble.cc
+  algorithm/sort/heap.cc
   structure/tree/heap/binary.cc
   structure/tree/search/binary.cc
   )

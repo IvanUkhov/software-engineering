@@ -60,6 +60,11 @@ class Binary {
   T Pop();
   void Push(T value);
   SizeType Size() const;
+  void Sort();
+
+  operator Container() const {
+    return this->data_;
+  }
 
  private:
   Container data_;
@@ -72,7 +77,7 @@ Binary<T>::Binary(Container data) : data_(data) {
 
 template <typename T>
 void Binary<T>::Arrange() {
-  int size = (int)this->Size();
+  int size = this->Size();
   for (int i = (size - 1 - 1) / 2; i >= 0; i--) {
     internal::Down(this->data_, i, size);
   }
@@ -97,6 +102,15 @@ void Binary<T>::Push(T value) {
 template <typename T>
 typename Binary<T>::SizeType Binary<T>::Size() const {
   return this->data_.size();
+}
+
+template <typename T>
+void Binary<T>::Sort() {
+  int size = this->Size();
+  for (int i = size - 1; i > 0; --i) {
+    std::swap(this->data_[0], this->data_[i]);
+    internal::Down(this->data_, 0, i);
+  }
 }
 
 } } } // namespace structure::tree::heap

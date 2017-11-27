@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <utility>
 
 #include "fixture.h"
 #include "gtest/gtest.h"
@@ -12,17 +13,17 @@ std::vector<int> Drain(Binary<int>& heap);
 
 TEST(HeapTest, BinaryNew) {
   const std::vector<int> data = fixture::Generate<int>(kCount);
-  std::vector<int> expected((std::vector<int>(data)));
+  std::vector<int> expected(data);
   std::sort(expected.begin(), expected.end(), std::greater<int>());
 
-  Binary<int> heap((std::vector<int>(data)));
+  Binary<int> heap(std::move(data));
   std::vector<int> actual = Drain(heap);
   ASSERT_EQ(actual, expected);
 }
 
 TEST(HeapTest, BinaryPush) {
   const std::vector<int> data = fixture::Generate<int>(kCount);
-  std::vector<int> expected((std::vector<int>(data)));
+  std::vector<int> expected(data);
   std::sort(expected.begin(), expected.end(), std::greater<int>());
 
   Binary<int> heap;
