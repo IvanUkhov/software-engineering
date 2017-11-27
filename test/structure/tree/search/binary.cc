@@ -3,15 +3,15 @@
 
 using namespace structure::tree::search;
 
-void Populate(Binary& tree);
+void Populate(Binary<int>& tree);
 
 TEST(BinaryTest, Insert) {
-  Binary tree;
+  Binary<int> tree;
   Populate(tree);
   ASSERT_EQ(tree.root()->right->right->left->value, 13);
 }
 
-void Populate(Binary& tree) {
+void Populate(Binary<int>& tree) {
   tree.Insert(8);
   tree.Insert(3);
   tree.Insert(1);

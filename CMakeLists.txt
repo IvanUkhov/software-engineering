@@ -12,7 +12,7 @@ include_directories(
 
 add_library(
   interview
-  src/structure/tree/search/binary.cc
+  src/main.cc
   )
 
 set(GOOGLETEST_SOURCE_DIR
