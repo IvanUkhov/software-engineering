@@ -5,8 +5,11 @@
 
 namespace fixture {
 
+void Randomize();
+
 template <typename T>
 std::vector<T> Generate(typename std::vector<T>::size_type size) {
+  Randomize();
   std::vector<T> data;
   data.reserve(size);
   for (int i = 0; i < size; i++) {

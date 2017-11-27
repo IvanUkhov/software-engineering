@@ -1,5 +1,4 @@
 #include <algorithm>
-#include <ctime>
 
 #include "fixture.h"
 #include "gtest/gtest.h"
@@ -10,7 +9,6 @@ using namespace algorithm::search;
 const int kCount = 100;
 
 TEST(BinaryTest, Search) {
-  std::srand(std::time(0));
   std::vector<int> data = fixture::Generate<int>(kCount);
   std::sort(data.begin(), data.end());
 

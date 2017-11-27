@@ -1,5 +1,4 @@
 #include <algorithm>
-#include <ctime>
 
 #include "fixture.h"
 #include "gtest/gtest.h"
@@ -12,7 +11,6 @@ const int kCount = 100;
 std::vector<int> Drain(Binary<int>& heap);
 
 TEST(BinaryTest, New) {
-  std::srand(std::time(0));
   const std::vector<int> data = fixture::Generate<int>(kCount);
   std::vector<int> expected((std::vector<int>(data)));
   std::sort(expected.begin(), expected.end(), std::greater<int>());
@@ -23,7 +21,6 @@ TEST(BinaryTest, New) {
 }
 
 TEST(BinaryTest, Push) {
-  std::srand(std::time(0));
   const std::vector<int> data = fixture::Generate<int>(kCount);
   std::vector<int> expected((std::vector<int>(data)));
   std::sort(expected.begin(), expected.end(), std::greater<int>());

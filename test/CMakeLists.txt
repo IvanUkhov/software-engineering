@@ -26,6 +26,7 @@ add_library(googletest ${GOOGLETEST_SOURCES})
 add_executable(
   tester
   main.cc
+  fixture.cc
   algorithm/search/binary.cc
   structure/tree/heap/binary.cc
   structure/tree/search/binary.cc
@@ -33,4 +34,9 @@ add_executable(
 
 add_dependencies(tester googletest)
 
-target_link_libraries(tester googletest interview pthread)
+target_link_libraries(
+  tester
+  googletest
+  interview
+  pthread
+  )
