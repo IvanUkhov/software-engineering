@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <ctime>
 
+#include "fixture.h"
 #include "gtest/gtest.h"
 #include "structure/tree/heap/binary.h"
 
@@ -9,11 +10,10 @@ using namespace structure::tree::heap;
 const int kCount = 100;
 
 std::vector<int> Drain(Binary<int>& heap);
-std::vector<int> Generate(int count);
 
 TEST(BinaryTest, New) {
   std::srand(std::time(0));
-  const std::vector<int> data = Generate(kCount);
+  const std::vector<int> data = fixture::Generate<int>(kCount);
   std::vector<int> expected((std::vector<int>(data)));
   std::sort(expected.begin(), expected.end(), std::greater<int>());
 
@@ -24,7 +24,7 @@ TEST(BinaryTest, New) {
 
 TEST(BinaryTest, Push) {
   std::srand(std::time(0));
-  const std::vector<int> data = Generate(kCount);
+  const std::vector<int> data = fixture::Generate<int>(kCount);
   std::vector<int> expected((std::vector<int>(data)));
   std::sort(expected.begin(), expected.end(), std::greater<int>());
 
@@ -42,15 +42,6 @@ std::vector<int> Drain(Binary<int>& heap) {
   data.reserve(size);
   for (int i = 0; i < size; i++) {
     data.push_back(heap.Pop());
-  }
-  return data;
-}
-
-std::vector<int> Generate(int size) {
-  std::vector<int> data;
-  data.reserve(size);
-  for (int i = 0; i < size; i++) {
-    data.push_back(std::rand());
   }
   return data;
 }
