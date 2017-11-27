@@ -1,5 +1,4 @@
 #include <algorithm>
-#include <utility>
 
 #include "fixture.h"
 #include "gtest/gtest.h"
