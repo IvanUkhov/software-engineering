@@ -26,6 +26,7 @@ add_library(googletest ${GOOGLETEST_SOURCES})
 add_executable(
   tester
   main.cc
+  algorithm/search/binary.cc
   structure/tree/heap/binary.cc
   structure/tree/search/binary.cc
   )
