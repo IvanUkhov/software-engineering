@@ -5,7 +5,7 @@ using namespace structure::tree::search;
 
 void Populate(Binary<int>& tree);
 
-TEST(BinaryTest, Insert) {
+TEST(TreeTest, BinaryInsert) {
   Binary<int> tree;
   Populate(tree);
   ASSERT_EQ(tree.root()->right->right->left->value, 13);

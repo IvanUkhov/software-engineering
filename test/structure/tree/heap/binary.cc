@@ -10,7 +10,7 @@ const int kCount = 100;
 
 std::vector<int> Drain(Binary<int>& heap);
 
-TEST(BinaryTest, New) {
+TEST(HeapTest, BinaryNew) {
   const std::vector<int> data = fixture::Generate<int>(kCount);
   std::vector<int> expected((std::vector<int>(data)));
   std::sort(expected.begin(), expected.end(), std::greater<int>());
@@ -20,7 +20,7 @@ TEST(BinaryTest, New) {
   ASSERT_EQ(actual, expected);
 }
 
-TEST(BinaryTest, Push) {
+TEST(HeapTest, BinaryPush) {
   const std::vector<int> data = fixture::Generate<int>(kCount);
   std::vector<int> expected((std::vector<int>(data)));
   std::sort(expected.begin(), expected.end(), std::greater<int>());
