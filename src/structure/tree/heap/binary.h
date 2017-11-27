@@ -1,6 +1,7 @@
 #ifndef STRUCTURE_TREE_HEAP_BINARY_H_
 #define STRUCTURE_TREE_HEAP_BINARY_H_
 
+#include <utility>
 #include <vector>
 
 namespace structure { namespace tree { namespace heap {
@@ -24,12 +25,10 @@ void Down(std::vector<T>& data, int i, int size) {
     if (k < size && data[k] > data[j]) {
       j = k;
     }
-    T value = data[i];
-    if (data[j] <= value) {
+    if (data[i] >= data[j]) {
       return;
     }
-    data[i] = data[j];
-    data[j] = value;
+    std::swap(data[i], data[j]);
     i = j;
   }
 }
@@ -38,12 +37,10 @@ template <typename T>
 void Up(std::vector<T>& data, int i) {
   while (i > 0) {
     int j = (i - 1) / 2;
-    T value = data[i];
-    if (data[j] >= value) {
+    if (data[i] <= data[j]) {
       return;
     }
-    data[i] = data[j];
-    data[j] = value;
+    std::swap(data[i], data[j]);
     i = j;
   }
 }
