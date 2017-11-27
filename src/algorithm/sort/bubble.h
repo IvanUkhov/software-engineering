@@ -6,8 +6,8 @@
 namespace algorithm { namespace sort {
 
 template <typename T>
-void Bubble(std::vector<int>& data) {
-  typedef typename std::vector<int>::size_type size_t;
+void Bubble(std::vector<T>& data) {
+  typedef typename std::vector<T>::size_type size_t;
   size_t size = data.size();
   for (size_t i = 1; i < size; i++) {
     bool swapped = false;
