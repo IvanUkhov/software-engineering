@@ -62,9 +62,7 @@ class Binary {
   SizeType Size() const;
   void Sort();
 
-  operator Container() const {
-    return this->data_;
-  }
+  operator Container() const;
 
  private:
   Container data_;
@@ -111,6 +109,11 @@ void Binary<T>::Sort() {
     std::swap(this->data_[0], this->data_[i]);
     internal::Down(this->data_, 0, i);
   }
+}
+
+template <typename T>
+Binary<T>::operator Container() const {
+  return this->data_;
 }
 
 } } } // namespace structure::tree::heap
