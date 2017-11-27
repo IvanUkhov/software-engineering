@@ -1,6 +1,6 @@
 #include "structure/tree/search/binary.h"
 
-using namespace interview::structure::tree::search;
+using namespace structure::tree::search;
 
 std::shared_ptr<Node> Binary::root() const {
   return this->root_;

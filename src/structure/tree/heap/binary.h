@@ -1,9 +1,9 @@
-#ifndef INTERVIEW_STRUCTURE_TREE_HEAP_BINARY_H_
-#define INTERVIEW_STRUCTURE_TREE_HEAP_BINARY_H_
+#ifndef STRUCTURE_TREE_HEAP_BINARY_H_
+#define STRUCTURE_TREE_HEAP_BINARY_H_
 
 #include <vector>
 
-namespace interview { namespace structure { namespace tree { namespace heap {
+namespace structure { namespace tree { namespace heap {
 
 namespace internal {
 
@@ -102,6 +102,6 @@ typename Binary<T>::SizeType Binary<T>::Size() const {
   return this->data_.size();
 }
 
-} } } } // namespace interview::structure::tree::heap
+} } } // namespace structure::tree::heap
 
-#endif // INTERVIEW_STRUCTURE_TREE_HEAP_BINARY_H_
+#endif // STRUCTURE_TREE_HEAP_BINARY_H_

@@ -4,7 +4,7 @@
 #include "gtest/gtest.h"
 #include "structure/tree/heap/binary.h"
 
-using namespace interview::structure::tree::heap;
+using namespace structure::tree::heap;
 
 const int kCount = 100;
 

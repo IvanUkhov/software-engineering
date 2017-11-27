@@ -1,9 +1,9 @@
-#ifndef INTERVIEW_STRUCTURE_TREE_SEARCH_BINARY_H_
-#define INTERVIEW_STRUCTURE_TREE_SEARCH_BINARY_H_
+#ifndef STRUCTURE_TREE_SEARCH_BINARY_H_
+#define STRUCTURE_TREE_SEARCH_BINARY_H_
 
 #include <memory>
 
-namespace interview { namespace structure { namespace tree { namespace search {
+namespace structure { namespace tree { namespace search {
 
 struct Node;
 
@@ -24,6 +24,6 @@ struct Node {
   std::shared_ptr<Node> right;
 };
 
-} } } } // namespace interview::structure::tree::search
+} } } // namespace structure::tree::search
 
-#endif // INTERVIEW_STRUCTURE_TREE_SEARCH_BINARY_H_
+#endif // STRUCTURE_TREE_SEARCH_BINARY_H_
