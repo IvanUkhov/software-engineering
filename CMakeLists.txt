@@ -12,7 +12,6 @@ include_directories(
 
 add_library(
   interview
-  src/structure/tree/heap/binary.cc
   src/structure/tree/search/binary.cc
   )
 
