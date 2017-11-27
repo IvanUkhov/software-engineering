@@ -2,7 +2,7 @@
 
 using namespace structure::tree::search;
 
-std::shared_ptr<Node> Binary::root() const {
+std::shared_ptr<Binary::Node> Binary::root() const {
   return this->root_;
 }
 
