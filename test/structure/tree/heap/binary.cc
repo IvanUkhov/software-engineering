@@ -4,6 +4,8 @@
 #include "gtest/gtest.h"
 #include "structure/tree/heap/binary.h"
 
+using namespace interview::structure::tree::heap;
+
 const int kCount = 100;
 
 std::vector<int> Drain(Binary<int>& heap);

@@ -1,6 +1,8 @@
 #include "gtest/gtest.h"
 #include "structure/tree/search/binary.h"
 
+using namespace interview::structure::tree::search;
+
 void Populate(Binary& tree);
 
 TEST(BinaryTest, Insert) {

@@ -3,6 +3,8 @@
 
 #include <memory>
 
+namespace interview { namespace structure { namespace tree { namespace search {
+
 struct Node;
 
 class Binary {
@@ -21,5 +23,7 @@ struct Node {
   std::shared_ptr<Node> left;
   std::shared_ptr<Node> right;
 };
+
+} } } } // namespace interview::structure::tree::search
 
 #endif // INTERVIEW_STRUCTURE_TREE_SEARCH_BINARY_H_

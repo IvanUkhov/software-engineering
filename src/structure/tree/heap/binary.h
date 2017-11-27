@@ -3,6 +3,8 @@
 
 #include <vector>
 
+namespace interview { namespace structure { namespace tree { namespace heap {
+
 namespace internal {
 
 template <typename T>
@@ -99,5 +101,7 @@ template <typename T>
 typename Binary<T>::SizeType Binary<T>::Size() const {
   return this->data_.size();
 }
+
+} } } } // namespace interview::structure::tree::heap
 
 #endif // INTERVIEW_STRUCTURE_TREE_HEAP_BINARY_H_
