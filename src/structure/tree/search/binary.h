@@ -25,16 +25,16 @@ class Binary {
 
 template <typename T>
 std::shared_ptr<typename Binary<T>::Node> Binary<T>::root() const {
-  return this->root_;
+  return root_;
 }
 
 template <typename T>
 void Binary<T>::Insert(T value) {
-  if (!this->root_) {
-    this->root_ = std::shared_ptr<Node>(new Node(value));
+  if (!root_) {
+    root_ = std::shared_ptr<Node>(new Node(value));
     return;
   }
-  auto current = this->root_;
+  auto current = root_;
   while (true) {
     if (value <= current->value) {
       if (current->left) {

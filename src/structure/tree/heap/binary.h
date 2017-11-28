@@ -61,50 +61,50 @@ class Binary {
 
 template <typename T>
 Binary<T>::Binary(std::vector<T> data) : data_(std::move(data)) {
-  this->Order();
+  Order();
 }
 
 template <typename T>
 void Binary<T>::Order() {
-  int size = this->Size();
+  int size = Size();
   for (int i = (size - 1 - 1) / 2; i >= 0; --i) {
-    internal::Down(this->data_.data(), i, size);
+    internal::Down(data_.data(), i, size);
   }
 }
 
 template <typename T>
 void Binary<T>::Sort() {
-  int size = this->Size();
+  int size = Size();
   for (int i = size - 1; i > 0; --i) {
-    std::swap(this->data_[0], this->data_[i]);
-    internal::Down(this->data_.data(), 0, i);
+    std::swap(data_[0], data_[i]);
+    internal::Down(data_.data(), 0, i);
   }
 }
 
 template <typename T>
 T Binary<T>::Pop() {
-  int size = (int)this->Size() - 1;
-  T value = this->data_[0];
-  this->data_[0] = this->data_[size];
-  this->data_.pop_back();
-  internal::Down(this->data_.data(), 0, size);
+  int size = (int)Size() - 1;
+  T value = data_[0];
+  data_[0] = data_[size];
+  data_.pop_back();
+  internal::Down(data_.data(), 0, size);
   return value;
 }
 
 template <typename T>
 void Binary<T>::Push(T value) {
-  this->data_.push_back(value);
-  internal::Up(this->data_.data(), (int)this->Size() - 1);
+  data_.push_back(value);
+  internal::Up(data_.data(), (int)Size() - 1);
 }
 
 template <typename T>
 typename std::vector<T>::size_type Binary<T>::Size() const {
-  return this->data_.size();
+  return data_.size();
 }
 
 template <typename T>
 Binary<T>::operator std::vector<T>() {
-  return std::move(this->data_);
+  return std::move(data_);
 }
 
 } } } // namespace structure::tree::heap
