@@ -73,7 +73,7 @@ Binary<T>::Binary(std::vector<T> data) : data_(std::move(data)) {
 template <typename T>
 void Binary<T>::Order() {
   int size = this->Size();
-  for (int i = (size - 1 - 1) / 2; i >= 0; i--) {
+  for (int i = (size - 1 - 1) / 2; i >= 0; --i) {
     internal::Down(this->data_, i, size);
   }
 }
