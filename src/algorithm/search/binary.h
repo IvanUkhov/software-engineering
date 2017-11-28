@@ -5,8 +5,7 @@ namespace algorithm { namespace search {
 
 template <typename T>
 int Binary(const std::vector<T>& data, T value) {
-  typename std::vector<T>::size_type size = data.size();
-  int i = 0, j = (int)size;
+  int i = 0, j = data.size();
   while (i < j) {
     int k = i + (j - i) / 2;
     if (data[k] < value) {

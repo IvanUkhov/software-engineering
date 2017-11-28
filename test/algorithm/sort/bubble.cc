@@ -9,7 +9,7 @@ using namespace algorithm::sort;
 const int kCount = 100;
 
 TEST(SortTest, Bubble) {
-  const std::vector<int> data = fixture::Generate<int>(kCount);
+  const auto data = fixture::Generate<int>(kCount);
   std::vector<int> expected(data);
   std::sort(expected.begin(), expected.end());
 

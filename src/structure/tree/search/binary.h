@@ -34,7 +34,7 @@ void Binary<T>::Insert(T value) {
     this->root_ = std::shared_ptr<Node>(new Node(value));
     return;
   }
-  std::shared_ptr<Node> current = this->root_;
+  auto current = this->root_;
   while (true) {
     if (value <= current->value) {
       if (current->left) {

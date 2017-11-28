@@ -9,7 +9,7 @@ using namespace algorithm::search;
 const int kCount = 100;
 
 TEST(SearchTest, Binary) {
-  std::vector<int> data = fixture::Generate<int>(kCount);
+  auto data = fixture::Generate<int>(kCount);
   std::sort(data.begin(), data.end());
 
   for (int i = 0; i < kCount; i++) {
