@@ -9,12 +9,6 @@ namespace structure { namespace tree { namespace heap {
 namespace internal {
 
 template <typename T>
-void Down(std::vector<T>& data, int i, int size);
-
-template <typename T>
-void Up(std::vector<T>& data, int i);
-
-template <typename T>
 void Down(std::vector<T>& data, int i, int size) {
   while (true) {
     int j = 2 * i + 1;
