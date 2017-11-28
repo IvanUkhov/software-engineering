@@ -50,34 +50,40 @@ void Up(std::vector<T>& data, int i) {
 template <typename T>
 class Binary {
  public:
-  typedef std::vector<T> Container;
-  typedef typename Container::size_type SizeType;
-
   Binary() {}
-  Binary(Container data);
+  Binary(std::vector<T> data);
 
-  void Arrange();
+  void Order();
+  void Sort();
   T Pop();
   void Push(T value);
-  SizeType Size() const;
-  void Sort();
+  typename std::vector<T>::size_type Size() const;
 
-  operator Container();
+  operator std::vector<T>();
 
  private:
-  Container data_;
+  std::vector<T> data_;
 };
 
 template <typename T>
-Binary<T>::Binary(Container data) : data_(std::move(data)) {
-  this->Arrange();
+Binary<T>::Binary(std::vector<T> data) : data_(std::move(data)) {
+  this->Order();
 }
 
 template <typename T>
-void Binary<T>::Arrange() {
+void Binary<T>::Order() {
   int size = this->Size();
   for (int i = (size - 1 - 1) / 2; i >= 0; i--) {
     internal::Down(this->data_, i, size);
+  }
+}
+
+template <typename T>
+void Binary<T>::Sort() {
+  int size = this->Size();
+  for (int i = size - 1; i > 0; --i) {
+    std::swap(this->data_[0], this->data_[i]);
+    internal::Down(this->data_, 0, i);
   }
 }
 
@@ -98,21 +104,12 @@ void Binary<T>::Push(T value) {
 }
 
 template <typename T>
-typename Binary<T>::SizeType Binary<T>::Size() const {
+typename std::vector<T>::size_type Binary<T>::Size() const {
   return this->data_.size();
 }
 
 template <typename T>
-void Binary<T>::Sort() {
-  int size = this->Size();
-  for (int i = size - 1; i > 0; --i) {
-    std::swap(this->data_[0], this->data_[i]);
-    internal::Down(this->data_, 0, i);
-  }
-}
-
-template <typename T>
-Binary<T>::operator Container() {
+Binary<T>::operator std::vector<T>() {
   return std::move(this->data_);
 }
 
