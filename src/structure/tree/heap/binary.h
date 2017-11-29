@@ -10,6 +10,7 @@ namespace internal {
 
 template <typename T>
 void Down(T data[], int i, int size) {
+  using std::swap;
   while (true) {
     int j = 2 * i + 1;
     if (j >= size) {
@@ -22,19 +23,20 @@ void Down(T data[], int i, int size) {
     if (data[i] >= data[j]) {
       return;
     }
-    std::swap(data[i], data[j]);
+    swap(data[i], data[j]);
     i = j;
   }
 }
 
 template <typename T>
 void Up(T data[], int i) {
+  using std::swap;
   while (i > 0) {
     int j = (i - 1) / 2;
     if (data[i] <= data[j]) {
       return;
     }
-    std::swap(data[i], data[j]);
+    swap(data[i], data[j]);
     i = j;
   }
 }
@@ -74,9 +76,10 @@ void Binary<T>::Order() {
 
 template <typename T>
 void Binary<T>::Sort() {
+  using std::swap;
   int size = Size();
   for (int i = size - 1; i > 0; --i) {
-    std::swap(data_[0], data_[i]);
+    swap(data_[0], data_[i]);
     internal::Down(data_.data(), 0, i);
   }
 }
