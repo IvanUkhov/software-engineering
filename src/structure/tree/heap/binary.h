@@ -83,7 +83,7 @@ void Binary<T>::Sort() {
 
 template <typename T>
 T Binary<T>::Pop() {
-  int size = (int)Size() - 1;
+  int size = Size() - 1;
   T value = data_[0];
   data_[0] = data_[size];
   data_.pop_back();
@@ -94,7 +94,7 @@ T Binary<T>::Pop() {
 template <typename T>
 void Binary<T>::Push(T value) {
   data_.push_back(value);
-  internal::Up(data_.data(), (int)Size() - 1);
+  internal::Up(data_.data(), Size() - 1);
 }
 
 template <typename T>
