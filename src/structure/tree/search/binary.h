@@ -12,42 +12,42 @@ class Binary {
     Node(T value) : value(value) {}
 
     T value;
-    std::shared_ptr<Node> left;
-    std::shared_ptr<Node> right;
+    std::unique_ptr<Node> left;
+    std::unique_ptr<Node> right;
   };
 
   void Insert(T value);
-  std::shared_ptr<Node> root() const;
+  const Node& root() const;
 
  private:
-  std::shared_ptr<Node> root_;
+  std::unique_ptr<Node> root_;
 };
 
 template <typename T>
-std::shared_ptr<typename Binary<T>::Node> Binary<T>::root() const {
-  return root_;
+const typename Binary<T>::Node& Binary<T>::root() const {
+  return *root_;
 }
 
 template <typename T>
 void Binary<T>::Insert(T value) {
   if (!root_) {
-    root_ = std::shared_ptr<Node>(new Node(value));
+    root_ = std::unique_ptr<Node>(new Node(value));
     return;
   }
-  auto current = root_;
+  Node* current = root_.get();
   while (true) {
     if (value <= current->value) {
       if (current->left) {
-        current = current->left;
+        current = current->left.get();
       } else {
-        current->left = std::shared_ptr<Node>(new Node(value));
+        current->left = std::unique_ptr<Node>(new Node(value));
         return;
       }
     } else {
       if (current->right) {
-        current = current->right;
+        current = current->right.get();
       } else {
-        current->right = std::shared_ptr<Node>(new Node(value));
+        current->right = std::unique_ptr<Node>(new Node(value));
         return;
       }
     }

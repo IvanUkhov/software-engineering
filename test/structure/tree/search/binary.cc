@@ -8,7 +8,7 @@ void Populate(Binary<int>& tree);
 TEST(TreeTest, BinaryInsert) {
   Binary<int> tree;
   Populate(tree);
-  ASSERT_EQ(tree.root()->right->right->left->value, 13);
+  ASSERT_EQ(tree.root().right->right->left->value, 13);
 }
 
 void Populate(Binary<int>& tree) {
