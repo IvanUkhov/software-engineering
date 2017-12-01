@@ -13,17 +13,10 @@ int Partition(std::vector<T>& data, int left, int right) {
   T pivot = data[left];
   int i = left, j = right;
   while (true) {
-    while (data[i] < pivot) {
-      ++i;
-    }
-    while (data[j] > pivot) {
-      --j;
-    }
-    if (i < j) {
-      swap(data[i], data[j]);
-    } else {
-      return j;
-    }
+    while (data[i] < pivot) ++i;
+    while (data[j] > pivot) --j;
+    if (i < j) swap(data[i], data[j]);
+    else return j;
   }
 }
 

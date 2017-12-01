@@ -18,9 +18,7 @@ void Bubble(std::vector<T>& data) {
         swapped = true;
       }
     }
-    if (!swapped) {
-      return;
-    }
+    if (!swapped) return;
   }
 }
 

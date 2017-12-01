@@ -13,16 +13,10 @@ void Down(T data[], int i, int size) {
   using std::swap;
   while (true) {
     int j = 2 * i + 1;
-    if (j >= size) {
-      return;
-    }
+    if (j >= size) return;
     int k = j + 1;
-    if (k < size && data[k] > data[j]) {
-      j = k;
-    }
-    if (data[i] >= data[j]) {
-      return;
-    }
+    if (k < size && data[k] > data[j]) j = k;
+    if (data[i] >= data[j]) return;
     swap(data[i], data[j]);
     i = j;
   }
@@ -33,9 +27,7 @@ void Up(T data[], int i) {
   using std::swap;
   while (i > 0) {
     int j = (i - 1) / 2;
-    if (data[i] <= data[j]) {
-      return;
-    }
+    if (data[i] <= data[j]) return;
     swap(data[i], data[j]);
     i = j;
   }
