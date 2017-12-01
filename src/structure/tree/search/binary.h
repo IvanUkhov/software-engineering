@@ -26,7 +26,7 @@ class Binary {
 
   template <typename T>
   void Accept(T& visitor) {
-    if (root_) Traverse(visitor, root_.get());
+    if (root_) Accept(visitor, root_.get());
   }
 
   Node* Search(K key) const;
@@ -40,7 +40,7 @@ class Binary {
 
  private:
   template <typename T>
-  void Traverse(T& visitor, Node* node);
+  void Accept(T& visitor, Node* node);
 };
 
 template <typename K, typename V>
@@ -82,10 +82,10 @@ typename Binary<K, V>::Node* Binary<K, V>::Search(K key) const {
 
 template <typename K, typename V>
 template <typename T>
-void Binary<K, V>::Traverse(T& visitor, Node* node) {
-  if (node->left) Traverse(visitor, node->left.get());
+void Binary<K, V>::Accept(T& visitor, Node* node) {
+  if (node->left) Accept(visitor, node->left.get());
   visitor.Visit(node);
-  if (node->right) Traverse(visitor, node->right.get());
+  if (node->right) Accept(visitor, node->right.get());
 }
 
 } } } // namespace structure::tree::search
