@@ -7,12 +7,12 @@ typedef Binary<int, const char*> Tree;
 
 Tree Create();
 
-TEST(TreeTest, BinaryInsert) {
+TEST(SearchTreeTest, BinaryInsert) {
   auto tree = Create();
   ASSERT_EQ(tree.root()->right()->right()->left()->key(), 13);
 }
 
-TEST(TreeTest, BinarySearch) {
+TEST(SearchTreeTest, BinarySearch) {
   auto tree = Create();
   ASSERT_EQ(tree.root()->Search(10)->value(), "g");
 }
