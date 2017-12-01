@@ -19,11 +19,17 @@ class Binary {
   };
 
   void Insert(std::unique_ptr<Node> node);
-  Node* Search(K key) const;
 
   void Insert(K key, V value) {
     Insert(std::unique_ptr<Node>(new Node(key, std::move(value))));
   }
+
+  template <typename T>
+  void Accept(T& visitor) {
+    if (root_) Traverse(visitor, root_.get());
+  }
+
+  Node* Search(K key) const;
 
   Node* root() const {
     return root_.get();
@@ -31,6 +37,10 @@ class Binary {
 
  protected:
   std::unique_ptr<Node> root_;
+
+ private:
+  template <typename T>
+  void Traverse(T& visitor, Node* node);
 };
 
 template <typename K, typename V>
@@ -68,6 +78,14 @@ typename Binary<K, V>::Node* Binary<K, V>::Search(K key) const {
     else return current;
   }
   return nullptr;
+}
+
+template <typename K, typename V>
+template <typename T>
+void Binary<K, V>::Traverse(T& visitor, Node* node) {
+  if (node->left) Traverse(visitor, node->left.get());
+  visitor.Visit(node);
+  if (node->right) Traverse(visitor, node->right.get());
 }
 
 } } } // namespace structure::tree::search
