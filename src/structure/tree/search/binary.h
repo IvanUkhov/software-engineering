@@ -9,7 +9,7 @@ template <typename K, typename V>
 class Binary {
  public:
   class Node {
-   friend class Binary;
+    friend class Binary;
 
    public:
     Node(K key, V value)
@@ -17,17 +17,11 @@ class Binary {
 
     Node* Search(K key) {
       if (key < key_) {
-        if (left_) {
-          return left_->Search(key);
-        } else {
-          return nullptr;
-        }
+        if (left_) return left_->Search(key);
+        else return nullptr;
       } else if (key > key_) {
-        if (right_) {
-          return right_->Search(key);
-        } else {
-          return nullptr;
-        }
+        if (right_) return right_->Search(key);
+        else return nullptr;
       } else {
         return this;
       }
