@@ -8,82 +8,66 @@ namespace structure { namespace tree { namespace search {
 template <typename K, typename V>
 class Binary {
  public:
-  class Node {
-    friend class Binary;
-
+  struct Node {
    public:
-    Node(K key, V value)
-      : key_(std::move(key)), value_(std::move(value)) {}
+    Node(K key, V value) : key(key), value(std::move(value)) {}
 
-    Node* Search(K key) {
-      if (key < key_) {
-        if (left_) return left_->Search(key);
-        else return nullptr;
-      } else if (key > key_) {
-        if (right_) return right_->Search(key);
-        else return nullptr;
-      } else {
-        return this;
-      }
-    }
-
-    const K& key() const {
-      return key_;
-    }
-
-    V& value() {
-      return value_;
-    }
-
-    Node* left() const {
-      return left_.get();
-    }
-
-    Node* right() const {
-      return right_.get();
-    }
-
-   private:
-    K key_;
-    V value_;
-    std::unique_ptr<Node> left_;
-    std::unique_ptr<Node> right_;
+    K key;
+    V value;
+    std::unique_ptr<Node> left;
+    std::unique_ptr<Node> right;
   };
 
-  void Insert(K key, V value);
+  void Insert(std::unique_ptr<Node> node);
+  Node* Search(K key) const;
+
+  void Insert(K key, V value) {
+    Insert(std::unique_ptr<Node>(new Node(key, std::move(value))));
+  }
 
   Node* root() const {
     return root_.get();
   }
 
- private:
+ protected:
   std::unique_ptr<Node> root_;
 };
 
 template <typename K, typename V>
-void Binary<K, V>::Insert(K key, V value) {
+void Binary<K, V>::Insert(std::unique_ptr<Node> node) {
   if (!root_) {
-    root_ = std::unique_ptr<Node>(new Node(key, value));
+    std::swap(root_, node);
     return;
   }
-  Node* current = root_.get();
+  auto current = root_.get();
   while (true) {
-    if (key <= current->key_) {
-      if (current->left_) {
-        current = current->left_.get();
+    if (node->key <= current->key) {
+      if (current->left) {
+        current = current->left.get();
       } else {
-        current->left_ = std::unique_ptr<Node>(new Node(key, value));
+        std::swap(current->left, node);
         return;
       }
     } else {
-      if (current->right_) {
-        current = current->right_.get();
+      if (current->right) {
+        current = current->right.get();
       } else {
-        current->right_ = std::unique_ptr<Node>(new Node(key, value));
+        std::swap(current->right, node);
         return;
       }
     }
   }
+}
+
+template <typename K, typename V>
+typename Binary<K, V>::Node* Binary<K, V>::Search(K key) const {
+  auto current = this->root_.get();
+  while (current) {
+    if (key < current->key) current = current->left.get();
+    else if (key > current->key) current = current->right.get();
+    else return current;
+  }
+  return nullptr;
 }
 
 } } } // namespace structure::tree::search
