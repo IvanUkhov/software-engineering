@@ -30,6 +30,7 @@ add_executable(
   algorithm/search/binary.cc
   algorithm/sort/bubble.cc
   algorithm/sort/heap.cc
+  algorithm/sort/insertion.cc
   algorithm/sort/quick.cc
   algorithm/sort/selection.cc
   structure/tree/heap/binary.cc
