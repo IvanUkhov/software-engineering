@@ -2,6 +2,7 @@
 #define ALGORITHM_SORT_BUBBLE_H_
 
 #include <utility>
+#include <vector>
 
 namespace algorithm { namespace sort {
 

@@ -1,21 +1,17 @@
-#include <algorithm>
-
-#include "fixture.h"
-#include "gtest/gtest.h"
 #include "algorithm/sort/heap.h"
+#include "assess.h"
 
-using namespace algorithm::sort;
-
-const int kCount = 100;
+template <typename T>
+void BinaryHeap(std::vector<T>& given) {
+  std::vector<T> data;
+  std::swap(data, given);
+  auto before = &data[0];
+  data = algorithm::sort::BinaryHeap<T>(std::move(data));
+  auto after = &data[0];
+  ASSERT_EQ(before, after);
+  std::swap(data, given);
+}
 
 TEST(SortTest, BinaryHeap) {
-  auto data = fixture::Generate<int>(kCount);
-  std::vector<int> expected(data);
-  std::sort(expected.begin(), expected.end());
-
-  auto before = &data[0];
-  auto actual = BinaryHeap<int>(std::move(data));
-  auto after = &actual[0];
-  ASSERT_EQ(actual, expected);
-  ASSERT_EQ(before, after);
+  assess::Sort<int>(BinaryHeap);
 }
