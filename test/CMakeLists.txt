@@ -34,6 +34,7 @@ add_executable(
   algorithm/sort/merge.cc
   algorithm/sort/quick.cc
   algorithm/sort/selection.cc
+  algorithm/sort/tree.cc
   structure/tree/heap/binary.cc
   structure/tree/search/binary.cc
   )
