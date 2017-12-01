@@ -5,49 +5,69 @@
 
 namespace structure { namespace tree { namespace search {
 
-template <typename T>
+template <typename K, typename V>
 class Binary {
  public:
-  struct Node {
-    Node(T value) : value(value) {}
+  class Node {
+   friend class Binary;
 
-    T value;
-    std::unique_ptr<Node> left;
-    std::unique_ptr<Node> right;
+   public:
+    Node(K key, V value)
+      : key_(std::move(key)), value_(std::move(value)) {}
+
+    const K& key() const {
+      return key_;
+    }
+
+    V& value() {
+      return value_;
+    }
+
+    Node* left() const {
+      return left_.get();
+    }
+
+    Node* right() const {
+      return right_.get();
+    }
+
+   private:
+    K key_;
+    V value_;
+    std::unique_ptr<Node> left_;
+    std::unique_ptr<Node> right_;
   };
 
-  void Insert(T value);
-  const Node& root() const;
+  void Insert(K key, V value);
+
+  Node* root() const {
+    return root_.get();
+  }
 
  private:
   std::unique_ptr<Node> root_;
 };
 
-template <typename T>
-const typename Binary<T>::Node& Binary<T>::root() const {
-  return *root_;
-}
-
-template <typename T>
-void Binary<T>::Insert(T value) {
+template <typename K, typename V>
+void Binary<K, V>::Insert(K key, V value) {
   if (!root_) {
-    root_ = std::unique_ptr<Node>(new Node(value));
+    root_ = std::unique_ptr<Node>(new Node(key, value));
     return;
   }
   Node* current = root_.get();
   while (true) {
-    if (value <= current->value) {
-      if (current->left) {
-        current = current->left.get();
+    if (key <= current->key_) {
+      if (current->left_) {
+        current = current->left_.get();
       } else {
-        current->left = std::unique_ptr<Node>(new Node(value));
+        current->left_ = std::unique_ptr<Node>(new Node(key, value));
         return;
       }
     } else {
-      if (current->right) {
-        current = current->right.get();
+      if (current->right_) {
+        current = current->right_.get();
       } else {
-        current->right = std::unique_ptr<Node>(new Node(value));
+        current->right_ = std::unique_ptr<Node>(new Node(key, value));
         return;
       }
     }
