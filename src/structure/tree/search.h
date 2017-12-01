@@ -1,12 +1,12 @@
-#ifndef STRUCTURE_TREE_SEARCH_BINARY_H_
-#define STRUCTURE_TREE_SEARCH_BINARY_H_
+#ifndef STRUCTURE_TREE_SEARCH_H_
+#define STRUCTURE_TREE_SEARCH_H_
 
 #include <memory>
 
-namespace structure { namespace tree { namespace search {
+namespace structure { namespace tree {
 
 template <typename K, typename V>
-class Binary {
+class BinarySearch {
  public:
   struct Node {
    public:
@@ -44,7 +44,7 @@ class Binary {
 };
 
 template <typename K, typename V>
-void Binary<K, V>::Insert(std::unique_ptr<Node> node) {
+void BinarySearch<K, V>::Insert(std::unique_ptr<Node> node) {
   if (!root_) {
     std::swap(root_, node);
     return;
@@ -70,7 +70,7 @@ void Binary<K, V>::Insert(std::unique_ptr<Node> node) {
 }
 
 template <typename K, typename V>
-typename Binary<K, V>::Node* Binary<K, V>::Search(K key) const {
+typename BinarySearch<K, V>::Node* BinarySearch<K, V>::Search(K key) const {
   auto current = this->root_.get();
   while (current) {
     if (key < current->key) current = current->left.get();
@@ -82,12 +82,12 @@ typename Binary<K, V>::Node* Binary<K, V>::Search(K key) const {
 
 template <typename K, typename V>
 template <typename T>
-void Binary<K, V>::Accept(T& visitor, Node* node) {
+void BinarySearch<K, V>::Accept(T& visitor, Node* node) {
   if (node->left) Accept(visitor, node->left.get());
   visitor.Visit(node);
   if (node->right) Accept(visitor, node->right.get());
 }
 
-} } } // namespace structure::tree::search
+} } // namespace structure::tree
 
-#endif // STRUCTURE_TREE_SEARCH_BINARY_H_
+#endif // STRUCTURE_TREE_SEARCH_H_

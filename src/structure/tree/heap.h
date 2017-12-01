@@ -1,10 +1,10 @@
-#ifndef STRUCTURE_TREE_HEAP_BINARY_H_
-#define STRUCTURE_TREE_HEAP_BINARY_H_
+#ifndef STRUCTURE_TREE_HEAP_H_
+#define STRUCTURE_TREE_HEAP_H_
 
 #include <utility>
 #include <vector>
 
-namespace structure { namespace tree { namespace heap {
+namespace structure { namespace tree {
 
 namespace internal {
 
@@ -36,10 +36,10 @@ void Up(T data[], int i) {
 } // namespace internal
 
 template <typename T>
-class Binary {
+class BinaryHeap {
  public:
-  Binary() {}
-  Binary(std::vector<T> data);
+  BinaryHeap() {}
+  BinaryHeap(std::vector<T> data);
 
   void Order();
   void Sort();
@@ -54,12 +54,12 @@ class Binary {
 };
 
 template <typename T>
-Binary<T>::Binary(std::vector<T> data) : data_(std::move(data)) {
+BinaryHeap<T>::BinaryHeap(std::vector<T> data) : data_(std::move(data)) {
   Order();
 }
 
 template <typename T>
-void Binary<T>::Order() {
+void BinaryHeap<T>::Order() {
   int size = Size();
   for (int i = (size - 1 - 1) / 2; i >= 0; --i) {
     internal::Down(data_.data(), i, size);
@@ -67,7 +67,7 @@ void Binary<T>::Order() {
 }
 
 template <typename T>
-void Binary<T>::Sort() {
+void BinaryHeap<T>::Sort() {
   using std::swap;
   int size = Size();
   for (int i = size - 1; i > 0; --i) {
@@ -77,7 +77,7 @@ void Binary<T>::Sort() {
 }
 
 template <typename T>
-T Binary<T>::Pop() {
+T BinaryHeap<T>::Pop() {
   int size = Size() - 1;
   T value = data_[0];
   data_[0] = data_[size];
@@ -87,21 +87,21 @@ T Binary<T>::Pop() {
 }
 
 template <typename T>
-void Binary<T>::Push(T value) {
+void BinaryHeap<T>::Push(T value) {
   data_.push_back(value);
   internal::Up(data_.data(), Size() - 1);
 }
 
 template <typename T>
-typename std::vector<T>::size_type Binary<T>::Size() const {
+typename std::vector<T>::size_type BinaryHeap<T>::Size() const {
   return data_.size();
 }
 
 template <typename T>
-Binary<T>::operator std::vector<T>() {
+BinaryHeap<T>::operator std::vector<T>() {
   return std::move(data_);
 }
 
-} } } // namespace structure::tree::heap
+} } // namespace structure::tree
 
-#endif // STRUCTURE_TREE_HEAP_BINARY_H_
+#endif // STRUCTURE_TREE_HEAP_H_

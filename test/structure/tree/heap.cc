@@ -2,20 +2,20 @@
 
 #include "fixture.h"
 #include "gtest/gtest.h"
-#include "structure/tree/heap/binary.h"
-
-using namespace structure::tree::heap;
+#include "structure/tree/heap.h"
 
 const int kCount = 100;
 
-std::vector<int> Drain(Binary<int>& heap);
+typedef structure::tree::BinaryHeap<int> Heap;
+
+std::vector<int> Drain(Heap& heap);
 
 TEST(HeapTest, BinaryNew) {
   const auto data = fixture::Generate<int>(kCount);
   std::vector<int> expected(data);
   std::sort(expected.begin(), expected.end(), std::greater<int>());
 
-  Binary<int> heap(std::move(data));
+  Heap heap(std::move(data));
   auto actual = Drain(heap);
   ASSERT_EQ(actual, expected);
 }
@@ -25,7 +25,7 @@ TEST(HeapTest, BinaryPush) {
   std::vector<int> expected(data);
   std::sort(expected.begin(), expected.end(), std::greater<int>());
 
-  Binary<int> heap;
+  Heap heap;
   for (int i = 0; i < kCount; i++) {
     heap.Push(data[i]);
   }
@@ -33,7 +33,7 @@ TEST(HeapTest, BinaryPush) {
   ASSERT_EQ(actual, expected);
 }
 
-std::vector<int> Drain(Binary<int>& heap) {
+std::vector<int> Drain(Heap& heap) {
   int size = heap.Size();
   std::vector<int> data;
   data.reserve(size);

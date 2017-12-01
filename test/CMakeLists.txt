@@ -35,8 +35,8 @@ add_executable(
   algorithm/sort/quick.cc
   algorithm/sort/selection.cc
   algorithm/sort/tree.cc
-  structure/tree/heap/binary.cc
-  structure/tree/search/binary.cc
+  structure/tree/heap.cc
+  structure/tree/search.cc
   )
 
 add_dependencies(tester googletest)

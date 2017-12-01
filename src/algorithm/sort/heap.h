@@ -3,13 +3,13 @@
 
 #include <utility>
 
-#include "structure/tree/heap/binary.h"
+#include "structure/tree/heap.h"
 
 namespace algorithm { namespace sort {
 
 template <typename T>
 std::vector<T> BinaryHeap(std::vector<T> data) {
-  structure::tree::heap::Binary<T> heap(std::move(data));
+  structure::tree::BinaryHeap<T> heap(std::move(data));
   heap.Sort();
   return heap;
 }

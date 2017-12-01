@@ -3,14 +3,14 @@
 
 #include <vector>
 
-#include "structure/tree/search/binary.h"
+#include "structure/tree/search.h"
 
 namespace algorithm { namespace sort {
 
 namespace internal {
 
 template <typename T>
-using Tree = structure::tree::search::Binary<T, bool>;
+using Tree = structure::tree::BinarySearch<T, bool>;
 
 template <typename T>
 class Visitor {

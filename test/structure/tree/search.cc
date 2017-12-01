@@ -1,9 +1,7 @@
 #include "gtest/gtest.h"
-#include "structure/tree/search/binary.h"
+#include "structure/tree/search.h"
 
-using namespace structure::tree::search;
-
-typedef Binary<int, const char*> Tree;
+typedef structure::tree::BinarySearch<int, const char*> Tree;
 
 Tree Create();
 
