@@ -12,6 +12,11 @@ TEST(TreeTest, BinaryInsert) {
   ASSERT_EQ(tree.root()->right()->right()->left()->key(), 13);
 }
 
+TEST(TreeTest, BinarySearch) {
+  auto tree = Create();
+  ASSERT_EQ(tree.root()->Search(10)->value(), "g");
+}
+
 Tree Create() {
   Tree tree;
   tree.Insert(8, "a");
