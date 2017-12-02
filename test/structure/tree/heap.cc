@@ -18,7 +18,7 @@ std::vector<int> Drain(Heap& heap) {
   return data;
 }
 
-TEST(HeapTest, BinaryNew) {
+TEST(TreeTest, BinaryHeapNew) {
   const auto data = fixture::Generate<int>(kCount);
   std::vector<int> expected(data);
   std::sort(expected.begin(), expected.end(), std::greater<int>());
@@ -28,7 +28,7 @@ TEST(HeapTest, BinaryNew) {
   ASSERT_EQ(actual, expected);
 }
 
-TEST(HeapTest, BinaryPush) {
+TEST(TreeTest, BinaryHeapPush) {
   const auto data = fixture::Generate<int>(kCount);
   std::vector<int> expected(data);
   std::sort(expected.begin(), expected.end(), std::greater<int>());

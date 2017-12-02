@@ -17,12 +17,12 @@ Tree Create() {
   return tree;
 }
 
-TEST(SearchTreeTest, BinaryInsert) {
+TEST(TreeTest, BinarySearchInsert) {
   auto tree = Create();
   ASSERT_EQ(tree.root()->right->right->left->key, 13);
 }
 
-TEST(SearchTreeTest, BinarySearch) {
+TEST(TreeTest, BinarySearchSearch) {
   auto tree = Create();
   ASSERT_EQ(tree.Search(10)->value, "g");
 }
