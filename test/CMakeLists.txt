@@ -37,6 +37,7 @@ add_executable(
   algorithm/sort/radix.cc
   algorithm/sort/selection.cc
   algorithm/sort/tree.cc
+  structure/list/forward.cc
   structure/tree/heap.cc
   structure/tree/search.cc
   )
