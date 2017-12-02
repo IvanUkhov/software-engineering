@@ -2,24 +2,37 @@
 #define ALGORITHM_SORT_COUNT_H_
 
 #include <type_traits>
+#include <utility>
 #include <vector>
 
 #include "structure/tree/search.h"
 
 namespace algorithm { namespace sort {
 
-template <typename T>
-void Count(std::vector<T>& data, T limit) {
-  static_assert(std::is_unsigned<T>::value, "Count requires unsigned integers");
-  std::vector<T> count(limit);
-  for (auto& value : data) ++count[value];
-  T value = 0;
-  auto size = data.size();
-  for (int i = 0; i < size; ++i) {
-    while (!count[value]) ++value;
-    data[i] = value;
-    --count[value];
+template <typename V>
+V Key(const V& value) {
+  return value;
+}
+
+template <typename K, typename V>
+void Count(std::vector<V>& data, K limit, K key(const V&) = Key<V>) {
+  using std::swap;
+  static_assert(std::is_unsigned<K>::value, "Count requires unsigned integers");
+  std::vector<K> counts(limit);
+  for (auto& value : data) {
+    ++counts[key(value)];
   }
+  K total = {};
+  for (auto& count : counts) {
+    K old = total;
+    total += count;
+    count = old;
+  }
+  std::vector<V> work(total);
+  for (auto& value : data) {
+    swap(value, work[counts[key(value)]++]);
+  }
+  std::swap(data, work);
 }
 
 } } // namespace algorithm::sort
