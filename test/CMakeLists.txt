@@ -40,6 +40,7 @@ add_executable(
   structure/list/forward.cc
   structure/tree/heap.cc
   structure/tree/search.cc
+  structure/tree/trie.cc
   )
 
 add_dependencies(tester googletest)
