@@ -12,7 +12,14 @@ template <typename T>
 void Count(std::vector<T>& data, T limit) {
   static_assert(std::is_unsigned<T>::value, "Count requires unsigned integers");
   std::vector<T> count(limit);
-  for (auto& value : data) count[value]++;
+  for (auto& value : data) ++count[value];
+  T value = 0;
+  auto size = data.size();
+  for (int i = 0; i < size; ++i) {
+    while (!count[value]) ++value;
+    data[i] = value;
+    --count[value];
+  }
 }
 
 } } // namespace algorithm::sort
