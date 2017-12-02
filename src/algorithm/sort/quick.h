@@ -12,10 +12,10 @@ template <typename T>
 int Partition(std::vector<T>& data, int left, int right) {
   using std::swap;
   T pivot = data[left];
-  int i = left, j = right;
+  int i = left - 1, j = right + 1;
   while (true) {
-    while (data[i] < pivot) ++i;
-    while (data[j] > pivot) --j;
+    while (data[++i] < pivot) {}
+    while (data[--j] > pivot) {}
     if (i < j) swap(data[i], data[j]);
     else return j;
   }
