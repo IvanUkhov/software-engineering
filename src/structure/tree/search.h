@@ -2,6 +2,7 @@
 #define STRUCTURE_TREE_SEARCH_H_
 
 #include <memory>
+#include <utility>
 
 namespace structure { namespace tree {
 

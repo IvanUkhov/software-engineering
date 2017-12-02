@@ -2,6 +2,7 @@
 #define ALGORITHM_SORT_HEAP_H_
 
 #include <utility>
+#include <vector>
 
 #include "structure/tree/heap.h"
 

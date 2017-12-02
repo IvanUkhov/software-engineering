@@ -1,6 +1,8 @@
 #ifndef ALGORITHM_SEARCH_BINARY_H_
 #define ALGORITHM_SEARCH_BINARY_H_
 
+#include <vector>
+
 namespace algorithm { namespace search {
 
 template <typename T>

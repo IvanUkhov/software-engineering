@@ -1,6 +1,7 @@
 #ifndef ALGORITHM_SORT_QUICK_H_
 #define ALGORITHM_SORT_QUICK_H_
 
+#include <utility>
 #include <vector>
 
 namespace algorithm { namespace sort {
