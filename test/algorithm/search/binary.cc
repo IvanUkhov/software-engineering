@@ -13,7 +13,7 @@ TEST(SearchTest, Binary) {
   std::sort(data.begin(), data.end());
 
   for (int i = 0; i < kCount; i++) {
-    int j = Binary<int>(data, data[i]);
+    int j = Binary(data, data[i]);
     ASSERT_TRUE(j >= 0 && j < kCount);
     ASSERT_EQ(data[i], data[j]);
   }

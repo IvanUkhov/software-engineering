@@ -2,5 +2,5 @@
 #include "assess.h"
 
 TEST(SortTest, BinaryTree) {
-  assess::Sort<int>(algorithm::sort::BinaryTree<int>);
+  assess::Sort<int>(algorithm::sort::BinaryTree);
 }

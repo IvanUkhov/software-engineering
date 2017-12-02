@@ -3,7 +3,8 @@
 
 const unsigned kLimit = 20;
 
-void Count(std::vector<unsigned>& data) {
+template <typename T>
+void Count(std::vector<T>& data) {
   algorithm::sort::Count(data, kLimit);
 }
 

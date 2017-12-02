@@ -2,5 +2,5 @@
 #include "assess.h"
 
 TEST(SortTest, Bubble) {
-  assess::Sort<int>(algorithm::sort::Bubble<int>);
+  assess::Sort<int>(algorithm::sort::Bubble);
 }

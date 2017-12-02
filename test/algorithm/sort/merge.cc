@@ -8,5 +8,5 @@ void Merge(std::vector<T>& data) {
 }
 
 TEST(SortTest, Merge) {
-  assess::Sort<int>(Merge<int>);
+  assess::Sort<int>(Merge);
 }

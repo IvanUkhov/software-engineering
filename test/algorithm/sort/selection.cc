@@ -2,5 +2,5 @@
 #include "assess.h"
 
 TEST(SortTest, Selection) {
-  assess::Sort<int>(algorithm::sort::Selection<int>);
+  assess::Sort<int>(algorithm::sort::Selection);
 }

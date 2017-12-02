@@ -2,5 +2,5 @@
 #include "assess.h"
 
 TEST(SortTest, Quick) {
-  assess::Sort<int>(algorithm::sort::Quick<int>);
+  assess::Sort<int>(algorithm::sort::Quick);
 }
