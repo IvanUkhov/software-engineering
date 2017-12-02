@@ -1,6 +1,7 @@
 #ifndef ALGORITHM_SORT_COUNT_H_
 #define ALGORITHM_SORT_COUNT_H_
 
+#include <functional>
 #include <type_traits>
 #include <utility>
 #include <vector>
@@ -9,13 +10,18 @@
 
 namespace algorithm { namespace sort {
 
+namespace internal {
+
 template <typename V>
-V Key(const V& value) {
+V ValueKey(const V& value) {
   return value;
 }
 
+} // namespace internal
+
 template <typename K, typename V>
-void Count(std::vector<V>& data, K limit, K key(const V&) = Key<V>) {
+void Count(std::vector<V>& data, K limit,
+           std::function<K(const V&)> key = internal::ValueKey<V>) {
   using std::swap;
   static_assert(std::is_unsigned<K>::value, "Count requires unsigned integers");
   std::vector<K> counts(limit);
