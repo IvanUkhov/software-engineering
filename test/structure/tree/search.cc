@@ -3,18 +3,6 @@
 
 typedef structure::tree::BinarySearch<int, const char*> Tree;
 
-Tree Create();
-
-TEST(SearchTreeTest, BinaryInsert) {
-  auto tree = Create();
-  ASSERT_EQ(tree.root()->right->right->left->key, 13);
-}
-
-TEST(SearchTreeTest, BinarySearch) {
-  auto tree = Create();
-  ASSERT_EQ(tree.Search(10)->value, "g");
-}
-
 Tree Create() {
   Tree tree;
   tree.Insert(8, "a");
@@ -27,4 +15,14 @@ Tree Create() {
   tree.Insert(14, "h");
   tree.Insert(13, "i");
   return tree;
+}
+
+TEST(SearchTreeTest, BinaryInsert) {
+  auto tree = Create();
+  ASSERT_EQ(tree.root()->right->right->left->key, 13);
+}
+
+TEST(SearchTreeTest, BinarySearch) {
+  auto tree = Create();
+  ASSERT_EQ(tree.Search(10)->value, "g");
 }
