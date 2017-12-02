@@ -12,8 +12,8 @@ namespace assess {
 const unsigned kCount = 100;
 
 template <typename T>
-void Sort(void perform(std::vector<T>&), T maximum = 1000) {
-  const auto data = fixture::Modulo(fixture::Generate<T>(kCount), maximum);
+void Sort(void perform(std::vector<T>&), T limit = 1000) {
+  const auto data = fixture::Modulo(fixture::Generate<T>(kCount), limit);
   std::vector<T> expected(data);
   std::sort(expected.begin(), expected.end());
 

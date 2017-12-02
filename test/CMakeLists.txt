@@ -29,6 +29,7 @@ add_executable(
   fixture.cc
   algorithm/search/binary.cc
   algorithm/sort/bubble.cc
+  algorithm/sort/count.cc
   algorithm/sort/heap.cc
   algorithm/sort/insertion.cc
   algorithm/sort/merge.cc
