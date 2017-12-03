@@ -18,4 +18,5 @@ TEST(TreeTest, TrieSearch) {
   Tree tree;
   Populate(tree);
   ASSERT_EQ(tree.Search("ten"), 12);
+  ASSERT_EQ(tree.Search("hello"), 0);
 }
