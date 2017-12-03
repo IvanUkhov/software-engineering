@@ -6,14 +6,14 @@
 
 const int kCount = 100;
 
-typedef structure::tree::BinaryHeap<int> Heap;
+typedef structure::tree::BinaryHeap<int> Tree;
 
-std::vector<int> Drain(Heap& heap) {
-  int size = heap.Size();
+std::vector<int> Drain(Tree& tree) {
+  int size = tree.Size();
   std::vector<int> data;
   data.reserve(size);
   for (int i = 0; i < size; i++) {
-    data.push_back(heap.Pop());
+    data.push_back(tree.Pop());
   }
   return data;
 }
@@ -23,8 +23,8 @@ TEST(TreeTest, BinaryHeapNew) {
   std::vector<int> expected(data);
   std::sort(expected.begin(), expected.end(), std::greater<int>());
 
-  Heap heap(std::move(data));
-  auto actual = Drain(heap);
+  Tree tree(std::move(data));
+  auto actual = Drain(tree);
   ASSERT_EQ(actual, expected);
 }
 
@@ -33,10 +33,10 @@ TEST(TreeTest, BinaryHeapPush) {
   std::vector<int> expected(data);
   std::sort(expected.begin(), expected.end(), std::greater<int>());
 
-  Heap heap;
+  Tree tree;
   for (int i = 0; i < kCount; i++) {
-    heap.Push(data[i]);
+    tree.Push(data[i]);
   }
-  auto actual = Drain(heap);
+  auto actual = Drain(tree);
   ASSERT_EQ(actual, expected);
 }
