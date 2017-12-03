@@ -36,7 +36,7 @@ class Forward {
   Forward& Append(std::unique_ptr<Forward> next) {
     std::swap(next_, next);
     std::swap(next_->next_, next);
-    return *next_.get();
+    return *next_;
   }
 
   Forward& Append(T value) {
