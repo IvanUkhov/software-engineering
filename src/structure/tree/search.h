@@ -36,12 +36,11 @@ class BinarySearch {
     return root_.get();
   }
 
- protected:
-  std::unique_ptr<Node> root_;
-
  private:
   template <typename T>
   void Accept(T& visitor, Node* node);
+
+  std::unique_ptr<Node> root_;
 };
 
 template <typename K, typename V>

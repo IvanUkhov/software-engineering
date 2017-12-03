@@ -39,24 +39,27 @@ template <typename T>
 class BinaryHeap {
  public:
   BinaryHeap() {}
-  BinaryHeap(std::vector<T> data);
+
+  BinaryHeap(std::vector<T> data) : data_(std::move(data)) {
+    Order();
+  }
 
   void Order();
   void Sort();
   T Pop();
   void Push(T value);
-  typename std::vector<T>::size_type Size() const;
 
-  operator std::vector<T>();
+  typename std::vector<T>::size_type Size() const {
+    return data_.size();
+  }
+
+  operator std::vector<T>() {
+    return std::move(data_);
+  }
 
  private:
   std::vector<T> data_;
 };
-
-template <typename T>
-BinaryHeap<T>::BinaryHeap(std::vector<T> data) : data_(std::move(data)) {
-  Order();
-}
 
 template <typename T>
 void BinaryHeap<T>::Order() {
@@ -90,16 +93,6 @@ template <typename T>
 void BinaryHeap<T>::Push(T value) {
   data_.push_back(value);
   internal::Up(data_.data(), Size() - 1);
-}
-
-template <typename T>
-typename std::vector<T>::size_type BinaryHeap<T>::Size() const {
-  return data_.size();
-}
-
-template <typename T>
-BinaryHeap<T>::operator std::vector<T>() {
-  return std::move(data_);
 }
 
 } } // namespace structure::tree
