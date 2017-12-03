@@ -1,6 +1,7 @@
 #ifndef ALGORITHM_SORT_MERGE_H_
 #define ALGORITHM_SORT_MERGE_H_
 
+#include <cstddef>
 #include <vector>
 
 namespace algorithm { namespace sort {
@@ -8,9 +9,10 @@ namespace algorithm { namespace sort {
 namespace internal {
 
 template <typename T>
-void Merge(std::vector<T>& input, int left, int middle, int right, std::vector<T>& output) {
-  int i = left, j = middle;
-  for (int k = left; k < right; ++k) {
+void Merge(std::vector<T>& input, std::size_t left, std::size_t middle,
+           std::size_t right, std::vector<T>& output) {
+  std::size_t i = left, j = middle;
+  for (std::size_t k = left; k < right; ++k) {
     if (i < middle && (j >= right || input[i] < input[j])) {
       output[k] = input[i];
       ++i;
@@ -22,9 +24,10 @@ void Merge(std::vector<T>& input, int left, int middle, int right, std::vector<T
 }
 
 template <typename T>
-void SplitMerge(std::vector<T>& input, int left, int right, std::vector<T>& output) {
+void SplitMerge(std::vector<T>& input, std::size_t left, std::size_t right,
+                std::vector<T>& output) {
   if (right - left < 2) return;
-  int middle = (right + left) / 2;
+  std::size_t middle = (right + left) / 2;
   SplitMerge(output, left, middle, input);
   SplitMerge(output, middle, right, input);
   Merge(input, left, middle, right, output);

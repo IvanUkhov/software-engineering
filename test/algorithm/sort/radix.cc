@@ -1,7 +1,7 @@
 #include "algorithm/sort/radix.h"
 #include "assess.h"
 
-const unsigned kLimit = 20;
+const std::size_t kLimit = 20;
 
 template <typename T>
 void Radix(std::vector<T>& data) {
@@ -9,5 +9,5 @@ void Radix(std::vector<T>& data) {
 }
 
 TEST(SortTest, Radix) {
-  assess::Sort<unsigned int>(Radix, kLimit);
+  assess::Sort<std::size_t>(Radix, kLimit);
 }

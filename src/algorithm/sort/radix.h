@@ -1,6 +1,7 @@
 #ifndef ALGORITHM_SORT_RADIX_H_
 #define ALGORITHM_SORT_RADIX_H_
 
+#include <cstddef>
 #include <type_traits>
 #include <utility>
 #include <vector>
@@ -10,9 +11,9 @@
 namespace algorithm { namespace sort {
 
 template <typename T>
-void Radix(std::vector<T>& data, T limit, unsigned base = 10) {
-  for (unsigned power = 1; power < limit; power *= base) {
-    Count<unsigned, T>(data, base, [base, power](const T& value) -> unsigned {
+void Radix(std::vector<T>& data, T limit, std::size_t base = 10) {
+  for (std::size_t power = 1; power < limit; power *= base) {
+    Count<std::size_t, T>(data, base, [base, power](const T& value) -> std::size_t {
       return (value / power) % base;
     });
   }

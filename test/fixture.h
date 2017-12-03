@@ -1,6 +1,7 @@
 #ifndef FIXTURE_H_
 #define FIXTURE_H_
 
+#include <cstddef>
 #include <cstdlib>
 #include <vector>
 
@@ -13,7 +14,7 @@ std::vector<T> Generate(typename std::vector<T>::size_type size) {
   Randomize();
   std::vector<T> data;
   data.reserve(size);
-  for (int i = 0; i < size; ++i) {
+  for (std::size_t i = 0; i < size; ++i) {
     data.push_back(std::rand());
   }
   return data;

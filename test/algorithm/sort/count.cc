@@ -1,7 +1,7 @@
 #include "algorithm/sort/count.h"
 #include "assess.h"
 
-const unsigned kLimit = 20;
+const std::size_t kLimit = 20;
 
 template <typename T>
 void Count(std::vector<T>& data) {
@@ -9,5 +9,5 @@ void Count(std::vector<T>& data) {
 }
 
 TEST(SortTest, Count) {
-  assess::Sort<unsigned>(Count, kLimit);
+  assess::Sort<std::size_t>(Count, kLimit);
 }

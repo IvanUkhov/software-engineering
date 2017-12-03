@@ -2,6 +2,7 @@
 #define ASSESS_H_
 
 #include <algorithm>
+#include <cstddef>
 #include <vector>
 
 #include "fixture.h"
@@ -9,7 +10,7 @@
 
 namespace assess {
 
-const unsigned kCount = 100;
+const std::size_t kCount = 100;
 
 template <typename T>
 void Sort(void perform(std::vector<T>&), T limit = 1000) {
