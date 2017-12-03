@@ -38,6 +38,7 @@ add_executable(
   algorithm/sort/selection.cc
   algorithm/sort/tree.cc
   structure/list/forward.cc
+  structure/map/hash.cc
   structure/tree/heap.cc
   structure/tree/search.cc
   structure/tree/trie.cc
