@@ -8,12 +8,22 @@
 
 namespace structure { namespace map {
 
+const std::size_t kStartBreadth = 1 << 7;
+const double kResizeThreshold = 0.8;
+
 template <typename K, typename V, typename H = std::hash<K>>
 class Hash {
  public:
-  Hash() : buckets_(1 << 7), size_(0) {}
+  Hash() : buckets_(kStartBreadth), size_(0) {}
 
-  void Set(K key, V value);
+  V* Get(K key) const {
+    return buckets_[Index(key)].Get(std::move(key));
+  }
+
+  void Set(K key, V value) {
+    if (ShouldResize()) Resize();
+    if (buckets_[Index(key)].Set(std::move(key), std::move(value))) ++size_;
+  }
 
   double Load() const {
     return static_cast<double>(Size()) / static_cast<double>(Breadth());
@@ -29,7 +39,7 @@ class Hash {
 
  protected:
   bool ShouldResize() const {
-    return Load() > 0.8;
+    return Load() > kResizeThreshold;
   }
 
   std::size_t Index(K key) const {
@@ -48,6 +58,7 @@ class Hash {
 
   class Bucket {
    public:
+    V* Get(K key) const;
     bool Set(K key, V value);
 
    private:
@@ -62,30 +73,36 @@ class Hash {
 };
 
 template <typename K, typename V, typename H>
-void Hash<K, V, H>::Set(K key, V value) {
-  if (ShouldResize()) Resize();
-  if (buckets_[Index(key)].Set(std::move(key), std::move(value))) ++size_;
+void Hash<K, V, H>::Resize() {
 }
 
 template <typename K, typename V, typename H>
-void Hash<K, V, H>::Resize() {
+V* Hash<K, V, H>::Bucket::Get(K key) const {
+  const auto* current_ptr = &root_;
+  while (true) {
+    const auto& current = *current_ptr;
+    if (!current) break;
+    if (current->key == key) return &current->value;
+    current_ptr = &current->next;
+  }
+  return nullptr;
 }
 
 template <typename K, typename V, typename H>
 bool Hash<K, V, H>::Bucket::Set(K key, V value) {
   using std::swap;
-  std::unique_ptr<Node>* current = &root_;
+  auto* current_ptr = &root_;
   while (true) {
-    std::unique_ptr<Node>& node = *current;
-    if (!node) {
-      node.reset(new Node(std::move(key), std::move(value)));
+    auto& current = *current_ptr;
+    if (!current) {
+      current.reset(new Node(std::move(key), std::move(value)));
       return true;
     }
-    if (node->key == key) {
-      swap(node->value, value);
+    if (current->key == key) {
+      swap(current->value, value);
       return false;
     }
-    current = &node->next;
+    current_ptr = &current->next;
   }
 }
 
