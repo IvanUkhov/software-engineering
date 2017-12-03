@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 #include "structure/list/forward.h"
 
-typedef structure::list::Forward<int> Node;;
+typedef structure::list::Forward<int> Node;
 
 std::vector<int> Collect(Node& root) {
   std::vector<int> data;
