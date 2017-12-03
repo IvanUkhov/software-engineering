@@ -13,7 +13,7 @@ class Hash {
  public:
   Hash() : buckets_(1 << 7), size_(0) {}
 
-  void Insert(K key, V value);
+  void Set(K key, V value);
 
   double Load() const {
     return static_cast<double>(Size()) / static_cast<double>(Breadth());
@@ -48,7 +48,7 @@ class Hash {
 
   class Bucket {
    public:
-    bool Insert(K key, V value);
+    bool Set(K key, V value);
 
    private:
     std::unique_ptr<Node> root_;
@@ -62,9 +62,9 @@ class Hash {
 };
 
 template <typename K, typename V, typename H>
-void Hash<K, V, H>::Insert(K key, V value) {
+void Hash<K, V, H>::Set(K key, V value) {
   if (ShouldResize()) Resize();
-  if (buckets_[Index(key)].Insert(std::move(key), std::move(value))) ++size_;
+  if (buckets_[Index(key)].Set(std::move(key), std::move(value))) ++size_;
 }
 
 template <typename K, typename V, typename H>
@@ -72,7 +72,7 @@ void Hash<K, V, H>::Resize() {
 }
 
 template <typename K, typename V, typename H>
-bool Hash<K, V, H>::Bucket::Insert(K key, V value) {
+bool Hash<K, V, H>::Bucket::Set(K key, V value) {
   using std::swap;
   std::unique_ptr<Node>* current = &root_;
   while (true) {
