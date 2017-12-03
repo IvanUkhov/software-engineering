@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <string>
+#include <unordered_map>
 #include <utility>
 
 namespace structure { namespace tree {
@@ -15,13 +16,10 @@ class Trie {
 
   struct Node {
    public:
-     Node(Symbol symbol = Symbol())
-       : symbol(symbol), value(empty) {}
+     Node(T value = empty) : value(std::move(value)) {}
 
      T value;
-     Symbol symbol;
-     std::unique_ptr<Node> child;
-     std::unique_ptr<Node> sibling;
+     std::unordered_map<Symbol, std::unique_ptr<Node>> children;
   };
 
   void Insert(const Key& key, T value);
@@ -36,22 +34,9 @@ void Trie<T, empty>::Insert(const Key& key, T value) {
   using std::swap;
   auto current = &root;
   for (auto symbol : key) {
-    if (!current->child) {
-      auto node = std::unique_ptr<Node>(new Node(symbol));
-      swap(current->child, node);
-      current = current->child.get();
-      continue;
-    }
-    current = current->child.get();
-    while (current->symbol != symbol) {
-      if (!current->sibling) {
-        auto node = std::unique_ptr<Node>(new Node(symbol));
-        swap(current->sibling, node);
-        current = current->sibling.get();
-        break;
-      }
-      current = current->sibling.get();
-    }
+    auto& child = current->children[symbol];
+    if (!child) child = std::unique_ptr<Node>(new Node());
+    current = child.get();
   }
   swap(current->value, value);
 }
@@ -60,12 +45,9 @@ template <typename T, T empty>
 T Trie<T, empty>::Search(const Key& key) {
   auto current = &root;
   for (auto symbol : key) {
-    if (!current->child) return empty;
-    current = current->child.get();
-    while (current->symbol != symbol) {
-      if (!current->sibling) return empty;
-      current = current->sibling.get();
-    }
+    auto child = current->children.find(symbol);
+    if (child == current->children.end()) return empty;
+    current = child->second.get();
   }
   return current->value;
 }
