@@ -2,10 +2,16 @@ build := build
 
 all: test
 
-test:
-	mkdir -p "${build}" && cd "${build}" && cmake .. && make && ./tester
+build:
+	mkdir -p "${build}" && cd "${build}" && cmake .. && make
+
+test: build
+	cd "${build}" && ./tester
+
+test-all: build
+	cd "${build}" && ./tester --gtest_also_run_disabled_tests
 
 clean:
 	rm -rf "${build}"
 
-.PHONY: all clean test
+.PHONY: all build clean test test-all
