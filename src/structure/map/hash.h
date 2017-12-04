@@ -20,10 +20,10 @@ class Hash {
   void Set(K key, V value);
 
   double Load() const {
-    return static_cast<double>(Size()) / static_cast<double>(Breadth());
+    return static_cast<double>(Size()) / static_cast<double>(Length());
   }
 
-  std::size_t Breadth() const {
+  std::size_t Length() const {
     return nodes_.size();
   }
 
@@ -31,27 +31,23 @@ class Hash {
     return size_;
   }
 
- protected:
-  bool ShouldResize() const {
-    return Load() > kResizeThreshold;
-  }
-
-  std::size_t Index(K key) const {
-    return hash_(std::move(key)) % Breadth();
-  }
-
  private:
   struct Node {
    public:
-    Node(K key, V value)
-      : key(std::move(key)), value(std::move(value)) {}
+    Node(K key, V value, std::size_t hash)
+      : key(std::move(key)), value(std::move(value)), hash(hash) {}
 
     K key;
     V value;
+    std::size_t hash;
     std::unique_ptr<Node> next;
   };
 
   void Resize();
+
+  bool ShouldResize() const {
+    return Load() > kResizeThreshold;
+  }
 
   H hash_;
   std::size_t size_;
@@ -60,7 +56,7 @@ class Hash {
 
 template <typename K, typename V, typename H>
 V* Hash<K, V, H>::Get(K key) const {
-  const auto* current_ptr = &nodes_[Index(key)];
+  const auto* current_ptr = &nodes_[hash_(key) % Length()];
   while (true) {
     const auto& current = *current_ptr;
     if (!current) break;
@@ -74,11 +70,12 @@ template <typename K, typename V, typename H>
 void Hash<K, V, H>::Set(K key, V value) {
   using std::swap;
   if (ShouldResize()) Resize();
-  auto* current_ptr = &nodes_[Index(key)];
+  auto hash = hash_(key);
+  auto* current_ptr = &nodes_[hash % Length()];
   while (true) {
     auto& current = *current_ptr;
     if (!current) {
-      current.reset(new Node(std::move(key), std::move(value)));
+      current.reset(new Node(std::move(key), std::move(value), hash));
       ++size_;
       return;
     }
