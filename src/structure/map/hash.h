@@ -43,11 +43,13 @@ class Hash {
     std::unique_ptr<Node> next;
   };
 
-  void Resize();
+  void Set(std::unique_ptr<Node> candidate);
 
   bool ShouldResize() const {
     return Load() > kResizeThreshold;
   }
+
+  void Resize();
 
   H hash_;
   std::size_t size_;
@@ -68,19 +70,24 @@ V* Hash<K, V, H>::Get(K key) const {
 
 template <typename K, typename V, typename H>
 void Hash<K, V, H>::Set(K key, V value) {
-  using std::swap;
   if (ShouldResize()) Resize();
   auto hash = hash_(key);
-  auto* current_ptr = &nodes_[hash % Length()];
+  Set(std::unique_ptr<Node>(new Node(std::move(key), std::move(value), hash)));
+}
+
+template <typename K, typename V, typename H>
+void Hash<K, V, H>::Set(std::unique_ptr<Node> candidate) {
+  using std::swap;
+  auto* current_ptr = &nodes_[candidate->hash % Length()];
   while (true) {
     auto& current = *current_ptr;
     if (!current) {
-      current.reset(new Node(std::move(key), std::move(value), hash));
+      swap(current, candidate);
       ++size_;
       return;
     }
-    if (current->key == key) {
-      swap(current->value, value);
+    if (current->key == candidate->key) {
+      swap(current, candidate);
       return;
     }
     current_ptr = &current->next;
