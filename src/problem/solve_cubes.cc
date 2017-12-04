@@ -1,3 +1,7 @@
+#include <list>
+#include <unordered_map>
+#include <utility>
+
 #include "problem/solve_cubes.h"
 
 namespace problem {
@@ -27,15 +31,19 @@ std::size_t Print(std::ostream& output, std::size_t a, std::size_t b,
 
 std::size_t SolveCubes(std::ostream& output, std::size_t start,
                        std::size_t end) {
+  std::unordered_map<std::size_t, std::list<std::pair<std::size_t, std::size_t>>> map;
   std::size_t count = 0;
-  for (std::size_t a = start; a <= end; ++a) {
-    for (std::size_t b = a; b <= end; ++b) {
-      auto left = a * a * a + b * b * b;
-      for (auto c = start, d = end; c <= d;) {
-        auto right = c * c * c + d * d * d;
-        if (left > right) ++c;
-        else if (left < right) --d;
-        else count += internal::Print(output, a, b, c++, d--);
+  for (std::size_t i = start; i <= end; ++i) {
+    for (std::size_t j = i; j <= end; ++j) {
+      auto result = i * i * i + j * j * j;
+      map[result].push_back({i, j});
+    }
+  }
+  for (auto& entry : map) {
+    for (auto& pair1 : entry.second) {
+      for (auto& pair2 : entry.second) {
+        count += internal::Print(output, pair1.first, pair1.second,
+                                         pair2.first, pair2.second);
       }
     }
   }
