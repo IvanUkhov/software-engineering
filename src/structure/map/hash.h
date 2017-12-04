@@ -96,6 +96,17 @@ void Hash<K, V, H>::Set(std::unique_ptr<Node> candidate) {
 
 template <typename K, typename V, typename H>
 void Hash<K, V, H>::Resize() {
+  auto size = Length();
+  std::vector<std::unique_ptr<Node>> nodes(2 * size);
+  std::swap(nodes, nodes_);
+  size_ = 0;
+  for (auto i = 0; i < size; ++i) {
+    while (nodes[i]) {
+      auto candidate = std::unique_ptr<Node>(nodes[i].release());
+      nodes[i].reset(candidate->next.release());
+      Set(std::move(candidate));
+    }
+  }
 }
 
 } } // namespace structure::map

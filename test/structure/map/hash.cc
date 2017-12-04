@@ -24,3 +24,12 @@ TEST(MapTest, HashNotFound) {
   map.Set("foo", 42);
   ASSERT_EQ(map.Get("bar"), nullptr);
 }
+
+TEST(MapTest, HashResize) {
+  Map map;
+  ASSERT_EQ(map.Length(), 1 << 7);
+  for (std::size_t i = 0; i < 2 * kCount; i++) {
+    map.Set("key" + std::to_string(i), i);
+  }
+  ASSERT_EQ(map.Length(), 1 << 8);
+}
