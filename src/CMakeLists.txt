@@ -7,4 +7,5 @@ include_directories(
 add_library(
   interview
   problem/count_pairs.cc
+  problem/solve_cubes.cc
   )
