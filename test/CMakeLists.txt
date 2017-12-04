@@ -37,6 +37,7 @@ add_executable(
   algorithm/sort/radix.cc
   algorithm/sort/selection.cc
   algorithm/sort/tree.cc
+  problem/count_pairs.cc
   structure/list/forward.cc
   structure/map/hash.cc
   structure/queue/impartial.cc
