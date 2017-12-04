@@ -14,8 +14,8 @@ class Impartial {
 
   void Enqueue(T value) {
     auto node = new Node(std::move(value), tail_);
-    if (!head_) head_.reset(node);
-    else tail_->next.reset(node);
+    if (tail_) tail_->next.reset(node);
+    else head_.reset(node);
     tail_ = node;
   }
 
