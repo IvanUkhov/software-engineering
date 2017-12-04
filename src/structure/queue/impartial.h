@@ -13,17 +13,27 @@ class Impartial {
   Impartial() : tail_(nullptr) {}
 
   void Enqueue(T value) {
+    auto node = new Node(std::move(value), tail_);
+    if (!head_) head_.reset(node);
+    else tail_->next.reset(node);
+    tail_ = node;
   }
 
   T Dequeue() {
-    return T();
+    T value = std::move(tail_->value);
+    tail_ = tail_->previous;
+    if (tail_) tail_->next.reset(nullptr);
+    else head_.reset(nullptr);
+    return value;
   }
 
  private:
   struct Node {
    public:
-    Node() : previous(nullptr) {}
+    Node(T value, Node* previous)
+      : value(std::move(value)), previous(previous) {}
 
+    T value;
     Node* previous;
     std::unique_ptr<Node> next;
   };
