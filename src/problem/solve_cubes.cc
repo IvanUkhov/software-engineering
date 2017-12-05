@@ -10,7 +10,7 @@ namespace internal {
 
 using std::size_t;
 
-size_t Print(std::ostream& output, size_t a, size_t b, size_t c, size_t d) {
+size_t Print(size_t a, size_t b, size_t c, size_t d, std::ostream& output) {
   size_t count = 0;
   auto print = [&output, &count](size_t a, size_t b, size_t c, size_t d) {
     output << a << " " << b << " " << c << " " << d << std::endl;
@@ -25,8 +25,8 @@ size_t Print(std::ostream& output, size_t a, size_t b, size_t c, size_t d) {
 
 } // namespace internal
 
-std::size_t SolveCubes(std::ostream& output, std::size_t start,
-                       std::size_t end) {
+std::size_t SolveCubes(std::size_t start, std::size_t end,
+                       std::ostream& output) {
   typedef std::pair<std::size_t, std::size_t> Pair;
   std::unordered_map<std::size_t, std::list<Pair>> map;
   for (std::size_t i = start; i <= end; ++i) {
@@ -39,8 +39,8 @@ std::size_t SolveCubes(std::ostream& output, std::size_t start,
   for (auto& entry : map) {
     for (auto& pair1 : entry.second) {
       for (auto& pair2 : entry.second) {
-        count += internal::Print(output, pair1.first, pair1.second,
-                                         pair2.first, pair2.second);
+        count += internal::Print(pair1.first, pair1.second,
+                                 pair2.first, pair2.second, output);
       }
     }
   }
