@@ -11,8 +11,8 @@
 namespace algorithm { namespace sort {
 
 template <typename T>
-void Radix(std::vector<T>& data, T limit, std::size_t base = 10) {
-  for (std::size_t power = 1; power < limit; power *= base) {
+void Radix(std::vector<T>& data, T range, std::size_t base = 10) {
+  for (std::size_t power = 1; power < range; power *= base) {
     Count<std::size_t, T>(data, base, [base, power](const T& value) -> std::size_t {
       return (value / power) % base;
     });

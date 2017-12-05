@@ -20,11 +20,11 @@ V ValueKey(const V& value) {
 } // namespace internal
 
 template <typename K, typename V>
-void Count(std::vector<V>& data, K limit,
+void Count(std::vector<V>& data, K range,
            std::function<K(const V&)> key = internal::ValueKey<V>) {
   using std::swap;
   static_assert(std::is_unsigned<K>::value, "Count requires unsigned integers");
-  std::vector<K> counts(limit);
+  std::vector<K> counts(range);
   for (auto& value : data) {
     ++counts[key(value)];
   }
