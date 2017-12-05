@@ -8,5 +8,6 @@ add_library(
   interview
   problem/count_pairs.cc
   problem/find_permutations.cc
+  problem/list_permutations.cc
   problem/solve_cubes.cc
   )
