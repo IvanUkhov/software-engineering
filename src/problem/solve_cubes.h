@@ -2,7 +2,7 @@
 #define PROBLEM_SOLVE_CUBES_H_
 
 #include <cstddef>
-#include <iostream>
+#include <ostream>
 #include <vector>
 
 namespace problem {
