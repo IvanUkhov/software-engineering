@@ -31,14 +31,15 @@ std::size_t Print(std::ostream& output, std::size_t a, std::size_t b,
 
 std::size_t SolveCubes(std::ostream& output, std::size_t start,
                        std::size_t end) {
-  std::unordered_map<std::size_t, std::list<std::pair<std::size_t, std::size_t>>> map;
-  std::size_t count = 0;
+  typedef std::pair<std::size_t, std::size_t> Pair;
+  std::unordered_map<std::size_t, std::list<Pair>> map;
   for (std::size_t i = start; i <= end; ++i) {
     for (std::size_t j = i; j <= end; ++j) {
       auto result = i * i * i + j * j * j;
       map[result].push_back({i, j});
     }
   }
+  std::size_t count = 0;
   for (auto& entry : map) {
     for (auto& pair1 : entry.second) {
       for (auto& pair2 : entry.second) {
