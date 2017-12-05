@@ -8,22 +8,18 @@ namespace problem {
 
 namespace internal {
 
-std::size_t Print(std::ostream& output, std::size_t a, std::size_t b,
-                  std::size_t c, std::size_t d) {
-  std::size_t count = 1;
-  output << a << " " << b << " " << c << " " << d << std::endl;
-  if (c != d) {
-    output << a << " " << b << " " << d << " " << c << std::endl;
+using std::size_t;
+
+size_t Print(std::ostream& output, size_t a, size_t b, size_t c, size_t d) {
+  size_t count = 0;
+  auto print = [&output, &count](size_t a, size_t b, size_t c, size_t d) {
+    output << a << " " << b << " " << c << " " << d << std::endl;
     ++count;
-  }
-  if (a != b) {
-    output << b << " " << a << " " << c << " " << d << std::endl;
-    ++count;
-  }
-  if (a != b && c != d) {
-    output << b << " " << a << " " << d << " " << c << std::endl;
-    ++count;
-  }
+  };
+  print(a, b, c, d);
+  if (c != d) print(a, b, d, c);
+  if (a != b) print(b, a, c, d);
+  if (a != b && c != d) print(b, a, d, c);
   return count;
 }
 
