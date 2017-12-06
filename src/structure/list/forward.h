@@ -43,6 +43,13 @@ class Forward {
     return Append(std::unique_ptr<Forward>(new Forward(std::move(value))));
   }
 
+  void Prune() {
+    while (next_) {
+      auto next = std::move(next_->next_);
+      std::swap(next_, next);
+    }
+  }
+
   T& value() {
     return this->value_;
   }
