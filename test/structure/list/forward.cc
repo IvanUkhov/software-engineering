@@ -19,7 +19,7 @@ TEST(ListTest, ForwardAppend) {
   ASSERT_EQ(Collect(root), std::vector<int>({1, 2, 3, 4, 5}));
 }
 
-TEST(ListTest, ForwardPrune) {
+TEST(DISABLED_ListTest, ForwardPrune) {
   Node root(0);
   Node* current = &root;
   for (std::size_t i = 1; i < kCount; ++i) {
