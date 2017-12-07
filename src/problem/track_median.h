@@ -16,7 +16,7 @@ class MedianTracker {
 
   void Consume(T value) {
     ++count_;
-    tree_.Insert(std::move(value), true);
+    tree_.Insert(value, true);
   }
 
   double Compute() const {
