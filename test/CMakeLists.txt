@@ -46,6 +46,7 @@ add_executable(
   structure/queue/impartial.cc
   structure/stack/array.cc
   structure/tree/heap.cc
+  structure/tree/red_black.cc
   structure/tree/search.cc
   structure/tree/trie.cc
   )
