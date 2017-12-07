@@ -26,7 +26,7 @@ class BinarySearch {
   }
 
   template <typename T>
-  void Accept(T& visitor) {
+  void Accept(T& visitor) const {
     if (root_) Accept(visitor, root_.get());
   }
 
@@ -38,7 +38,7 @@ class BinarySearch {
 
  private:
   template <typename T>
-  void Accept(T& visitor, Node* node);
+  bool Accept(T& visitor, Node* node) const;
 
   std::unique_ptr<Node> root_;
 };
@@ -82,10 +82,11 @@ typename BinarySearch<K, V>::Node* BinarySearch<K, V>::Search(K key) const {
 
 template <typename K, typename V>
 template <typename T>
-void BinarySearch<K, V>::Accept(T& visitor, Node* node) {
-  if (node->left) Accept(visitor, node->left.get());
-  visitor.Visit(node);
-  if (node->right) Accept(visitor, node->right.get());
+bool BinarySearch<K, V>::Accept(T& visitor, Node* node) const {
+  if (node->left && !Accept(visitor, node->left.get())) return false;
+  if (!visitor.Visit(node)) return false;
+  if (node->right && !Accept(visitor, node->right.get())) return false;
+  return true;
 }
 
 } } // namespace structure::tree

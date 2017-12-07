@@ -15,16 +15,17 @@ using Tree = structure::tree::BinarySearch<T, bool>;
 template <typename T>
 class Visitor {
  public:
-   Visitor(std::vector<T>& data) : data_(data) {
-     data_.resize(0);
-   }
+  Visitor(std::vector<T>& data) : data_(data) {
+    data_.resize(0);
+  }
 
-   void Visit(typename Tree<T>::Node* node) {
-     data_.push_back(node->key);
-   }
+  bool Visit(typename Tree<T>::Node* node) {
+    data_.push_back(node->key);
+    return true;
+  }
 
  private:
-   std::vector<T>& data_;
+  std::vector<T>& data_;
 };
 
 } // namespace internal
