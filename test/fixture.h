@@ -10,7 +10,7 @@ namespace fixture {
 void Randomize();
 
 template <typename T>
-std::vector<T> Generate(typename std::vector<T>::size_type size) {
+std::vector<T> Generate(std::size_t size) {
   Randomize();
   std::vector<T> data;
   data.reserve(size);
