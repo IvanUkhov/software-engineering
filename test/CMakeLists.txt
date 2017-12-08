@@ -42,6 +42,7 @@ add_executable(
   problem/list_permutations.cc
   problem/solve_cubes.cc
   problem/track_median.cc
+  problem/urlify_space.cc
   structure/list/forward.cc
   structure/map/hash.cc
   structure/queue/impartial.cc
