@@ -66,7 +66,7 @@ template <typename K, typename V>
 void BinarySearch<K, V>::Insert(std::unique_ptr<Node> node) {
   auto* target = &root_;
   while (*target) {
-    Node* parent = target->get();
+    auto parent = target->get();
     if (node->key_ <= parent->key_) target = &parent->left_;
     else target = &parent->right_;
   }
