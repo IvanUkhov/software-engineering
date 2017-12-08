@@ -20,7 +20,7 @@ class Visitor {
   }
 
   bool Visit(typename Tree<T>::Node* node) {
-    data_.push_back(node->key);
+    data_.push_back(node->Key());
     return true;
   }
 

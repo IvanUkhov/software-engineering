@@ -18,11 +18,11 @@ void Populate(Tree& tree) {
 TEST(TreeTest, BinarySearchInsert) {
   Tree tree;
   Populate(tree);
-  ASSERT_EQ(tree.root()->right->right->left->key, 13);
+  ASSERT_EQ(tree.Root()->Right()->Right()->Left()->Key(), 13);
 }
 
 TEST(TreeTest, BinarySearchSearch) {
   Tree tree;
   Populate(tree);
-  ASSERT_EQ(tree.Search(10)->value, "g");
+  ASSERT_EQ(tree.Search(10)->Value(), "g");
 }

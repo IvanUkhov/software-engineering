@@ -9,15 +9,38 @@ namespace structure { namespace tree {
 template <typename K, typename V>
 class BinarySearch {
  public:
-  struct Node {
-   public:
-    Node(K key, V value) : key(key), value(std::move(value)) {}
+  class Node {
+    friend class BinarySearch;
 
-    K key;
-    V value;
-    std::unique_ptr<Node> left;
-    std::unique_ptr<Node> right;
+   public:
+    Node(K key, V value) : key_(key), value_(std::move(value)) {}
+
+    const K& Key() const {
+      return key_;
+    }
+
+    V& Value() {
+      return value_;
+    }
+
+    Node* Left() {
+      return left_.get();
+    }
+
+    Node* Right() {
+      return right_.get();
+    }
+
+   private:
+    K key_;
+    V value_;
+    std::unique_ptr<Node> left_;
+    std::unique_ptr<Node> right_;
   };
+
+  Node* Root() const {
+    return root_.get();
+  }
 
   void Insert(std::unique_ptr<Node> node);
 
@@ -32,10 +55,6 @@ class BinarySearch {
 
   Node* Search(K key) const;
 
-  Node* root() const {
-    return root_.get();
-  }
-
  private:
   template <typename T>
   bool Accept(T& visitor, Node* node) const;
@@ -48,8 +67,8 @@ void BinarySearch<K, V>::Insert(std::unique_ptr<Node> node) {
   auto* target = &root_;
   while (*target) {
     Node* parent = target->get();
-    if (node->key <= parent->key) target = &parent->left;
-    else target = &parent->right;
+    if (node->key_ <= parent->key_) target = &parent->left_;
+    else target = &parent->right_;
   }
   *target = std::move(node);
 }
@@ -58,8 +77,8 @@ template <typename K, typename V>
 typename BinarySearch<K, V>::Node* BinarySearch<K, V>::Search(K key) const {
   auto current = this->root_.get();
   while (current) {
-    if (key < current->key) current = current->left.get();
-    else if (key > current->key) current = current->right.get();
+    if (key < current->key_) current = current->Left();
+    else if (key > current->key_) current = current->Right();
     else return current;
   }
   return nullptr;
@@ -68,9 +87,9 @@ typename BinarySearch<K, V>::Node* BinarySearch<K, V>::Search(K key) const {
 template <typename K, typename V>
 template <typename T>
 bool BinarySearch<K, V>::Accept(T& visitor, Node* node) const {
-  if (node->left && !Accept(visitor, node->left.get())) return false;
+  if (node->left_ && !Accept(visitor, node->Left())) return false;
   if (!visitor.Visit(node)) return false;
-  if (node->right && !Accept(visitor, node->right.get())) return false;
+  if (node->right_ && !Accept(visitor, node->Right())) return false;
   return true;
 }
 

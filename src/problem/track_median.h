@@ -37,7 +37,7 @@ class MedianTracker {
 
     bool Visit(typename Tree::Node* node) {
       if (index >= start) {
-        median += node->key;
+        median += node->Key();
         if (--take == 0) {
           median /= index - start + 1;
           return false;
