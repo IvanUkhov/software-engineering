@@ -148,32 +148,16 @@ class RedBlack {
 template <typename K, typename V>
 typename RedBlack<K, V>::Node* RedBlack<K, V>::Append(
     std::unique_ptr<Node> node) {
-  auto node_ptr = node.get();
-  if (!root_) {
-    std::swap(root_, node);
-    return node_ptr;
+  Node* parent = nullptr;
+  auto* target = &root_;
+  while (*target) {
+    parent = target->get();
+    if (node->key_ <= parent->key_) target = &parent->left_;
+    else target = &parent->right_;
   }
-  auto current = root_.get();
-  while (true) {
-    if (node->key_ <= current->key_) {
-      if (current->left_) {
-        current = current->Left();
-      } else {
-        node->parent_ = current;
-        std::swap(current->left_, node);
-        break;
-      }
-    } else {
-      if (current->right_) {
-        current = current->Right();
-      } else {
-        node->parent_ = current;
-        std::swap(current->right_, node);
-        break;
-      }
-    }
-  }
-  return node_ptr;
+  node->parent_ = parent;
+  *target = std::move(node);
+  return target->get();
 }
 
 template <typename K, typename V>
