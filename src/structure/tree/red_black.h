@@ -94,7 +94,7 @@ class RedBlack {
   };
 
   void Insert(K key, V value) {
-    auto node = Append(std::unique_ptr<Node>(new Node(key, std::move(value))));
+    auto node = Insert(std::unique_ptr<Node>(new Node(key, std::move(value))));
     Repair(node);
   }
 
@@ -103,7 +103,7 @@ class RedBlack {
   }
 
  private:
-  Node* Append(std::unique_ptr<Node> node);
+  Node* Insert(std::unique_ptr<Node> node);
   void Repair(Node* node);
 
   void RotateLeft(Node* node) {
@@ -146,7 +146,7 @@ class RedBlack {
 };
 
 template <typename K, typename V>
-typename RedBlack<K, V>::Node* RedBlack<K, V>::Append(
+typename RedBlack<K, V>::Node* RedBlack<K, V>::Insert(
     std::unique_ptr<Node> node) {
   Node* parent = nullptr;
   auto* target = &root_;
