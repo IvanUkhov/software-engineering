@@ -9,89 +9,7 @@ namespace structure { namespace tree {
 template <typename K, typename V>
 class RedBlack {
  public:
-  class Node {
-    friend class RedBlack;
-
-   public:
-    Node(K key, V value)
-      : key_(key), value_(std::move(value)), red_(true), parent_(nullptr) {}
-
-    const K& Key() const {
-      return key_;
-    }
-
-    V& Value() {
-      return value_;
-    }
-
-    Node* Left() {
-      return left_.get();
-    }
-
-    Node* Right() {
-      return right_.get();
-    }
-
-  private:
-    Node* Grandparent() const {
-      if (parent_) return parent_->parent_;
-      return nullptr;
-    }
-
-    Node* Sibling() const {
-      if (IsLeft()) return parent_->Right();
-      if (IsRight()) return parent_->Left();
-      return nullptr;
-    }
-
-    Node* Uncle() const {
-      if (parent_) return parent_->Sibling();
-      return nullptr;
-    }
-
-    bool IsLeft() const {
-      return parent_ && parent_->Left() == this;
-    }
-
-    bool IsRight() const {
-      return parent_ && parent_->Right() == this;
-    }
-
-    bool IsInnerLeft() const {
-      auto node = Grandparent();
-      if (!node || !node->left_) return false;
-      return node->left_->Right() == this;
-    }
-
-    bool IsInnerRight() const {
-      auto node = Grandparent();
-      if (!node || !node->right_) return false;
-      return node->right_->Left() == this;
-    }
-
-    bool IsBlack() const {
-      return !red_;
-    }
-
-    bool IsRed() const {
-      return red_;
-    }
-
-    void MakeBlack() {
-      red_ = false;
-    }
-
-    void MakeRed() {
-      red_ = true;
-    }
-
-    K key_;
-    V value_;
-    bool red_;
-    Node* parent_;
-    std::unique_ptr<Node> left_;
-    std::unique_ptr<Node> right_;
-  };
+  class Node;
 
   void Insert(K key, V value) {
     auto node = Insert(std::unique_ptr<Node>(new Node(key, std::move(value))));
@@ -143,6 +61,91 @@ class RedBlack {
   }
 
   std::unique_ptr<Node> root_;
+};
+
+template <typename K, typename V>
+class RedBlack<K, V>::Node {
+  friend class RedBlack;
+
+ public:
+  Node(K key, V value)
+    : key_(key), value_(std::move(value)), red_(true), parent_(nullptr) {}
+
+  const K& Key() const {
+    return key_;
+  }
+
+  V& Value() {
+    return value_;
+  }
+
+  Node* Left() {
+    return left_.get();
+  }
+
+  Node* Right() {
+    return right_.get();
+  }
+
+private:
+  Node* Grandparent() const {
+    if (parent_) return parent_->parent_;
+    return nullptr;
+  }
+
+  Node* Sibling() const {
+    if (IsLeft()) return parent_->Right();
+    if (IsRight()) return parent_->Left();
+    return nullptr;
+  }
+
+  Node* Uncle() const {
+    if (parent_) return parent_->Sibling();
+    return nullptr;
+  }
+
+  bool IsLeft() const {
+    return parent_ && parent_->Left() == this;
+  }
+
+  bool IsRight() const {
+    return parent_ && parent_->Right() == this;
+  }
+
+  bool IsInnerLeft() const {
+    auto node = Grandparent();
+    if (!node || !node->left_) return false;
+    return node->left_->Right() == this;
+  }
+
+  bool IsInnerRight() const {
+    auto node = Grandparent();
+    if (!node || !node->right_) return false;
+    return node->right_->Left() == this;
+  }
+
+  bool IsBlack() const {
+    return !red_;
+  }
+
+  bool IsRed() const {
+    return red_;
+  }
+
+  void MakeBlack() {
+    red_ = false;
+  }
+
+  void MakeRed() {
+    red_ = true;
+  }
+
+  K key_;
+  V value_;
+  bool red_;
+  Node* parent_;
+  std::unique_ptr<Node> left_;
+  std::unique_ptr<Node> right_;
 };
 
 template <typename K, typename V>

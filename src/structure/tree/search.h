@@ -9,34 +9,7 @@ namespace structure { namespace tree {
 template <typename K, typename V>
 class BinarySearch {
  public:
-  class Node {
-    friend class BinarySearch;
-
-   public:
-    Node(K key, V value) : key_(key), value_(std::move(value)) {}
-
-    const K& Key() const {
-      return key_;
-    }
-
-    V& Value() {
-      return value_;
-    }
-
-    Node* Left() {
-      return left_.get();
-    }
-
-    Node* Right() {
-      return right_.get();
-    }
-
-   private:
-    K key_;
-    V value_;
-    std::unique_ptr<Node> left_;
-    std::unique_ptr<Node> right_;
-  };
+  class Node;
 
   Node* Root() const {
     return root_.get();
@@ -60,6 +33,36 @@ class BinarySearch {
   bool Accept(T& visitor, Node* node) const;
 
   std::unique_ptr<Node> root_;
+};
+
+template <typename K, typename V>
+class BinarySearch<K, V>::Node {
+  friend class BinarySearch;
+
+ public:
+  Node(K key, V value) : key_(key), value_(std::move(value)) {}
+
+  const K& Key() const {
+    return key_;
+  }
+
+  V& Value() {
+    return value_;
+  }
+
+  Node* Left() {
+    return left_.get();
+  }
+
+  Node* Right() {
+    return right_.get();
+  }
+
+ private:
+  K key_;
+  V value_;
+  std::unique_ptr<Node> left_;
+  std::unique_ptr<Node> right_;
 };
 
 template <typename K, typename V>
