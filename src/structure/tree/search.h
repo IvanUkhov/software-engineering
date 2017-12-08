@@ -45,28 +45,13 @@ class BinarySearch {
 
 template <typename K, typename V>
 void BinarySearch<K, V>::Insert(std::unique_ptr<Node> node) {
-  if (!root_) {
-    std::swap(root_, node);
-    return;
+  auto* target = &root_;
+  while (*target) {
+    Node* parent = target->get();
+    if (node->key <= parent->key) target = &parent->left;
+    else target = &parent->right;
   }
-  auto current = root_.get();
-  while (true) {
-    if (node->key <= current->key) {
-      if (current->left) {
-        current = current->left.get();
-      } else {
-        std::swap(current->left, node);
-        return;
-      }
-    } else {
-      if (current->right) {
-        current = current->right.get();
-      } else {
-        std::swap(current->right, node);
-        return;
-      }
-    }
-  }
+  *target = std::move(node);
 }
 
 template <typename K, typename V>
