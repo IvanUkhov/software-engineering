@@ -41,6 +41,7 @@ add_executable(
   problem/count_pairs.cc
   problem/find_permutations.cc
   problem/list_permutations.cc
+  problem/rotate_matrix.cc
   problem/solve_cubes.cc
   problem/track_median.cc
   problem/urlify_space.cc
