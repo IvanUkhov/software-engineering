@@ -3,27 +3,32 @@
 
 typedef structure::tree::RedBlack<int, int> Tree;
 
-TEST(TreeTest, RedBlackInsert) {
+TEST(TreeTest, RedBlackRotateLeft) {
   Tree tree;
-  tree.Insert(1, 1);
-  ASSERT_EQ(tree.Root()->Value(), 1);
-  tree.Insert(6, 6);
-  ASSERT_EQ(tree.Root()->Right()->Value(), 6);
-  tree.Insert(8, 8);
-  ASSERT_EQ(tree.Root()->Right()->Value(), 8);
-  tree.Insert(11, 11);
-  ASSERT_EQ(tree.Root()->Right()->Right()->Value(), 11);
-  tree.Insert(13, 13);
-  ASSERT_EQ(tree.Root()->Right()->Right()->Value(), 13);
-  tree.Insert(15, 15);
-  ASSERT_EQ(tree.Root()->Right()->Right()->Right()->Value(), 15);
-  tree.Insert(17, 17);
-  ASSERT_EQ(tree.Root()->Right()->Right()->Right()->Value(), 17);
-  tree.Insert(22, 22);
-  ASSERT_EQ(tree.Root()->Value(), 11);
-  ASSERT_EQ(tree.Root()->Right()->Right()->Right()->Value(), 22);
-  tree.Insert(25, 25);
-  ASSERT_EQ(tree.Root()->Right()->Right()->Right()->Value(), 25);
-  tree.Insert(27, 27);
-  ASSERT_EQ(tree.Root()->Right()->Right()->Right()->Right()->Value(), 27);
+  tree.Insert(1, 0);
+  ASSERT_EQ(tree.Root()->Key(), 1);
+  tree.Insert(2, 0);
+  ASSERT_EQ(tree.Root()->Right()->Key(), 2);
+  tree.Insert(3, 0);
+  ASSERT_EQ(tree.Root()->Key(), 2);
+  ASSERT_EQ(tree.Root()->Right()->Key(), 3);
+  tree.Insert(4, 0);
+  ASSERT_EQ(tree.Root()->Right()->Right()->Key(), 4);
+  tree.Insert(5, 0);
+  ASSERT_EQ(tree.Root()->Right()->Right()->Key(), 5);
+}
+
+TEST(TreeTest, RedBlackRotateRight) {
+  Tree tree;
+  tree.Insert(5, 0);
+  ASSERT_EQ(tree.Root()->Key(), 5);
+  tree.Insert(4, 0);
+  ASSERT_EQ(tree.Root()->Left()->Key(), 4);
+  tree.Insert(3, 0);
+  ASSERT_EQ(tree.Root()->Key(), 4);
+  ASSERT_EQ(tree.Root()->Left()->Key(), 3);
+  tree.Insert(2, 0);
+  ASSERT_EQ(tree.Root()->Left()->Left()->Key(), 2);
+  tree.Insert(1, 0);
+  ASSERT_EQ(tree.Root()->Left()->Left()->Key(), 1);
 }
