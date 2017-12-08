@@ -33,10 +33,6 @@ class RedBlack {
     }
 
   private:
-    Node* Parent() const {
-      return parent_;
-    }
-
     Node* Grandparent() const {
       if (parent_) return parent_->parent_;
       return nullptr;
@@ -182,26 +178,26 @@ typename RedBlack<K, V>::Node* RedBlack<K, V>::Append(
 
 template <typename K, typename V>
 void RedBlack<K, V>::Repair(Node* node) {
-  if (!node->Parent()) {
+  if (!node->parent_) {
     node->MakeBlack();
     return;
   }
-  if (node->Parent()->IsBlack()) return;
+  if (node->parent_->IsBlack()) return;
   if (node->Uncle() && node->Uncle()->IsRed()) {
-    node->Parent()->MakeBlack();
+    node->parent_->MakeBlack();
     node->Uncle()->MakeBlack();
     node->Grandparent()->MakeRed();
     Repair(node->Grandparent());
     return;
   }
   if (node->IsInnerLeft()) {
-    RotateLeft(node->Parent());
+    RotateLeft(node->parent_);
     node = node->Left();
   } else if (node->IsInnerRight()) {
-    RotateRight(node->Parent());
+    RotateRight(node->parent_);
     node = node->Right();
   }
-  node->Parent()->MakeBlack();
+  node->parent_->MakeBlack();
   node->Grandparent()->MakeRed();
   if (node->IsLeft()) RotateRight(node->Grandparent());
   else RotateLeft(node->Grandparent());
