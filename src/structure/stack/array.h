@@ -20,8 +20,8 @@ class Array {
     return value;
   }
 
-  std::size_t Size() const {
-    return data_.size();
+  bool IsEmpty() const {
+    return data_.empty();
   }
 
  private:
