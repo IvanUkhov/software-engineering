@@ -39,7 +39,7 @@ class Forward {
 
   Forward& InsertAfter(std::unique_ptr<Forward> node) {
     std::swap(next_, node);
-    next_->PushBack(std::move(node));
+    if (node) next_->PushBack(std::move(node));
     return *next_;
   }
 
@@ -52,6 +52,10 @@ class Forward {
     while (current->next_) current = current->next_.get();
     current->next_ = std::move(node);
     return *current->next_;
+  }
+
+  std::unique_ptr<Forward> RemoveAfter() {
+    return std::move(next_);
   }
 
   void Prune() {
