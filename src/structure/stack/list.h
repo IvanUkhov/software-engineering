@@ -24,6 +24,10 @@ class List {
     return node->Value();
   }
 
+  T& Peek() const {
+    return head_->Value();
+  }
+
   bool IsEmpty() const {
     return !head_;
   }

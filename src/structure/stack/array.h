@@ -20,6 +20,10 @@ class Array {
     return value;
   }
 
+  T& Peek() const {
+    return data_[0];
+  }
+
   bool IsEmpty() const {
     return data_.empty();
   }
