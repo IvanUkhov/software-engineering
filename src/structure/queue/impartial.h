@@ -27,6 +27,14 @@ class Impartial {
     return value;
   }
 
+  T& Peek() {
+    return tail_->value;
+  }
+
+  bool IsEmpty() const {
+    return !head_;
+  }
+
  private:
   struct Node {
    public:
