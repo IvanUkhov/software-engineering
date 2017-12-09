@@ -33,14 +33,25 @@ class Forward {
 
   Forward(T value) : value_(std::move(value)) {}
 
-  Forward& Append(std::unique_ptr<Forward> next) {
-    std::swap(next_, next);
-    std::swap(next_->next_, next);
+  Forward& Append(T value) {
+    return Append(std::unique_ptr<Forward>(new Forward(std::move(value))));
+  }
+
+  Forward& Append(std::unique_ptr<Forward> node) {
+    std::swap(next_, node);
+    next_->PushBack(std::move(node));
     return *next_;
   }
 
-  Forward& Append(T value) {
-    return Append(std::unique_ptr<Forward>(new Forward(std::move(value))));
+  Forward& PushBack(T value) {
+    return PushBack(std::unique_ptr<Forward>(new Forward(std::move(value))));
+  }
+
+  Forward& PushBack(std::unique_ptr<Forward> node) {
+    auto current = this;
+    while (current->next_) current = current->next_.get();
+    current->next_ = std::move(node);
+    return *current->next_;
   }
 
   void Prune() {
