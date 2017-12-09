@@ -33,11 +33,11 @@ class Forward {
 
   Forward(T value) : value_(std::move(value)) {}
 
-  Forward& Append(T value) {
-    return Append(std::unique_ptr<Forward>(new Forward(std::move(value))));
+  Forward& InsertAfter(T value) {
+    return InsertAfter(std::unique_ptr<Forward>(new Forward(std::move(value))));
   }
 
-  Forward& Append(std::unique_ptr<Forward> node) {
+  Forward& InsertAfter(std::unique_ptr<Forward> node) {
     std::swap(next_, node);
     next_->PushBack(std::move(node));
     return *next_;

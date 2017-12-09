@@ -13,18 +13,18 @@ std::vector<int> Collect(Node& head) {
   return data;
 }
 
-TEST(ListTest, ForwardAppend) {
+TEST(ListTest, ForwardInsertAfter) {
   Node head(1);
-  head.Append(2).Append(3).Append(4).Append(5);
+  head.InsertAfter(2).InsertAfter(3).InsertAfter(4).InsertAfter(5);
   ASSERT_EQ(Collect(head), std::vector<int>({1, 2, 3, 4, 5}));
 }
 
 TEST(ListTest, ForwardPushBack) {
   Node head1(1);
-  auto& tail1 = head1.Append(2).Append(3);
+  auto& tail1 = head1.InsertAfter(2).InsertAfter(3);
   auto head2 = std::unique_ptr<Node>(new Node(4));
-  head2->Append(5).Append(6);
-  tail1.Append(std::move(head2)).PushBack(7);
+  head2->InsertAfter(5).InsertAfter(6);
+  tail1.InsertAfter(std::move(head2)).PushBack(7);
   ASSERT_EQ(Collect(head1), std::vector<int>({1, 2, 3, 4, 5, 6, 7}));
 }
 
@@ -32,7 +32,7 @@ TEST(DISABLED_ListTest, ForwardPrune) {
   Node head(0);
   Node* current = &head;
   for (std::size_t i = 1; i < kCount; ++i) {
-    current = &current->Append(0);
+    current = &current->InsertAfter(0);
   }
   head.Prune();
 }
