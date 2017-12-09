@@ -49,6 +49,7 @@ add_executable(
   structure/map/hash.cc
   structure/queue/impartial.cc
   structure/stack/array.cc
+  structure/stack/list.cc
   structure/tree/heap.cc
   structure/tree/red_black.cc
   structure/tree/search.cc
