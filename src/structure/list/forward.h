@@ -50,7 +50,7 @@ class Forward {
     }
   }
 
-  T& value() {
+  T& Value() {
     return this->value_;
   }
 
