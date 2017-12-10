@@ -3,7 +3,7 @@
 
 #include "gtest/gtest.h"
 
-namespace structure { namespace graph {
+namespace structure { namespace graph { namespace assess {
 
 template <typename T>
 T Create() {
@@ -27,7 +27,7 @@ T Create() {
 }
 
 template <typename T>
-void Assess() {
+void Manipulate() {
   T graph = Create<T>();
   auto node0 = graph.FindNode(0);
   auto node5 = graph.FindNode(5);
@@ -36,6 +36,13 @@ void Assess() {
   ASSERT_FALSE(graph.Connected(node0, node5));
 }
 
-} } // namespace structure::graph
+template <typename T>
+void Traverse() {
+  T graph = Create<T>();
+  for (auto& node : graph) {
+  }
+}
+
+} } } // namespace structure::graph::assess
 
 #endif // STRUCTURE_GRAPH_ASSESS_H_

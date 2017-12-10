@@ -2,6 +2,7 @@
 #define STRUCTURE_GRAPH_ADJACENCY_LIST_H_
 
 #include <algorithm>
+#include <iterator>
 #include <memory>
 #include <vector>
 
@@ -12,6 +13,7 @@ class AdjacencyList {
  public:
   class Node;
   class Edge;
+  class DepthIterator;
 
   Node* AddNode(N value) {
     nodes_.push_back(std::unique_ptr<Node>(new Node(std::move(value))));
@@ -109,6 +111,41 @@ class AdjacencyList<N, E>::Edge {
   const Node* from_;
   const Node* into_;
 };
+
+template <typename N, typename E>
+class AdjacencyList<N, E>::DepthIterator
+    : public std::iterator<std::input_iterator_tag, Node> {
+ public:
+  DepthIterator() : graph_(nullptr) {}
+  DepthIterator(const AdjacencyList& graph) : graph_(&graph) {}
+
+  DepthIterator& operator++() {
+    return *this;
+  }
+
+  Node& operator*() {
+    return *(Node*)(1);
+  }
+
+  bool operator!=(const DepthIterator& other) {
+    return false;
+  }
+
+ private:
+  const AdjacencyList* graph_;
+};
+
+template <typename N, typename E,
+          typename I = typename AdjacencyList<N, E>::DepthIterator>
+auto begin(const AdjacencyList<N, E>& graph) {
+  return I(graph);
+}
+
+template <typename N, typename E,
+          typename I = typename AdjacencyList<N, E>::DepthIterator>
+auto end(const AdjacencyList<N, E>& graph) {
+  return I();
+}
 
 } } // namespace structure::graph
 

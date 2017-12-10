@@ -5,8 +5,12 @@ namespace structure { namespace graph {
 
 typedef AdjacencyList<int, int> Graph;
 
-TEST(GraphTest, AdjacencyList) {
-  Assess<Graph>();
+TEST(GraphTest, AdjacencyListManipulate) {
+  assess::Manipulate<Graph>();
+}
+
+TEST(GraphTest, AdjacencyListTraverse) {
+  assess::Traverse<Graph>();
 }
 
 } } // namespace structure::graph
