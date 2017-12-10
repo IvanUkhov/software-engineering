@@ -8,7 +8,7 @@
 
 namespace structure { namespace tree {
 
-template <typename T, T empty = T()>
+template <typename T>
 class Trie {
  public:
   typedef std::string Key;
@@ -16,21 +16,22 @@ class Trie {
 
   struct Node {
    public:
-     Node(T value = empty) : value(std::move(value)) {}
+     Node() {}
+     Node(T value) : value(std::move(value)) {}
 
      T value;
      std::unordered_map<Symbol, std::unique_ptr<Node>> children;
   };
 
   void Insert(const Key& key, T value);
-  T Find(const Key& key);
+  T* Find(const Key& key);
 
  private:
   Node root;
 };
 
-template <typename T, T empty>
-void Trie<T, empty>::Insert(const Key& key, T value) {
+template <typename T>
+void Trie<T>::Insert(const Key& key, T value) {
   using std::swap;
   auto current = &root;
   for (auto symbol : key) {
@@ -41,15 +42,15 @@ void Trie<T, empty>::Insert(const Key& key, T value) {
   swap(current->value, value);
 }
 
-template <typename T, T empty>
-T Trie<T, empty>::Find(const Key& key) {
+template <typename T>
+T* Trie<T>::Find(const Key& key) {
   auto current = &root;
   for (auto symbol : key) {
     auto child = current->children.find(symbol);
-    if (child == current->children.end()) return empty;
+    if (child == current->children.end()) return nullptr;
     current = child->second.get();
   }
-  return current->value;
+  return &current->value;
 }
 
 } } // namespace structure::tree
