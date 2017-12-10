@@ -1,6 +1,6 @@
+#include "algorithm/sort/assess.h"
 #include "algorithm/sort/insertion.h"
-#include "assess.h"
 
 TEST(SortTest, Insertion) {
-  assess::Sort<int>(algorithm::sort::Insertion);
+  algorithm::sort::Assess<int>(algorithm::sort::Insertion);
 }

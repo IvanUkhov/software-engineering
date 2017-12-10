@@ -1,6 +1,6 @@
+#include "algorithm/sort/assess.h"
 #include "algorithm/sort/tree.h"
-#include "assess.h"
 
 TEST(SortTest, BinaryTree) {
-  assess::Sort<int>(algorithm::sort::BinaryTree);
+  algorithm::sort::Assess<int>(algorithm::sort::BinaryTree);
 }

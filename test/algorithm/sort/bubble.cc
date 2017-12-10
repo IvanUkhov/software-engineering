@@ -1,6 +1,6 @@
+#include "algorithm/sort/assess.h"
 #include "algorithm/sort/bubble.h"
-#include "assess.h"
 
 TEST(SortTest, Bubble) {
-  assess::Sort<int>(algorithm::sort::Bubble);
+  algorithm::sort::Assess<int>(algorithm::sort::Bubble);
 }

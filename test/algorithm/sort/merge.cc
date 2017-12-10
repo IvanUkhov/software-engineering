@@ -1,5 +1,5 @@
+#include "algorithm/sort/assess.h"
 #include "algorithm/sort/merge.h"
-#include "assess.h"
 
 template <typename T>
 void Merge(std::vector<T>& data) {
@@ -8,5 +8,5 @@ void Merge(std::vector<T>& data) {
 }
 
 TEST(SortTest, Merge) {
-  assess::Sort<int>(Merge);
+  algorithm::sort::Assess<int>(Merge);
 }

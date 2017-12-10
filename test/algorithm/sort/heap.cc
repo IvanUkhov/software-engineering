@@ -1,5 +1,5 @@
+#include "algorithm/sort/assess.h"
 #include "algorithm/sort/heap.h"
-#include "assess.h"
 
 template <typename T>
 void BinaryHeap(std::vector<T>& given) {
@@ -13,5 +13,5 @@ void BinaryHeap(std::vector<T>& given) {
 }
 
 TEST(SortTest, BinaryHeap) {
-  assess::Sort<int>(BinaryHeap);
+  algorithm::sort::Assess<int>(BinaryHeap);
 }

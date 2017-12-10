@@ -1,5 +1,5 @@
+#include "algorithm/sort/assess.h"
 #include "algorithm/sort/count.h"
-#include "assess.h"
 
 const std::size_t kRange = 20;
 
@@ -9,5 +9,5 @@ void Count(std::vector<T>& data) {
 }
 
 TEST(SortTest, Count) {
-  assess::Sort<std::size_t>(Count, kRange);
+  algorithm::sort::Assess<std::size_t>(Count, kRange);
 }

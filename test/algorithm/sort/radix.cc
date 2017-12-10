@@ -1,5 +1,5 @@
+#include "algorithm/sort/assess.h"
 #include "algorithm/sort/radix.h"
-#include "assess.h"
 
 const std::size_t kRange = 20;
 
@@ -9,5 +9,5 @@ void Radix(std::vector<T>& data) {
 }
 
 TEST(SortTest, Radix) {
-  assess::Sort<std::size_t>(Radix, kRange);
+  algorithm::sort::Assess<std::size_t>(Radix, kRange);
 }

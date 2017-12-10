@@ -1,5 +1,5 @@
-#ifndef ASSESS_H_
-#define ASSESS_H_
+#ifndef ALGORITHM_SORT_ASSESS_H_
+#define ALGORITHM_SORT_ASSESS_H_
 
 #include <algorithm>
 #include <cstddef>
@@ -8,12 +8,12 @@
 #include "fixture.h"
 #include "gtest/gtest.h"
 
-namespace assess {
+namespace algorithm { namespace sort {
 
 const std::size_t kCount = 100;
 
 template <typename T>
-void Sort(void perform(std::vector<T>&), T range = 1000) {
+void Assess(void perform(std::vector<T>&), T range = 1000) {
   const auto data = fixture::Modulo(fixture::Generate<T>(kCount), range);
   std::vector<T> expected(data);
   std::sort(expected.begin(), expected.end());
@@ -22,6 +22,6 @@ void Sort(void perform(std::vector<T>&), T range = 1000) {
   ASSERT_EQ(actual, expected);
 }
 
-} // namespace assess
+} } // namespace algorithm::sort
 
-#endif // ASSESS_H_
+#endif // ALGORITHM_SORT_ASSESS_H_
