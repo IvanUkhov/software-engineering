@@ -10,6 +10,7 @@ TEST(StackTest, ArrayPushPop) {
   for (int i = 0; i < kCount; ++i) {
     stack.Push(i);
   }
+  ASSERT_EQ(stack.Peek(), kCount - 1);
   for (int i = kCount - 1; i >= 0; --i) {
     ASSERT_EQ(stack.Pop(), i);
   }
