@@ -16,7 +16,7 @@ class Trie {
 
   struct Node {
    public:
-     Node() {}
+     Node() = default;
      Node(T value) : value(std::move(value)) {}
 
      T value;
