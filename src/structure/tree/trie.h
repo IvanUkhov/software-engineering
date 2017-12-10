@@ -23,7 +23,7 @@ class Trie {
   };
 
   void Insert(const Key& key, T value);
-  T Search(const Key& key);
+  T Find(const Key& key);
 
  private:
   Node root;
@@ -42,7 +42,7 @@ void Trie<T, empty>::Insert(const Key& key, T value) {
 }
 
 template <typename T, T empty>
-T Trie<T, empty>::Search(const Key& key) {
+T Trie<T, empty>::Find(const Key& key) {
   auto current = &root;
   for (auto symbol : key) {
     auto child = current->children.find(symbol);

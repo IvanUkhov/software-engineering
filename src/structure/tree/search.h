@@ -26,7 +26,7 @@ class BinarySearch {
     if (root_) Accept(visitor, root_.get());
   }
 
-  Node* Search(K key) const;
+  Node* Find(K key) const;
 
  private:
   template <typename T>
@@ -77,7 +77,7 @@ void BinarySearch<K, V>::Insert(std::unique_ptr<Node> node) {
 }
 
 template <typename K, typename V>
-typename BinarySearch<K, V>::Node* BinarySearch<K, V>::Search(K key) const {
+typename BinarySearch<K, V>::Node* BinarySearch<K, V>::Find(K key) const {
   auto current = this->root_.get();
   while (current) {
     if (key < current->key_) current = current->Left();
