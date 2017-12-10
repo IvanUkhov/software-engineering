@@ -1,6 +1,7 @@
 #ifndef STRUCTURE_LIST_FORWARD_H_
 #define STRUCTURE_LIST_FORWARD_H_
 
+#include <iterator>
 #include <memory>
 #include <utility>
 
@@ -9,7 +10,7 @@ namespace structure { namespace list {
 template <typename T>
 class Forward {
  public:
-  class Iterator {
+  class Iterator : public std::iterator<std::input_iterator_tag, Forward> {
    public:
     Iterator() : node_(nullptr) {}
     Iterator(Forward& node) : node_(&node) {}
@@ -19,7 +20,7 @@ class Forward {
       return *this;
     }
 
-    Forward& operator*() {
+    Forward& operator*() const {
       return *node_;
     }
 
@@ -75,12 +76,12 @@ class Forward {
 };
 
 template <typename T>
-typename Forward<T>::Iterator begin(Forward<T>& node) {
+auto begin(Forward<T>& node) {
   return typename Forward<T>::Iterator(node);
 }
 
 template <typename T>
-typename Forward<T>::Iterator end(Forward<T>& node) {
+auto end(Forward<T>& node) {
   return typename Forward<T>::Iterator();
 }
 
