@@ -89,7 +89,7 @@ class AdjacencyList<N, E>::Edge {
 
  public:
   Edge(E value, const Node* from, const Node* into)
-    : value_(std::move(value)), from_(from), into_(into) {}
+      : value_(std::move(value)), from_(from), into_(into) {}
 
   E& Value() {
     return value_;
