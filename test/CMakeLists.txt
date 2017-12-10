@@ -46,6 +46,7 @@ add_executable(
   problem/solve_cubes.cc
   problem/track_median.cc
   problem/urlify_space.cc
+  structure/graph/adjacency_list.cc
   structure/list/forward.cc
   structure/map/hash.cc
   structure/queue/impartial.cc
