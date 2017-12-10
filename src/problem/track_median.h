@@ -31,9 +31,9 @@ class MedianTracker {
   struct Visitor {
    public:
     Visitor(std::size_t count)
-      : start(((double)count - 0.5) / 2),
-        take(count % 2 == 0 ? 2 : 1),
-        index(0), median(0.0) {}
+        : start(((double)count - 0.5) / 2),
+          take(count % 2 == 0 ? 2 : 1),
+          index(0), median(0.0) {}
 
     bool Visit(typename Tree::Node* node) {
       if (index >= start) {

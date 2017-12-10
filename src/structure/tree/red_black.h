@@ -69,7 +69,8 @@ class RedBlack<K, V>::Node {
 
  public:
   Node(K key, V value)
-    : key_(key), value_(std::move(value)), red_(true), parent_(nullptr) {}
+      : key_(key), value_(std::move(value)),
+        red_(true), parent_(nullptr) {}
 
   const K& Key() const {
     return key_;

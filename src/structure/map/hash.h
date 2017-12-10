@@ -35,7 +35,7 @@ class Hash {
   struct Node {
    public:
     Node(K key, V value, std::size_t hash)
-      : key(std::move(key)), value(std::move(value)), hash(hash) {}
+        : key(std::move(key)), value(std::move(value)), hash(hash) {}
 
     K key;
     V value;

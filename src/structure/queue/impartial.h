@@ -39,7 +39,7 @@ class Impartial {
   struct Node {
    public:
     Node(T value, Node* previous)
-      : value(std::move(value)), previous(previous) {}
+        : value(std::move(value)), previous(previous) {}
 
     T value;
     Node* previous;
