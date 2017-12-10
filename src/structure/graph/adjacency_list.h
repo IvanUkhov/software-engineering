@@ -26,7 +26,7 @@ class AdjacencyList {
 
   Node* FindNode(const N& value) const {
     auto iterator = std::find_if(nodes_.begin(), nodes_.end(),
-                                 [&value] (const std::unique_ptr<Node>& node) {
+                                 [&value] (const auto& node) {
                                    return node->value_ == value;
                                  });
     if (iterator == nodes_.end()) return nullptr;
@@ -75,7 +75,7 @@ class AdjacencyList<N, E>::Node {
 
   Edge* FindEdge(const Node* into) const {
     auto iterator = std::find_if(edges_.begin(), edges_.end(),
-                                 [into](const std::unique_ptr<Edge>& edge) {
+                                 [into](const auto& edge) {
                                    return edge->into_ == into;
                                  });
     if (iterator == edges_.end()) return nullptr;
@@ -84,7 +84,7 @@ class AdjacencyList<N, E>::Node {
 
   void RemoveEdge(const Node* into) {
     edges_.erase(std::remove_if(edges_.begin(), edges_.end(),
-                                [into](const std::unique_ptr<Edge>& edge) {
+                                [into](const auto& edge) {
                                   return edge->into_ == into;
                                 }),
                  edges_.end());
