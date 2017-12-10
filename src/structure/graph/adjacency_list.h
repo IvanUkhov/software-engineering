@@ -22,6 +22,15 @@ class AdjacencyList {
     return from->AddEdge(into, std::move(value));
   }
 
+  Node* FindNode(const N& value) const {
+    auto iterator = std::find_if(nodes_.begin(), nodes_.end(),
+                                 [&value] (const std::unique_ptr<Node>& node) {
+                                   return node->value_ == value;
+                                 });
+    if (iterator == nodes_.end()) return nullptr;
+    else return (*iterator).get();
+  }
+
   Edge* FindEdge(const Node* from, const Node* into) const {
     return from->FindEdge(into);
   }
