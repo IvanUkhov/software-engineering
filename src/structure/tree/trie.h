@@ -12,11 +12,13 @@ template <typename T>
 class Trie {
  public:
   typedef std::string Key;
-  typedef std::string::value_type Symbol;
+
   void Insert(const Key& key, T value);
   T* Find(const Key& key);
 
  private:
+  typedef std::string::value_type Symbol;
+
   struct Node {
    public:
     Node() = default;
