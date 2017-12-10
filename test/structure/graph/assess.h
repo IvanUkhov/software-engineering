@@ -10,11 +10,11 @@ void Assess() {
   T graph;
 
   auto node0 = graph.AddNode(0);
-  auto node1 = graph.AddNode(1);
-  auto node2 = graph.AddNode(2);
-  auto node3 = graph.AddNode(3);
-  auto node4 = graph.AddNode(4);
-  auto node5 = graph.AddNode(5);
+  auto node1 = graph.AddNode(0);
+  auto node2 = graph.AddNode(0);
+  auto node3 = graph.AddNode(0);
+  auto node4 = graph.AddNode(0);
+  auto node5 = graph.AddNode(0);
 
   graph.AddEdge(node0, node1, 0);
   graph.AddEdge(node0, node2, 0);
