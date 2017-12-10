@@ -13,20 +13,19 @@ class Trie {
  public:
   typedef std::string Key;
   typedef std::string::value_type Symbol;
-
-  struct Node {
-   public:
-     Node() = default;
-     Node(T value) : value(std::move(value)) {}
-
-     T value;
-     std::unordered_map<Symbol, std::unique_ptr<Node>> children;
-  };
-
   void Insert(const Key& key, T value);
   T* Find(const Key& key);
 
  private:
+  struct Node {
+   public:
+    Node() = default;
+    Node(T value) : value(std::move(value)) {}
+
+    T value;
+    std::unordered_map<Symbol, std::unique_ptr<Node>> children;
+  };
+
   Node root;
 };
 
