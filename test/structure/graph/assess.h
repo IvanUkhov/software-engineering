@@ -1,6 +1,9 @@
 #ifndef STRUCTURE_GRAPH_ASSESS_H_
 #define STRUCTURE_GRAPH_ASSESS_H_
 
+#include <type_traits>
+#include <utility>
+
 #include "gtest/gtest.h"
 
 namespace structure { namespace graph { namespace assess {
@@ -38,8 +41,10 @@ void Manipulate() {
   ASSERT_EQ(graph.FindNode(0), nullptr);
 }
 
-template <typename T, typename N = int>
-void Traverse() {
+template <typename T>
+void TraverseDepth() {
+  typedef typename std::remove_reference<decltype(
+      std::declval<typename T::Node>().Value())>::type N;
   T graph = Create<T>();
   std::vector<N> data;
   for (auto& node : *graph.FindNode(0)) data.push_back(node.Value());

@@ -9,8 +9,8 @@ TEST(GraphTest, AdjacencyListManipulate) {
   assess::Manipulate<Graph>();
 }
 
-TEST(GraphTest, AdjacencyListTraverse) {
-  assess::Traverse<Graph>();
+TEST(GraphTest, AdjacencyListTraverseDepth) {
+  assess::TraverseDepth<Graph>();
 }
 
 } } // namespace structure::graph
