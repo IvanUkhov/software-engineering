@@ -14,6 +14,7 @@ class AdjacencyList {
  public:
   class Node;
   class Edge;
+  class BreadthIterator;
   class DepthIterator;
 
   Node* AddNode(N value) {
@@ -138,6 +139,29 @@ class AdjacencyList<N, E>::Edge {
   E value_;
   Node* const from_;
   Node* const into_;
+};
+
+template <typename N, typename E>
+class AdjacencyList<N, E>::BreadthIterator
+    : public std::iterator<std::input_iterator_tag, Node> {
+ public:
+  BreadthIterator() = default;
+
+  BreadthIterator(Node* node) {}
+
+  BreadthIterator& operator++() {
+    return *this;
+  }
+
+  Node& operator*() {
+    return *(Node*)(1);
+  }
+
+  bool operator!=(const BreadthIterator& other) {
+    return false;
+  }
+
+ private:
 };
 
 template <typename N, typename E>

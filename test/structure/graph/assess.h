@@ -42,6 +42,19 @@ void Manipulate() {
 }
 
 template <typename T>
+void TraverseBreadth() {
+  typedef typename std::remove_reference<decltype(
+      std::declval<typename T::Node>().Value())>::type N;
+  T graph = Create<T>();
+  std::vector<N> data;
+  auto root = graph.FindNode(0);
+  auto iterator = root->template begin<typename T::BreadthIterator>();
+  auto end = root->template end<typename T::BreadthIterator>();
+  for (; iterator != end; ++iterator) data.push_back((*iterator).Value());
+  ASSERT_EQ(data, std::vector<N>({}));
+}
+
+template <typename T>
 void TraverseDepth() {
   typedef typename std::remove_reference<decltype(
       std::declval<typename T::Node>().Value())>::type N;
