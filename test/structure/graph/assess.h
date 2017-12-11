@@ -38,11 +38,12 @@ void Manipulate() {
   ASSERT_EQ(graph.FindNode(0), nullptr);
 }
 
-template <typename T>
+template <typename T, typename N = int>
 void Traverse() {
   T graph = Create<T>();
-  for (auto& node : graph) {
-  }
+  std::vector<N> data;
+  for (auto& node : *graph.FindNode(0)) data.push_back(node.Value());
+  ASSERT_EQ(data, std::vector<N>({0, 1, 2, 3, 4, 5}));
 }
 
 } } } // namespace structure::graph::assess

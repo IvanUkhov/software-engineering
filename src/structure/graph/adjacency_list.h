@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <iterator>
 #include <memory>
+#include <unordered_set>
 #include <vector>
 
 namespace structure { namespace graph {
@@ -69,6 +70,16 @@ class AdjacencyList<N, E>::Node {
     return value_;
   }
 
+  template <typename I = DepthIterator>
+  auto begin() {
+    return I(this);
+  }
+
+  template <typename I = DepthIterator>
+  auto end() {
+    return I();
+  }
+
  private:
   Node(N value) : value_(std::move(value)) {}
 
@@ -113,6 +124,7 @@ class AdjacencyList<N, E>::Node {
 template <typename N, typename E>
 class AdjacencyList<N, E>::Edge {
   friend class Node;
+  friend class DepthIterator;
 
  public:
   E& Value() {
@@ -132,36 +144,42 @@ template <typename N, typename E>
 class AdjacencyList<N, E>::DepthIterator
     : public std::iterator<std::input_iterator_tag, Node> {
  public:
-  DepthIterator() : graph_(nullptr) {}
-  DepthIterator(const AdjacencyList& graph) : graph_(&graph) {}
+  DepthIterator() = default;
+
+  DepthIterator(Node* node) {
+    stack_.push_back(node);
+  }
 
   DepthIterator& operator++() {
+    auto* node = stack_.back();
+    visited_.insert(node);
+    do stack_.pop_back();
+    while (!stack_.empty() && Visited(stack_.back()));
+    auto iterator = node->children_.rbegin();
+    while (iterator != node->children_.rend()) {
+      auto child = (*iterator)->into_;
+      if (!Visited(child)) stack_.push_back(child);
+      ++iterator;
+    }
     return *this;
   }
 
   Node& operator*() {
-    return *(Node*)(1);
+    return *stack_.back();
   }
 
   bool operator!=(const DepthIterator& other) {
-    return false;
+    return !stack_.empty() || !other.stack_.empty();
   }
 
  private:
-  const AdjacencyList* graph_;
+  bool Visited(Node* node) const {
+    return visited_.count(node) > 0;
+  }
+
+  std::vector<Node*> stack_;
+  std::unordered_set<Node*> visited_;
 };
-
-template <typename N, typename E,
-          typename I = typename AdjacencyList<N, E>::DepthIterator>
-auto begin(const AdjacencyList<N, E>& graph) {
-  return I(graph);
-}
-
-template <typename N, typename E,
-          typename I = typename AdjacencyList<N, E>::DepthIterator>
-auto end(const AdjacencyList<N, E>& graph) {
-  return I();
-}
 
 } } // namespace structure::graph
 
