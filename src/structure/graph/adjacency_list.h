@@ -20,8 +20,23 @@ class AdjacencyList {
     return nodes_.back().get();
   }
 
-  Edge* AddEdge(Node* from, const Node* into, E value) {
+  Edge* AddEdge(Node* from, Node* into, E value) {
     return from->AddEdge(into, std::move(value));
+  }
+
+  void RemoveNode(Node* node) {
+    nodes_.erase(std::find_if(nodes_.begin(), nodes_.end(),
+                              [node] (const auto& other) {
+                                return other.get() == node;
+                              }));
+  }
+
+  void RemoveEdge(Edge* edge) {
+    edge->from->RemoveEdge(edge->into);
+  }
+
+  void RemoveEdge(Node* from, Node* into) {
+    from->RemoveEdge(into);
   }
 
   Node* FindNode(const N& value) const {
@@ -41,10 +56,6 @@ class AdjacencyList {
     return one->FindEdge(another) || another->FindEdge(one);
   }
 
-  void RemoveEdge(Node* from, const Node* into) {
-    from->RemoveEdge(into);
-  }
-
  private:
   std::vector<std::unique_ptr<Node>> nodes_;
 };
@@ -54,44 +65,49 @@ class AdjacencyList<N, E>::Node {
   friend class AdjacencyList;
 
  public:
-  Node(N value) : value_(std::move(value)) {}
-
   N& Value() {
     return value_;
   }
 
  private:
-  Edge* AddEdge(const Node* into, E value) {
-    auto edge_raw = FindEdge(into);
-    if (edge_raw) {
-      edge_raw->value_ = std::move(value);
+  Node(N value) : value_(std::move(value)) {}
+
+  Edge* AddEdge(Node* into, E value) {
+    auto edge = FindEdge(into);
+    if (edge) {
+      edge->value_ = std::move(value);
     } else {
-      edges_.push_back(std::unique_ptr<Edge>(
-            new Edge(std::move(value), this, into)));
-      edge_raw = edges_.back().get();
+      children_.push_back(
+          std::unique_ptr<Edge>(new Edge(std::move(value), this, into)));
+      edge = children_.back().get();
+      into->parents_.push_back(edge);
     }
-    return edge_raw;
+    return edge;
   }
 
-  Edge* FindEdge(const Node* into) const {
-    auto iterator = std::find_if(edges_.begin(), edges_.end(),
+  void RemoveEdge(Node* into) {
+    auto iterator = std::find_if(children_.begin(), children_.end(),
                                  [into](const auto& edge) {
                                    return edge->into_ == into;
                                  });
-    if (iterator == edges_.end()) return nullptr;
+    auto edge = iterator->get();
+    auto& parents = edge->into_->parents_;
+    parents.erase(std::find(parents.begin(), parents.end(), edge));
+    children_.erase(iterator);
+  }
+
+  Edge* FindEdge(const Node* into) const {
+    auto iterator = std::find_if(children_.begin(), children_.end(),
+                                 [into](const auto& edge) {
+                                   return edge->into_ == into;
+                                 });
+    if (iterator == children_.end()) return nullptr;
     else return iterator->get();
   }
 
-  void RemoveEdge(const Node* into) {
-    edges_.erase(std::remove_if(edges_.begin(), edges_.end(),
-                                [into](const auto& edge) {
-                                  return edge->into_ == into;
-                                }),
-                 edges_.end());
-  }
-
   N value_;
-  std::vector<std::unique_ptr<Edge>> edges_;
+  std::vector<Edge*> parents_;
+  std::vector<std::unique_ptr<Edge>> children_;
 };
 
 template <typename N, typename E>
@@ -99,17 +115,17 @@ class AdjacencyList<N, E>::Edge {
   friend class Node;
 
  public:
-  Edge(E value, const Node* from, const Node* into)
-      : value_(std::move(value)), from_(from), into_(into) {}
-
   E& Value() {
     return value_;
   }
 
  private:
+  Edge(E value, Node* from, Node* into)
+      : value_(std::move(value)), from_(from), into_(into) {}
+
   E value_;
-  const Node* from_;
-  const Node* into_;
+  Node* const from_;
+  Node* const into_;
 };
 
 template <typename N, typename E>

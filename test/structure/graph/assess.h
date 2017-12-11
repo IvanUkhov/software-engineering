@@ -34,6 +34,8 @@ void Manipulate() {
   ASSERT_TRUE(graph.Connected(node0, node5));
   graph.RemoveEdge(node0, node5);
   ASSERT_FALSE(graph.Connected(node0, node5));
+  graph.RemoveNode(node0);
+  ASSERT_EQ(graph.FindNode(0), nullptr);
 }
 
 template <typename T>
