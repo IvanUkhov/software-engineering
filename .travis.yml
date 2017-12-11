@@ -4,7 +4,16 @@ os:
   - linux
   - osx
 
-script: make test-all
+script:
+  - make test-all
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+
+    packages:
+      - g++-5
 
 notifications:
   email: false
