@@ -6,7 +6,7 @@
 
 const std::size_t kCount = 100;
 
-typedef structure::tree::BinaryHeap<int> Tree;
+typedef structure::tree::MaxHeap<int> Tree;
 
 std::vector<int> Drain(Tree& tree) {
   std::size_t size = tree.Size();
@@ -18,7 +18,7 @@ std::vector<int> Drain(Tree& tree) {
   return data;
 }
 
-TEST(TreeTest, BinaryHeapNew) {
+TEST(TreeTest, MaxHeapNew) {
   const auto data = fixture::Generate<int>(kCount);
   std::vector<int> expected(data);
   std::sort(expected.begin(), expected.end(), std::greater<int>());
@@ -28,7 +28,7 @@ TEST(TreeTest, BinaryHeapNew) {
   ASSERT_EQ(actual, expected);
 }
 
-TEST(TreeTest, BinaryHeapPush) {
+TEST(TreeTest, MaxHeapPush) {
   const auto data = fixture::Generate<int>(kCount);
   std::vector<int> expected(data);
   std::sort(expected.begin(), expected.end(), std::greater<int>());

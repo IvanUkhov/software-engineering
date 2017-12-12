@@ -36,11 +36,11 @@ void Up(T data[], int i) {
 } // namespace internal
 
 template <typename T>
-class BinaryHeap {
+class MaxHeap {
  public:
-  BinaryHeap() {}
+  MaxHeap() {}
 
-  BinaryHeap(std::vector<T> data) : data_(std::move(data)) {
+  MaxHeap(std::vector<T> data) : data_(std::move(data)) {
     Order();
   }
 
@@ -62,7 +62,7 @@ class BinaryHeap {
 };
 
 template <typename T>
-void BinaryHeap<T>::Order() {
+void MaxHeap<T>::Order() {
   int size = Size();
   for (int i = (size - 1 - 1) / 2; i >= 0; --i) {
     internal::Down(data_.data(), i, size);
@@ -70,7 +70,7 @@ void BinaryHeap<T>::Order() {
 }
 
 template <typename T>
-void BinaryHeap<T>::Sort() {
+void MaxHeap<T>::Sort() {
   using std::swap;
   int size = Size();
   for (int i = size - 1; i > 0; --i) {
@@ -80,7 +80,7 @@ void BinaryHeap<T>::Sort() {
 }
 
 template <typename T>
-T BinaryHeap<T>::Pop() {
+T MaxHeap<T>::Pop() {
   int size = Size() - 1;
   T value = data_[0];
   data_[0] = data_[size];
@@ -90,7 +90,7 @@ T BinaryHeap<T>::Pop() {
 }
 
 template <typename T>
-void BinaryHeap<T>::Push(T value) {
+void MaxHeap<T>::Push(T value) {
   data_.push_back(value);
   internal::Up(data_.data(), Size() - 1);
 }
