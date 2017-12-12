@@ -14,6 +14,7 @@ class AdjacencyList {
  public:
   class Node;
   class Edge;
+  class Iterator;
   class BreadthIterator;
   class DepthIterator;
 
@@ -111,6 +112,7 @@ class AdjacencyList<N, E>::Node {
 template <typename N, typename E>
 class AdjacencyList<N, E>::Edge {
   friend class Node;
+  friend class BreadthIterator;
   friend class DepthIterator;
 
  public:
@@ -132,58 +134,34 @@ class AdjacencyList<N, E>::Edge {
 };
 
 template <typename N, typename E>
-class AdjacencyList<N, E>::BreadthIterator
+class AdjacencyList<N, E>::Iterator
     : public std::iterator<std::input_iterator_tag, Node> {
  public:
-  BreadthIterator() = default;
+  Iterator() = default;
 
-  BreadthIterator(Node& node) {}
-
-  BreadthIterator& operator++() {
-    return *this;
-  }
-
-  Node& operator*() {
-    return *(Node*)(1);
-  }
-
-  bool operator!=(const BreadthIterator& other) {
-    return false;
-  }
-
- private:
-};
-
-template <typename N, typename E>
-class AdjacencyList<N, E>::DepthIterator
-    : public std::iterator<std::input_iterator_tag, Node> {
- public:
-  DepthIterator() = default;
-
-  DepthIterator(Node& node) {
+  Iterator(Node& node) {
     stack_.push_back(&node);
-  }
-
-  DepthIterator& operator++() {
-    auto node = stack_.back();
-    visited_.insert(node);
-    do stack_.pop_back();
-    while (!stack_.empty() && Visited(stack_.back()));
-    auto iterator = node->children_.rbegin();
-    while (iterator != node->children_.rend()) {
-      auto child = &(*iterator)->into_;
-      if (!Visited(child)) stack_.push_back(child);
-      ++iterator;
-    }
-    return *this;
   }
 
   Node& operator*() {
     return *stack_.back();
   }
 
-  bool operator!=(const DepthIterator& other) {
+  bool operator!=(const Iterator& other) {
     return !stack_.empty() || !other.stack_.empty();
+  }
+
+ protected:
+  void Push(Node* node) {
+    if (!Visited(node)) stack_.push_back(node);
+  }
+
+  Node* Pop() {
+    auto node = stack_.back();
+    visited_.insert(node);
+    do stack_.pop_back();
+    while (!stack_.empty() && Visited(stack_.back()));
+    return node;
   }
 
  private:
@@ -193,6 +171,40 @@ class AdjacencyList<N, E>::DepthIterator
 
   std::vector<Node*> stack_;
   std::unordered_set<Node*> visited_;
+};
+
+template <typename N, typename E>
+class AdjacencyList<N, E>::BreadthIterator : public Iterator {
+ public:
+  BreadthIterator() = default;
+  BreadthIterator(Node& node) : Iterator(node) {}
+
+  BreadthIterator& operator++() {
+    auto node = this->Pop();
+    auto iterator = node->children_.rbegin();
+    while (iterator != node->children_.rend()) {
+      this->Push(&(*iterator)->into_);
+      ++iterator;
+    }
+    return *this;
+  }
+};
+
+template <typename N, typename E>
+class AdjacencyList<N, E>::DepthIterator : public Iterator {
+ public:
+  DepthIterator() = default;
+  DepthIterator(Node& node) : Iterator(node) {}
+
+  DepthIterator& operator++() {
+    auto node = this->Pop();
+    auto iterator = node->children_.rbegin();
+    while (iterator != node->children_.rend()) {
+      this->Push(&(*iterator)->into_);
+      ++iterator;
+    }
+    return *this;
+  }
 };
 
 } } // namespace structure::graph
