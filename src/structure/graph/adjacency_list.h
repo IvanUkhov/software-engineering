@@ -123,13 +123,13 @@ class AdjacencyList<N, E>::Edge {
     return value_;
   }
 
-  bool operator==(const Edge& other) const {
-    return this == &other;
-  }
-
  private:
   Edge(Node& from, Node& into, E value)
       : from_(from), into_(into), value_(std::move(value)) {}
+
+  bool operator==(const Edge& other) const {
+    return this == &other;
+  }
 
   Node& from_;
   Node& into_;
