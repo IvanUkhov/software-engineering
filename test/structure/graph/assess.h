@@ -57,7 +57,7 @@ void TraverseBreadth() {
   auto iterator = node0.template begin<typename T::BreadthIterator>();
   auto end = node0.template end<typename T::BreadthIterator>();
   for (; iterator != end; ++iterator) actual.push_back(&*iterator);
-  // ASSERT_EQ(actual, expected);
+  ASSERT_EQ(actual, expected);
 }
 
 template <typename T>

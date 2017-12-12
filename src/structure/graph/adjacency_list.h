@@ -152,11 +152,15 @@ class AdjacencyList<N, E>::Iterator
   }
 
  protected:
-  void Push(Node* node) {
+  void PushBack(Node* node) {
+    if (!Visited(node)) stack_.insert(stack_.begin(), node);
+  }
+
+  void PushFront(Node* node) {
     if (!Visited(node)) stack_.push_back(node);
   }
 
-  Node* Pop() {
+  Node* PopFront() {
     auto node = stack_.back();
     visited_.insert(node);
     do stack_.pop_back();
@@ -180,12 +184,8 @@ class AdjacencyList<N, E>::BreadthIterator : public Iterator {
   BreadthIterator(Node& node) : Iterator(node) {}
 
   BreadthIterator& operator++() {
-    auto node = this->Pop();
-    auto iterator = node->children_.rbegin();
-    while (iterator != node->children_.rend()) {
-      this->Push(&(*iterator)->into_);
-      ++iterator;
-    }
+    auto node = this->PopFront();
+    for (auto& edge : node->children_) this->PushBack(&edge->into_);
     return *this;
   }
 };
@@ -197,10 +197,10 @@ class AdjacencyList<N, E>::DepthIterator : public Iterator {
   DepthIterator(Node& node) : Iterator(node) {}
 
   DepthIterator& operator++() {
-    auto node = this->Pop();
+    auto node = this->PopFront();
     auto iterator = node->children_.rbegin();
     while (iterator != node->children_.rend()) {
-      this->Push(&(*iterator)->into_);
+      this->PushFront(&(*iterator)->into_);
       ++iterator;
     }
     return *this;
