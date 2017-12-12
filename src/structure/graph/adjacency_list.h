@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <iterator>
+#include <list>
 #include <memory>
 #include <unordered_set>
 #include <vector>
@@ -140,11 +141,11 @@ class AdjacencyList<N, E>::Iterator
   Iterator() = default;
 
   Iterator(Node& node) {
-    stack_.push_back(&node);
+    stack_.push_front(&node);
   }
 
   Node& operator*() {
-    return *stack_.back();
+    return *stack_.front();
   }
 
   bool operator!=(const Iterator& other) {
@@ -153,18 +154,18 @@ class AdjacencyList<N, E>::Iterator
 
  protected:
   void PushBack(Node* node) {
-    if (!Visited(node)) stack_.insert(stack_.begin(), node);
-  }
-
-  void PushFront(Node* node) {
     if (!Visited(node)) stack_.push_back(node);
   }
 
+  void PushFront(Node* node) {
+    if (!Visited(node)) stack_.push_front(node);
+  }
+
   Node* PopFront() {
-    auto node = stack_.back();
+    auto node = stack_.front();
     visited_.insert(node);
-    do stack_.pop_back();
-    while (!stack_.empty() && Visited(stack_.back()));
+    do stack_.pop_front();
+    while (!stack_.empty() && Visited(stack_.front()));
     return node;
   }
 
@@ -173,7 +174,7 @@ class AdjacencyList<N, E>::Iterator
     return visited_.count(node) > 0;
   }
 
-  std::vector<Node*> stack_;
+  std::list<Node*> stack_;
   std::unordered_set<Node*> visited_;
 };
 
