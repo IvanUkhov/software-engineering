@@ -33,29 +33,16 @@ class AdjacencyList {
                               }));
   }
 
-  void RemoveEdge(Edge* edge) {
-    edge->from->RemoveEdge(edge->into);
-  }
-
   void RemoveEdge(Node* from, Node* into) {
     from->RemoveEdge(into);
   }
 
-  Node* FindNode(const N& value) const {
-    auto iterator = std::find_if(nodes_.begin(), nodes_.end(),
-                                 [&value] (const auto& node) {
-                                   return node->value_ == value;
-                                 });
-    if (iterator == nodes_.end()) return nullptr;
-    else return (*iterator).get();
+  bool HasEdge(const Node* from, const Node* into) const {
+    return from->FindEdge(into) != nullptr;
   }
 
-  Edge* FindEdge(const Node* from, const Node* into) const {
-    return from->FindEdge(into);
-  }
-
-  bool Connected(const Node* one, const Node* another) const {
-    return one->FindEdge(another) || another->FindEdge(one);
+  std::size_t Size() const {
+    return nodes_.size();
   }
 
  private:
