@@ -17,28 +17,28 @@ class AdjacencyList {
   class BreadthIterator;
   class DepthIterator;
 
-  Node* AddNode(N value = N()) {
+  Node& AddNode(N value = N()) {
     nodes_.push_back(std::unique_ptr<Node>(new Node(std::move(value))));
-    return nodes_.back().get();
+    return *nodes_.back().get();
   }
 
-  Edge* AddEdge(Node* from, Node* into, E value = E()) {
-    return from->AddEdge(into, std::move(value));
+  Edge& AddEdge(Node& from, Node& into, E value = E()) {
+    return from.AddEdge(into, std::move(value));
   }
 
-  void RemoveNode(Node* node) {
+  void RemoveNode(Node& node) {
     nodes_.erase(std::find_if(nodes_.begin(), nodes_.end(),
-                              [node] (const auto& other) {
-                                return other.get() == node;
+                              [&node] (const auto& other) {
+                                return node == *other.get();
                               }));
   }
 
-  void RemoveEdge(Node* from, Node* into) {
-    from->RemoveEdge(into);
+  void RemoveEdge(Node& from, Node& into) {
+    from.RemoveEdge(into);
   }
 
-  bool HasEdge(const Node* from, const Node* into) const {
-    return from->FindEdge(into) != nullptr;
+  bool HasEdge(const Node& from, const Node& into) const {
+    return from.FindEdge(into) != nullptr;
   }
 
   std::size_t Size() const {
@@ -60,7 +60,7 @@ class AdjacencyList<N, E>::Node {
 
   template <typename I = DepthIterator>
   auto begin() {
-    return I(this);
+    return I(*this);
   }
 
   template <typename I = DepthIterator>
@@ -71,37 +71,41 @@ class AdjacencyList<N, E>::Node {
  private:
   Node(N value) : value_(std::move(value)) {}
 
-  Edge* AddEdge(Node* into, E value) {
+  Edge& AddEdge(Node& into, E value) {
     auto edge = FindEdge(into);
     if (edge) {
       edge->value_ = std::move(value);
     } else {
       children_.push_back(
-          std::unique_ptr<Edge>(new Edge(this, into, std::move(value))));
+          std::unique_ptr<Edge>(new Edge(*this, into, std::move(value))));
       edge = children_.back().get();
-      into->parents_.push_back(edge);
+      into.parents_.push_back(edge);
     }
-    return edge;
+    return *edge;
   }
 
-  void RemoveEdge(Node* into) {
+  void RemoveEdge(Node& into) {
     auto iterator = std::find_if(children_.begin(), children_.end(),
-                                 [into](const auto& edge) {
-                                   return edge->into_ == into;
+                                 [&into](const auto& edge) {
+                                   return into == edge->into_;
                                  });
     auto edge = iterator->get();
-    auto& parents = edge->into_->parents_;
+    auto& parents = edge->into_.parents_;
     parents.erase(std::find(parents.begin(), parents.end(), edge));
     children_.erase(iterator);
   }
 
-  Edge* FindEdge(const Node* into) const {
+  Edge* FindEdge(const Node& into) const {
     auto iterator = std::find_if(children_.begin(), children_.end(),
-                                 [into](const auto& edge) {
-                                   return edge->into_ == into;
+                                 [&into](const auto& edge) {
+                                   return into == edge->into_;
                                  });
     if (iterator == children_.end()) return nullptr;
     else return iterator->get();
+  }
+
+  bool operator==(const Node& other) const {
+    return this == &other;
   }
 
   N value_;
@@ -119,12 +123,16 @@ class AdjacencyList<N, E>::Edge {
     return value_;
   }
 
+  bool operator==(const Edge& other) const {
+    return this == &other;
+  }
+
  private:
-  Edge(Node* from, Node* into, E value)
+  Edge(Node& from, Node& into, E value)
       : from_(from), into_(into), value_(std::move(value)) {}
 
-  Node* const from_;
-  Node* const into_;
+  Node& from_;
+  Node& into_;
   E value_;
 };
 
@@ -134,7 +142,7 @@ class AdjacencyList<N, E>::BreadthIterator
  public:
   BreadthIterator() = default;
 
-  BreadthIterator(Node* node) {}
+  BreadthIterator(Node& node) {}
 
   BreadthIterator& operator++() {
     return *this;
@@ -157,18 +165,18 @@ class AdjacencyList<N, E>::DepthIterator
  public:
   DepthIterator() = default;
 
-  DepthIterator(Node* node) {
-    stack_.push_back(node);
+  DepthIterator(Node& node) {
+    stack_.push_back(&node);
   }
 
   DepthIterator& operator++() {
-    auto* node = stack_.back();
+    auto node = stack_.back();
     visited_.insert(node);
     do stack_.pop_back();
     while (!stack_.empty() && Visited(stack_.back()));
     auto iterator = node->children_.rbegin();
     while (iterator != node->children_.rend()) {
-      auto child = (*iterator)->into_;
+      auto child = &(*iterator)->into_;
       if (!Visited(child)) stack_.push_back(child);
       ++iterator;
     }
