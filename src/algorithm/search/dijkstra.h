@@ -1,10 +1,13 @@
 #ifndef ALGORITHM_SEARCH_DIJKSTRA_H_
 #define ALGORITHM_SEARCH_DIJKSTRA_H_
 
+#include <cstddef>
 #include <type_traits>
 #include <unordered_map>
 #include <utility>
 #include <vector>
+
+#include "structure/tree/heap.h"
 
 namespace algorithm { namespace search {
 
@@ -17,8 +20,16 @@ std::vector<std::pair<Node*, Edge*>> Dijkstra(const Graph& graph,
   static_assert(std::is_unsigned<typename std::remove_reference<decltype(
                     std::declval<Edge>().Value())>::type>::value,
                 "Weights should be non-negative");
-  std::unordered_map<Node*, std::size_t> shortest;
-  std::unordered_map<Node*, Node*> previous;
+  typedef std::pair<std::size_t, const Node*> Runner;
+  struct Comparator {
+    bool operator()(const Runner& one, const Runner& another) const {
+      return one.first < another.first;
+    }
+  };
+  std::unordered_map<const Node*, std::size_t> shortest;
+  std::unordered_map<const Node*, const Node*> previous;
+  structure::tree::BinaryHeap<Runner, Comparator> remaining;
+  remaining.Push({0, &from});
   return {};
 }
 
