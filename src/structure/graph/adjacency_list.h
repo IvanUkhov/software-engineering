@@ -41,10 +41,6 @@ class AdjacencyList {
     return from.FindEdge(into) != nullptr;
   }
 
-  std::size_t Size() const {
-    return nodes_.size();
-  }
-
  private:
   std::vector<std::unique_ptr<Node>> nodes_;
 };
