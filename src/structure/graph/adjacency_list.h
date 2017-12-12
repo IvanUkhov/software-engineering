@@ -17,12 +17,12 @@ class AdjacencyList {
   class BreadthIterator;
   class DepthIterator;
 
-  Node* AddNode(N value) {
+  Node* AddNode(N value = N()) {
     nodes_.push_back(std::unique_ptr<Node>(new Node(std::move(value))));
     return nodes_.back().get();
   }
 
-  Edge* AddEdge(Node* from, Node* into, E value) {
+  Edge* AddEdge(Node* from, Node* into, E value = E()) {
     return from->AddEdge(into, std::move(value));
   }
 
@@ -90,7 +90,7 @@ class AdjacencyList<N, E>::Node {
       edge->value_ = std::move(value);
     } else {
       children_.push_back(
-          std::unique_ptr<Edge>(new Edge(std::move(value), this, into)));
+          std::unique_ptr<Edge>(new Edge(this, into, std::move(value))));
       edge = children_.back().get();
       into->parents_.push_back(edge);
     }
@@ -133,12 +133,12 @@ class AdjacencyList<N, E>::Edge {
   }
 
  private:
-  Edge(E value, Node* from, Node* into)
-      : value_(std::move(value)), from_(from), into_(into) {}
+  Edge(Node* from, Node* into, E value)
+      : from_(from), into_(into), value_(std::move(value)) {}
 
-  E value_;
   Node* const from_;
   Node* const into_;
+  E value_;
 };
 
 template <typename N, typename E>
