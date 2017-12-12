@@ -141,31 +141,31 @@ class AdjacencyList<N, E>::Iterator
   Iterator() = default;
 
   Iterator(Node& node) {
-    stack_.push_front(&node);
+    queue_.push_front(&node);
   }
 
   Node& operator*() {
-    return *stack_.front();
+    return *queue_.front();
   }
 
   bool operator!=(const Iterator& other) {
-    return !stack_.empty() || !other.stack_.empty();
+    return !queue_.empty() || !other.queue_.empty();
   }
 
  protected:
   void PushBack(Node* node) {
-    if (!Visited(node)) stack_.push_back(node);
+    if (!Visited(node)) queue_.push_back(node);
   }
 
   void PushFront(Node* node) {
-    if (!Visited(node)) stack_.push_front(node);
+    if (!Visited(node)) queue_.push_front(node);
   }
 
   Node* PopFront() {
-    auto node = stack_.front();
+    auto node = queue_.front();
     visited_.insert(node);
-    do stack_.pop_front();
-    while (!stack_.empty() && Visited(stack_.front()));
+    do queue_.pop_front();
+    while (!queue_.empty() && Visited(queue_.front()));
     return node;
   }
 
@@ -174,7 +174,7 @@ class AdjacencyList<N, E>::Iterator
     return visited_.count(node) > 0;
   }
 
-  std::list<Node*> stack_;
+  std::list<Node*> queue_;
   std::unordered_set<Node*> visited_;
 };
 
