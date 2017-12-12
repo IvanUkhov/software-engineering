@@ -9,7 +9,7 @@
 namespace algorithm { namespace sort {
 
 template <typename T>
-std::vector<T> BinaryHeap(std::vector<T> data) {
+std::vector<T> Heap(std::vector<T> data) {
   structure::tree::MaxHeap<T> heap(std::move(data));
   heap.Sort();
   return heap;

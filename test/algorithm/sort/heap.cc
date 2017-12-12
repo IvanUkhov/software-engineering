@@ -2,16 +2,16 @@
 #include "algorithm/sort/heap.h"
 
 template <typename T>
-void BinaryHeap(std::vector<T>& given) {
+void Heap(std::vector<T>& given) {
   std::vector<T> data;
   std::swap(data, given);
   auto before = &data[0];
-  data = algorithm::sort::BinaryHeap(std::move(data));
+  data = algorithm::sort::Heap(std::move(data));
   auto after = &data[0];
   ASSERT_EQ(before, after);
   std::swap(data, given);
 }
 
-TEST(SortTest, BinaryHeap) {
-  algorithm::sort::Assess<int>(BinaryHeap);
+TEST(SortTest, Heap) {
+  algorithm::sort::Assess<int>(Heap);
 }
