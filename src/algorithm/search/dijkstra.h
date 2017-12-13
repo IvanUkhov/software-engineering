@@ -51,10 +51,12 @@ Dijkstra<Graph, Node, Edge>::Dijkstra(const Graph& graph, const Node& from) {
   remaining.Push({0, &from});
   while (!remaining.IsEmpty()) {
     auto current = remaining.Pop();
+    if (current.first > scores_[current.second]) continue;
     for (auto& edge : current.second->Edges()) {
       auto destination = &edge->Into();
       auto score = current.first + edge->Value();
-      if (scores_.count(destination) == 0 || score < scores_[destination]) {
+      if (scores_.count(destination) == 0 ||
+          score < scores_[destination]) {
         scores_[destination] = score;
         sources_[destination] = &*edge;
         remaining.Push({score, destination});
