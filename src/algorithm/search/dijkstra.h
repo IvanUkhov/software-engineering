@@ -2,10 +2,10 @@
 #define ALGORITHM_SEARCH_DIJKSTRA_H_
 
 #include <cstddef>
+#include <list>
 #include <type_traits>
 #include <unordered_map>
 #include <utility>
-#include <vector>
 
 #include "structure/tree/heap.h"
 
@@ -16,7 +16,7 @@ template <typename Graph,
           typename Edge = typename Graph::Edge>
 class Dijkstra {
  public:
-  typedef std::vector<const Edge*> Path;
+  typedef std::list<const Edge*> Path;
 
   Dijkstra(const Graph& graph, const Node& from);
 
@@ -24,8 +24,8 @@ class Dijkstra {
     Path path;
     auto current = &into;
     while (sources_.count(current) > 0) {
-      path.push_back(sources_.at(current));
-      current = &path.back()->From();
+      path.push_front(sources_.at(current));
+      current = &path.front()->From();
     }
     return path;
   }

@@ -32,7 +32,7 @@ TEST(SearchTest, Dijkstra) {
   auto& edge63 = graph.AddEdge(node6, node3, 2);
   auto& edge65 = graph.AddEdge(node6, node5, 9);
 
-  Itinerary::Path expected = {&edge65, &edge36, &edge13};
+  Itinerary::Path expected = {&edge13, &edge36, &edge65};
   auto itinerary = Itinerary(graph, node1);
   auto actual = itinerary.Find(node5);
   ASSERT_EQ(actual, expected);
