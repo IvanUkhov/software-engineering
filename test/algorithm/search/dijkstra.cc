@@ -3,8 +3,7 @@
 #include "structure/graph/adjacency_list.h"
 
 typedef structure::graph::AdjacencyList<unsigned, unsigned> Graph;
-typedef Graph::Node Node;
-typedef Graph::Edge Edge;
+typedef algorithm::search::Dijkstra<Graph, Graph::Node, Graph::Edge> Itinerary;
 
 TEST(SearchTest, Dijkstra) {
   Graph graph;
@@ -33,12 +32,8 @@ TEST(SearchTest, Dijkstra) {
   auto& edge63 = graph.AddEdge(node6, node3, 2);
   auto& edge65 = graph.AddEdge(node6, node5, 9);
 
-  std::vector<std::pair<Node*, Edge*>> expected = {
-    {&node1, &edge12},
-    {&node2, &edge23},
-    {&node3, &edge36},
-    {&node6, &edge65},
-    {&node5, nullptr},
-  };
-  auto actual = algorithm::search::Dijkstra(graph, node1, node5);
+  Itinerary::Path expected = {&edge65, &edge36, &edge13};
+  auto itinerary = Itinerary(graph, node1);
+  auto actual = itinerary.Find(node5);
+  ASSERT_EQ(actual, expected);
 }

@@ -56,6 +56,14 @@ class AdjacencyList<N, E>::Node {
     return value_;
   }
 
+  const N& Value() const {
+    return value_;
+  }
+
+  auto& Edges() const {
+    return children_;
+  }
+
   template <typename I = DepthIterator>
   auto begin() {
     return I(*this);
@@ -117,7 +125,19 @@ class AdjacencyList<N, E>::Edge {
   friend class DepthIterator;
 
  public:
+  Node& From() const {
+    return from_;
+  }
+
+  Node& Into() const {
+    return into_;
+  }
+
   E& Value() {
+    return value_;
+  }
+
+  const E& Value() const {
     return value_;
   }
 
