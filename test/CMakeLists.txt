@@ -31,6 +31,7 @@ add_executable(
   algorithm/search/binary.cc
   algorithm/search/dijkstra.cc
   algorithm/sort/bubble.cc
+  algorithm/sort/bucket.cc
   algorithm/sort/count.cc
   algorithm/sort/heap.cc
   algorithm/sort/insertion.cc

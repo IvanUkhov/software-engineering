@@ -12,4 +12,14 @@ void Randomize() {
   }
 }
 
+template <>
+std::vector<double> Generate<double>(std::size_t size) {
+  std::vector<double> data;
+  data.reserve(size);
+  for (auto value : Generate<int>(size)) {
+    data.push_back((double)value / RAND_MAX);
+  }
+  return data;
+}
+
 } // namespace fixture

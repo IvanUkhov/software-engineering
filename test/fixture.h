@@ -20,6 +20,9 @@ std::vector<T> Generate(std::size_t size) {
   return data;
 }
 
+template <>
+std::vector<double> Generate<double>(std::size_t size);
+
 template <typename T>
 std::vector<T> Modulo(std::vector<T> data, T modulus) {
   for (auto& value : data) value %= modulus;
