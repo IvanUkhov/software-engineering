@@ -39,7 +39,7 @@ template <typename Graph, typename Node, typename Edge>
 Dijkstra<Graph, Node, Edge>::Dijkstra(const Graph& graph, const Node& from) {
   static_assert(std::is_unsigned<typename std::remove_reference<decltype(
                     std::declval<Edge>().Value())>::type>::value,
-                "Weights should be non-negative");
+                "Dijkstra requires unsigned integers");
   typedef std::pair<std::size_t, const Node*> Runner;
   struct Comparator {
     bool operator()(const Runner& one, const Runner& another) const {
