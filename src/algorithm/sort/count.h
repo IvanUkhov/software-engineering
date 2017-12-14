@@ -25,9 +25,7 @@ void Count(std::vector<V>& data, K range,
   using std::swap;
   static_assert(std::is_unsigned<K>::value, "Count requires unsigned integers");
   std::vector<K> counts(range);
-  for (auto& value : data) {
-    ++counts[key(value)];
-  }
+  for (auto& value : data) ++counts[key(value)];
   K total = {};
   for (auto& count : counts) {
     K old = total;
@@ -35,9 +33,7 @@ void Count(std::vector<V>& data, K range,
     count = old;
   }
   std::vector<V> work(total);
-  for (auto& value : data) {
-    swap(value, work[counts[key(value)]++]);
-  }
+  for (auto& value : data) swap(value, work[counts[key(value)]++]);
   std::swap(data, work);
 }
 
