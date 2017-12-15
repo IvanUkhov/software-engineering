@@ -40,7 +40,7 @@ add_executable(
   algorithm/sort/radix.cc
   algorithm/sort/selection.cc
   algorithm/sort/tree.cc
-  problem/check_palindrome.cc
+  problem/palindrome_permutation.cc
   problem/count_pairs.cc
   problem/find_permutations.cc
   problem/list_permutations.cc

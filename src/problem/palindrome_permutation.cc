@@ -1,8 +1,8 @@
 #include <cstddef>
 
-#include "problem/check_palindrome.h"
+#include "problem/palindrome_permutation.h"
 
-bool problem::CheckPalindrome(const std::string& string) {
+bool problem::PalindromePermutation(const std::string& string) {
   std::size_t counts[26] = {};
   for (auto glyph : string) {
     if (glyph >= 'A' && glyph <= 'Z') ++counts[glyph - 'A'];
