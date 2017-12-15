@@ -43,11 +43,11 @@ add_executable(
   problem/fixed_difference.cc
   problem/four_cubes.cc
   problem/matrix_rotation.cc
+  problem/median_tracker.cc
   problem/multi_stack.cc
   problem/nested_permutation.cc
   problem/palindrome_permutation.cc
   problem/string_permutation.cc
-  problem/track_median.cc
   problem/urlify_space.cc
   structure/graph/adjacency_list.cc
   structure/list/forward.cc

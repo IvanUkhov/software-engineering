@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "gtest/gtest.h"
-#include "problem/track_median.h"
+#include "problem/median_tracker.h"
 
 namespace internal {
 

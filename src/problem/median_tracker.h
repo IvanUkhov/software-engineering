@@ -1,5 +1,5 @@
-#ifndef PROBLEM_TRACK_MEDIAN_H_
-#define PROBLEM_TRACK_MEDIAN_H_
+#ifndef PROBLEM_MEDIAN_TRACKER_H_
+#define PROBLEM_MEDIAN_TRACKER_H_
 
 #include <cstddef>
 
@@ -59,4 +59,4 @@ class MedianTracker {
 
 } // namespace problem
 
-#endif // PROBLEM_TRACK_MEDIAN_H_
+#endif // PROBLEM_MEDIAN_TRACKER_H_
