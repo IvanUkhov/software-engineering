@@ -1,6 +1,6 @@
-#include "problem/urlify_space.h"
+#include "problem/char_replacement.h"
 
-void problem::UrlifySpace(std::string& string, std::size_t length) {
+void problem::CharReplacement(std::string& string, std::size_t length) {
   int count = 0;
   for (int i = 0; i < length; ++i) {
     if (string[i] == ' ') ++count;

@@ -1,9 +1,9 @@
 #include "gtest/gtest.h"
-#include "problem/urlify_space.h"
+#include "problem/char_replacement.h"
 
-TEST(ProblemTest, UrlifySpace) {
+TEST(ProblemTest, CharReplacement) {
   std::string actual = "Mr John Smith      ";
-  problem::UrlifySpace(actual, 13);
+  problem::CharReplacement(actual, 13);
   std::string expected = R"(Mr%20John%20Smith  )";
   ASSERT_EQ(actual, expected);
 }

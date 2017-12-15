@@ -40,6 +40,7 @@ add_executable(
   algorithm/sort/radix.cc
   algorithm/sort/selection.cc
   algorithm/sort/tree.cc
+  problem/char_replacement.cc
   problem/fixed_difference.cc
   problem/four_cubes.cc
   problem/matrix_rotation.cc
@@ -48,7 +49,6 @@ add_executable(
   problem/nested_permutation.cc
   problem/palindrome_permutation.cc
   problem/string_permutation.cc
-  problem/urlify_space.cc
   structure/graph/adjacency_list.cc
   structure/list/forward.cc
   structure/map/hash.cc
