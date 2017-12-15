@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "problem/rotate_matrix.h"
+#include "problem/matrix_rotation.h"
 
 namespace internal {
 
@@ -15,7 +15,7 @@ void Test() {
       data[i][j] = (i + 1) * (j + 1);
     }
   }
-  problem::RotateMatrix(data, size);
+  problem::MatrixRotation(data, size);
   for (size_t i = 0; i < size; ++i) {
     for (size_t j = 0; j < size; ++j) {
       ASSERT_EQ(data[j][size - i - 1], (i + 1) * (j + 1));
@@ -25,7 +25,7 @@ void Test() {
 
 } // namespace internal
 
-TEST(ProblemTest, RotateMatrix) {
+TEST(ProblemTest, MatrixRotation) {
   internal::Test<10>();
   internal::Test<11>();
 }

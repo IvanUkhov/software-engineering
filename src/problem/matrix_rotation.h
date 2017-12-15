@@ -1,5 +1,5 @@
-#ifndef PROBLEM_ROTATE_MATRIX_H_
-#define PROBLEM_ROTATE_MATRIX_H_
+#ifndef PROBLEM_MATRIX_ROTATION_H_
+#define PROBLEM_MATRIX_ROTATION_H_
 
 #include <cstddef>
 
@@ -9,7 +9,7 @@ namespace problem {
 // 4 bytes, write a method to rotate the image by 90 degrees. Can you do this in
 // place?
 template <typename T>
-void RotateMatrix(T** data, std::size_t size) {
+void MatrixRotation(T** data, std::size_t size) {
   if (size == 0) return;
   for (std::size_t i1 = 0; i1 < size; ++i1) {
     for (std::size_t j1 = i1; j1 < size - i1 - 1; ++j1) {
@@ -27,4 +27,4 @@ void RotateMatrix(T** data, std::size_t size) {
 
 } // namespace problem
 
-#endif // PROBLEM_ROTATE_MATRIX_H_
+#endif // PROBLEM_MATRIX_ROTATION_H_

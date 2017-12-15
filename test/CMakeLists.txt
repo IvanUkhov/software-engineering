@@ -41,10 +41,10 @@ add_executable(
   algorithm/sort/selection.cc
   algorithm/sort/tree.cc
   problem/fixed_difference.cc
+  problem/matrix_rotation.cc
   problem/multi_stack.cc
   problem/nested_permutation.cc
   problem/palindrome_permutation.cc
-  problem/rotate_matrix.cc
   problem/solve_cubes.cc
   problem/string_permutation.cc
   problem/track_median.cc
