@@ -41,6 +41,7 @@ add_executable(
   algorithm/sort/selection.cc
   algorithm/sort/tree.cc
   problem/char_replacement.cc
+  problem/factorial_zeros.cc
   problem/fixed_difference.cc
   problem/four_cubes.cc
   problem/matrix_rotation.cc
