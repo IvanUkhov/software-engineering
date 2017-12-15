@@ -6,9 +6,9 @@ include_directories(
 
 add_library(
   interview
-  problem/find_permutations.cc
   problem/fixed_difference.cc
   problem/list_permutations.cc
+  problem/nested_permutation.cc
   problem/palindrome_permutation.cc
   problem/solve_cubes.cc
   problem/urlify_space.cc
