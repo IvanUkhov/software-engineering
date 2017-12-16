@@ -10,27 +10,7 @@ namespace structure { namespace list {
 template <typename T>
 class Forward {
  public:
-  class Iterator : public std::iterator<std::input_iterator_tag, Forward> {
-   public:
-    Iterator() : node_(nullptr) {}
-    Iterator(Forward& node) : node_(&node) {}
-
-    Iterator& operator++() {
-      node_ = node_->next_.get();
-      return *this;
-    }
-
-    Forward& operator*() const {
-      return *node_;
-    }
-
-    bool operator!=(const Iterator& other) {
-      return node_ != other.node_;
-    }
-
-   private:
-    Forward* node_;
-  };
+  class Iterator;
 
   Forward(T value) : value_(std::move(value)) {}
 
@@ -73,6 +53,30 @@ class Forward {
  private:
   std::unique_ptr<Forward> next_;
   T value_;
+};
+
+template <typename T>
+class Forward<T>::Iterator
+    : public std::iterator<std::input_iterator_tag, Forward> {
+ public:
+  Iterator() : node_(nullptr) {}
+  Iterator(Forward& node) : node_(&node) {}
+
+  Iterator& operator++() {
+    node_ = node_->next_.get();
+    return *this;
+  }
+
+  Forward& operator*() const {
+    return *node_;
+  }
+
+  bool operator!=(const Iterator& other) {
+    return node_ != other.node_;
+  }
+
+ private:
+  Forward* node_;
 };
 
 template <typename T>
