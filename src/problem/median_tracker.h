@@ -16,7 +16,7 @@ class MedianTracker {
 
   void Consume(T value) {
     ++count_;
-    tree_.Insert(value, true);
+    tree_.Insert(value);
   }
 
   double Compute() const {
@@ -26,7 +26,7 @@ class MedianTracker {
   }
 
  private:
-  typedef structure::tree::BinarySearch<T, bool> Tree;
+  typedef structure::tree::BinarySearch<T> Tree;
 
   struct Visitor {
    public:
@@ -37,7 +37,7 @@ class MedianTracker {
 
     bool Visit(typename Tree::Node* node) {
       if (index >= start) {
-        median += node->Key();
+        median += node->Value();
         if (--take == 0) {
           median /= index - start + 1;
           return false;

@@ -10,7 +10,7 @@ namespace algorithm { namespace sort {
 namespace internal {
 
 template <typename T>
-using Tree = structure::tree::BinarySearch<T, bool>;
+using Tree = structure::tree::BinarySearch<T>;
 
 template <typename T>
 class Visitor {
@@ -20,7 +20,7 @@ class Visitor {
   }
 
   bool Visit(typename Tree<T>::Node* node) {
-    data_.push_back(node->Key());
+    data_.push_back(node->Value());
     return true;
   }
 
@@ -33,7 +33,7 @@ class Visitor {
 template <typename T>
 void BinaryTree(std::vector<T>& data) {
   internal::Tree<T> tree;
-  for (auto key : data) tree.Insert(key, false);
+  for (auto value : data) tree.Insert(value);
   internal::Visitor<T> visitor(data);
   tree.Accept(visitor);
 }
