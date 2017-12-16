@@ -32,8 +32,6 @@ class BinarySearch<T>::Node {
   friend class BinarySearch;
 
  public:
-  Node(T value) : value_(std::move(value)) {}
-
   const T& Value() const {
     return value_;
   }
@@ -50,6 +48,8 @@ class BinarySearch<T>::Node {
   bool AcceptInOrder(U& visitor) const;
 
  private:
+  Node(T value) : value_(std::move(value)) {}
+
   T value_;
   std::unique_ptr<Node> left_;
   std::unique_ptr<Node> right_;
