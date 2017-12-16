@@ -21,40 +21,42 @@ class MedianTracker {
 
   double Compute() const {
     Visitor visitor(count_);
-    tree_.Accept(visitor);
+    tree_.Root()->AcceptInOrder(visitor);
     return visitor.median;
   }
 
  private:
   typedef structure::tree::BinarySearch<T> Tree;
-
-  struct Visitor {
-   public:
-    Visitor(std::size_t count)
-        : start(((double)count - 0.5) / 2),
-          take(count % 2 == 0 ? 2 : 1),
-          index(0), median(0.0) {}
-
-    bool Visit(typename Tree::Node* node) {
-      if (index >= start) {
-        median += node->Value();
-        if (--take == 0) {
-          median /= index - start + 1;
-          return false;
-        }
-      }
-      ++index;
-      return true;
-    }
-
-    std::size_t start;
-    std::size_t take;
-    std::size_t index;
-    double median;
-  };
+  struct Visitor;
 
   std::size_t count_;
   Tree tree_;
+};
+
+template <typename T>
+struct MedianTracker<T>::Visitor {
+ public:
+  Visitor(std::size_t count)
+      : start(((double)count - 0.5) / 2),
+        take(count % 2 == 0 ? 2 : 1),
+        index(0), median(0.0) {}
+
+  bool Visit(const typename Tree::Node* node) {
+    if (index >= start) {
+      median += node->Value();
+      if (--take == 0) {
+        median /= index - start + 1;
+        return false;
+      }
+    }
+    ++index;
+    return true;
+  }
+
+  std::size_t start;
+  std::size_t take;
+  std::size_t index;
+  double median;
 };
 
 } // namespace problem

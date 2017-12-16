@@ -19,7 +19,7 @@ class Visitor {
     data_.resize(0);
   }
 
-  bool Visit(typename Tree<T>::Node* node) {
+  bool Visit(const typename Tree<T>::Node* node) {
     data_.push_back(node->Value());
     return true;
   }
@@ -35,7 +35,7 @@ void BinaryTree(std::vector<T>& data) {
   internal::Tree<T> tree;
   for (auto value : data) tree.Insert(value);
   internal::Visitor<T> visitor(data);
-  tree.Accept(visitor);
+  tree.Root()->AcceptInOrder(visitor);
 }
 
 } } // namespace algorithm::sort

@@ -21,17 +21,9 @@ class BinarySearch {
     Insert(std::unique_ptr<Node>(new Node(std::move(value))));
   }
 
-  template <typename U>
-  void Accept(U& visitor) const {
-    if (root_) Accept(visitor, root_.get());
-  }
-
   Node* Find(const T& value) const;
 
  private:
-  template <typename U>
-  bool Accept(U& visitor, Node* node) const;
-
   std::unique_ptr<Node> root_;
 };
 
@@ -53,6 +45,9 @@ class BinarySearch<T>::Node {
   Node* Right() const {
     return right_.get();
   }
+
+  template <typename U>
+  bool AcceptInOrder(U& visitor) const;
 
  private:
   T value_;
@@ -84,10 +79,10 @@ typename BinarySearch<T>::Node* BinarySearch<T>::Find(const T& value) const {
 
 template <typename T>
 template <typename U>
-bool BinarySearch<T>::Accept(U& visitor, Node* node) const {
-  if (node->left_ && !Accept(visitor, node->Left())) return false;
-  if (!visitor.Visit(node)) return false;
-  if (node->right_ && !Accept(visitor, node->Right())) return false;
+bool BinarySearch<T>::Node::AcceptInOrder(U& visitor) const {
+  if (left_ && !left_->AcceptInOrder(visitor)) return false;
+  if (!visitor.Visit(this)) return false;
+  if (right_ && !right_->AcceptInOrder(visitor)) return false;
   return true;
 }
 
