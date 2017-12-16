@@ -6,13 +6,13 @@
 
 namespace structure { namespace tree {
 
-template <typename K, typename V>
+template <typename T>
 class RedBlack {
  public:
   class Node;
 
-  void Insert(K key, V value) {
-    auto node = Insert(std::unique_ptr<Node>(new Node(key, std::move(value))));
+  void Insert(T value) {
+    auto node = Insert(std::unique_ptr<Node>(new Node(std::move(value))));
     Repair(node);
   }
 
@@ -63,20 +63,14 @@ class RedBlack {
   std::unique_ptr<Node> root_;
 };
 
-template <typename K, typename V>
-class RedBlack<K, V>::Node {
+template <typename T>
+class RedBlack<T>::Node {
   friend class RedBlack;
 
  public:
-  Node(K key, V value)
-      : key_(key), value_(std::move(value)),
-        red_(true), parent_(nullptr) {}
+  Node(T value) : value_(std::move(value)), red_(true), parent_(nullptr) {}
 
-  const K& Key() const {
-    return key_;
-  }
-
-  V& Value() {
+  const T& Value() const {
     return value_;
   }
 
@@ -141,31 +135,29 @@ private:
     red_ = true;
   }
 
-  K key_;
-  V value_;
+  T value_;
   bool red_;
   Node* parent_;
   std::unique_ptr<Node> left_;
   std::unique_ptr<Node> right_;
 };
 
-template <typename K, typename V>
-typename RedBlack<K, V>::Node* RedBlack<K, V>::Insert(
-    std::unique_ptr<Node> node) {
+template <typename T>
+typename RedBlack<T>::Node* RedBlack<T>::Insert(std::unique_ptr<Node> node) {
   Node* parent = nullptr;
   auto* target = &root_;
   while (*target) {
     parent = target->get();
-    if (node->key_ <= parent->key_) target = &parent->left_;
-    else target = &parent->right_;
+    if (parent->value_ < node->value_) target = &parent->right_;
+    else target = &parent->left_;
   }
   node->parent_ = parent;
   *target = std::move(node);
   return target->get();
 }
 
-template <typename K, typename V>
-void RedBlack<K, V>::Repair(Node* node) {
+template <typename T>
+void RedBlack<T>::Repair(Node* node) {
   if (!node->parent_) {
     node->MakeBlack();
     return;

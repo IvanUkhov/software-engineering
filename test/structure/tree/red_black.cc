@@ -1,34 +1,34 @@
 #include "gtest/gtest.h"
 #include "structure/tree/red_black.h"
 
-typedef structure::tree::RedBlack<int, int> Tree;
+typedef structure::tree::RedBlack<int> Tree;
 
 TEST(TreeTest, RedBlackRotateLeft) {
   Tree tree;
-  tree.Insert(1, 0);
-  ASSERT_EQ(tree.Root()->Key(), 1);
-  tree.Insert(2, 0);
-  ASSERT_EQ(tree.Root()->Right()->Key(), 2);
-  tree.Insert(3, 0);
-  ASSERT_EQ(tree.Root()->Key(), 2);
-  ASSERT_EQ(tree.Root()->Right()->Key(), 3);
-  tree.Insert(4, 0);
-  ASSERT_EQ(tree.Root()->Right()->Right()->Key(), 4);
-  tree.Insert(5, 0);
-  ASSERT_EQ(tree.Root()->Right()->Right()->Key(), 5);
+  tree.Insert(1);
+  ASSERT_EQ(tree.Root()->Value(), 1);
+  tree.Insert(2);
+  ASSERT_EQ(tree.Root()->Right()->Value(), 2);
+  tree.Insert(3);
+  ASSERT_EQ(tree.Root()->Value(), 2);
+  ASSERT_EQ(tree.Root()->Right()->Value(), 3);
+  tree.Insert(4);
+  ASSERT_EQ(tree.Root()->Right()->Right()->Value(), 4);
+  tree.Insert(5);
+  ASSERT_EQ(tree.Root()->Right()->Right()->Value(), 5);
 }
 
 TEST(TreeTest, RedBlackRotateRight) {
   Tree tree;
-  tree.Insert(5, 0);
-  ASSERT_EQ(tree.Root()->Key(), 5);
-  tree.Insert(4, 0);
-  ASSERT_EQ(tree.Root()->Left()->Key(), 4);
-  tree.Insert(3, 0);
-  ASSERT_EQ(tree.Root()->Key(), 4);
-  ASSERT_EQ(tree.Root()->Left()->Key(), 3);
-  tree.Insert(2, 0);
-  ASSERT_EQ(tree.Root()->Left()->Left()->Key(), 2);
-  tree.Insert(1, 0);
-  ASSERT_EQ(tree.Root()->Left()->Left()->Key(), 1);
+  tree.Insert(5);
+  ASSERT_EQ(tree.Root()->Value(), 5);
+  tree.Insert(4);
+  ASSERT_EQ(tree.Root()->Left()->Value(), 4);
+  tree.Insert(3);
+  ASSERT_EQ(tree.Root()->Value(), 4);
+  ASSERT_EQ(tree.Root()->Left()->Value(), 3);
+  tree.Insert(2);
+  ASSERT_EQ(tree.Root()->Left()->Left()->Value(), 2);
+  tree.Insert(1);
+  ASSERT_EQ(tree.Root()->Left()->Left()->Value(), 1);
 }
