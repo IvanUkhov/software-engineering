@@ -10,6 +10,7 @@ add_library(
   problem/factorial_zeros.cc
   problem/fixed_difference.cc
   problem/four_cubes.cc
+  problem/minimal_tree.cc
   problem/nested_permutation.cc
   problem/palindrome_permutation.cc
   problem/string_permutation.cc

@@ -46,6 +46,7 @@ add_executable(
   problem/four_cubes.cc
   problem/matrix_rotation.cc
   problem/median_tracker.cc
+  problem/minimal_tree.cc
   problem/multi_stack.cc
   problem/nested_permutation.cc
   problem/palindrome_permutation.cc
