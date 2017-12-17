@@ -9,16 +9,16 @@ namespace internal {
 
 using std::size_t;
 
-void StringPermutation(std::string& string, size_t start, size_t finish,
+void StringPermutation(std::string& string, size_t begin, size_t end,
                        std::ostream& output) {
   using std::swap;
-  if (start + 1 == finish) {
+  if (begin + 1 == end) {
     output << string << std::endl;
   } else {
-    for (size_t i = start; i < finish; ++i) {
-      swap(string[start], string[i]);
-      StringPermutation(string, start + 1, finish, output);
-      swap(string[start], string[i]);
+    for (size_t i = begin; i < end; ++i) {
+      swap(string[begin], string[i]);
+      StringPermutation(string, begin + 1, end, output);
+      swap(string[begin], string[i]);
     }
   }
 }
