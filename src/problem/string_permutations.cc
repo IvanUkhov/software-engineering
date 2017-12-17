@@ -14,12 +14,12 @@ void StringPermutations(std::string& string, size_t begin, size_t end,
   using std::swap;
   if (begin + 1 == end) {
     output << string << std::endl;
-  } else {
-    for (size_t i = begin; i < end; ++i) {
-      swap(string[begin], string[i]);
-      StringPermutations(string, begin + 1, end, output);
-      swap(string[begin], string[i]);
-    }
+    return;
+  }
+  for (size_t i = begin; i < end; ++i) {
+    swap(string[begin], string[i]);
+    StringPermutations(string, begin + 1, end, output);
+    swap(string[begin], string[i]);
   }
 }
 
