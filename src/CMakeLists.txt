@@ -13,5 +13,6 @@ add_library(
   problem/minimal_tree.cc
   problem/nested_permutations.cc
   problem/palindrome_permutations.cc
+  problem/string_combinations.cc
   problem/string_permutations.cc
   )

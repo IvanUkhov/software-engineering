@@ -50,6 +50,7 @@ add_executable(
   problem/multi_stack.cc
   problem/nested_permutations.cc
   problem/palindrome_permutations.cc
+  problem/string_combinations.cc
   problem/string_permutations.cc
   structure/graph/adjacency_list.cc
   structure/list/forward.cc
