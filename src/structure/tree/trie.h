@@ -20,7 +20,6 @@ class Trie {
   typedef std::string::value_type Symbol;
 
   struct Node {
-   public:
     Node() = default;
     Node(T value) : value(std::move(value)) {}
 

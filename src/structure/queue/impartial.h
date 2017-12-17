@@ -37,7 +37,6 @@ class Impartial {
 
  private:
   struct Node {
-   public:
     Node(T value, Node* previous)
         : value(std::move(value)), previous(previous) {}
 

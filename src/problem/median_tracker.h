@@ -35,7 +35,6 @@ class MedianTracker {
 
 template <typename T>
 struct MedianTracker<T>::Visitor {
- public:
   Visitor(std::size_t count)
       : start(((double)count - 0.5) / 2),
         take(count % 2 == 0 ? 2 : 1),
