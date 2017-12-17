@@ -25,11 +25,11 @@ size_t Print(size_t a, size_t b, size_t c, size_t d, std::ostream& output) {
 
 } // namespace internal
 
-std::size_t FourCubes(std::size_t start, std::size_t end,
+std::size_t FourCubes(std::size_t begin, std::size_t end,
                       std::ostream& output) {
   typedef std::pair<std::size_t, std::size_t> Pair;
   std::unordered_map<std::size_t, std::list<Pair>> map;
-  for (std::size_t i = start; i <= end; ++i) {
+  for (std::size_t i = begin; i <= end; ++i) {
     for (std::size_t j = i; j <= end; ++j) {
       auto result = i * i * i + j * j * j;
       map[result].push_back({i, j});

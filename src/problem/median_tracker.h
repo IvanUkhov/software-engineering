@@ -36,15 +36,15 @@ class MedianTracker {
 template <typename T>
 struct MedianTracker<T>::Visitor {
   Visitor(std::size_t count)
-      : start(((double)count - 0.5) / 2),
+      : begin(((double)count - 0.5) / 2),
         take(count % 2 == 0 ? 2 : 1),
         index(0), median(0.0) {}
 
   bool Visit(const typename Tree::Node* node) {
-    if (index >= start) {
+    if (index >= begin) {
       median += node->Value();
       if (--take == 0) {
-        median /= index - start + 1;
+        median /= index - begin + 1;
         return false;
       }
     }
@@ -52,7 +52,7 @@ struct MedianTracker<T>::Visitor {
     return true;
   }
 
-  std::size_t start;
+  std::size_t begin;
   std::size_t take;
   std::size_t index;
   double median;
