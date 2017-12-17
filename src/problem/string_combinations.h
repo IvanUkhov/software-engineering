@@ -11,7 +11,7 @@ namespace problem {
 // string. Two combinations that differ only in ordering of their characters are
 // the same combination. In other words, “12” and “31” are different
 // combinations from the input string “123”, but “21” is the same as “12”.
-void StringCombinations(std::string string, std::ostream& output);
+void StringCombinations(const std::string& string, std::ostream& output);
 
 } // namespace problem
 

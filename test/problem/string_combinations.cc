@@ -8,12 +8,12 @@ TEST(ProblemTest, StringCombinations) {
   problem::StringCombinations("abc", actual);
   const std::string expected = R"(
 a
-b
-c
 ab
-ac
-bc
 abc
+ac
+b
+bc
+c
 )";
   ASSERT_EQ(actual.str(), expected.substr(1));
 }
