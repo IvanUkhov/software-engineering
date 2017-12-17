@@ -11,7 +11,7 @@ add_library(
   problem/fixed_difference.cc
   problem/four_cubes.cc
   problem/minimal_tree.cc
-  problem/nested_permutation.cc
-  problem/palindrome_permutation.cc
-  problem/string_permutation.cc
+  problem/nested_permutations.cc
+  problem/palindrome_permutations.cc
+  problem/string_permutations.cc
   )

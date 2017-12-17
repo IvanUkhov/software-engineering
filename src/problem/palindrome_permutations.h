@@ -1,5 +1,5 @@
-#ifndef PROBLEM_PALINDROME_PERMUTATION_H_
-#define PROBLEM_PALINDROME_PERMUTATION_H_
+#ifndef PROBLEM_PALINDROME_PERMUTATIONS_H_
+#define PROBLEM_PALINDROME_PERMUTATIONS_H_
 
 #include <string>
 
@@ -9,8 +9,8 @@ namespace problem {
 // palindrome. A palindrome is a word or phrase that is the same forwards and
 // backwards. A permutation is a rearrangement of letters. The palindrome does
 // not need to be limited to just dictionary words.
-bool PalindromePermutation(const std::string& string);
+bool PalindromePermutations(const std::string& string);
 
 } // namespace problem
 
-#endif // PROBLEM_PALINDROME_PERMUTATION_H_
+#endif // PROBLEM_PALINDROME_PERMUTATIONS_H_

@@ -48,9 +48,9 @@ add_executable(
   problem/median_tracker.cc
   problem/minimal_tree.cc
   problem/multi_stack.cc
-  problem/nested_permutation.cc
-  problem/palindrome_permutation.cc
-  problem/string_permutation.cc
+  problem/nested_permutations.cc
+  problem/palindrome_permutations.cc
+  problem/string_permutations.cc
   structure/graph/adjacency_list.cc
   structure/list/forward.cc
   structure/map/hash.cc

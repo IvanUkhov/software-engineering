@@ -1,9 +1,9 @@
 #include <algorithm>
 
-#include "problem/nested_permutation.h"
+#include "problem/nested_permutations.h"
 
-std::vector<std::size_t> problem::NestedPermutation(std::string s,
-                                                    std::string b) {
+std::vector<std::size_t> problem::NestedPermutations(std::string s,
+                                                     std::string b) {
   auto ssize = s.size(), bsize = b.size();
   std::sort(s.begin(), s.end());
   std::vector<std::size_t> result;

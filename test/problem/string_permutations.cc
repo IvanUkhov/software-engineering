@@ -1,11 +1,11 @@
 #include <sstream>
 
 #include "gtest/gtest.h"
-#include "problem/string_permutation.h"
+#include "problem/string_permutations.h"
 
-TEST(ProblemTest, StringPermutation) {
+TEST(ProblemTest, StringPermutations) {
   std::stringstream actual;
-  problem::StringPermutation("abc", actual);
+  problem::StringPermutations("abc", actual);
   const std::string expected = R"(
 abc
 acb
