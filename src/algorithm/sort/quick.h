@@ -23,11 +23,10 @@ int Partition(std::vector<T>& data, int left, int right) {
 
 template <typename T>
 void Quick(std::vector<T>& data, int left, int right) {
-  if (left < right) {
-    int middle = Partition(data, left, right);
-    Quick(data, left, middle);
-    Quick(data, middle + 1, right);
-  }
+  if (left >= right) return;
+  int middle = Partition(data, left, right);
+  Quick(data, left, middle);
+  Quick(data, middle + 1, right);
 }
 
 } // namespace internal
