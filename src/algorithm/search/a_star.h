@@ -14,12 +14,14 @@ namespace algorithm { namespace search {
 template <typename Graph,
           typename Node = typename Graph::Node,
           typename Edge = typename Graph::Edge>
-std::list<const Edge*> AStar(
-    const Graph& graph, const Node& from, const Node& into,
-    std::function<double(const Node&)> appraise) {
-  static_assert(std::is_unsigned<typename std::remove_reference<decltype(
-                    std::declval<Edge>().Value())>::type>::value,
-                "AStart requires unsigned integers");
+class AStar {
+ public:
+  typedef std::list<const Edge*> Path;
+
+  static Path Find(const Graph& graph, const Node& from, const Node& into,
+                   std::function<double(const Node&)> appraise);
+
+ private:
   struct Runner {
     double Score() const {
       return past + future;
@@ -30,11 +32,24 @@ std::list<const Edge*> AStar(
     const Node* node;
     const Edge* edge;
   };
+
   struct Comparator {
     bool operator()(const Runner& one, const Runner& another) const {
       return one.Score() < another.Score();
     }
   };
+
+  AStar() {
+    static_assert(std::is_unsigned<typename std::remove_reference<decltype(
+                      std::declval<Edge>().Value())>::type>::value,
+                  "AStart requires unsigned integers");
+  }
+};
+
+template <typename Graph, typename Node, typename Edge>
+typename AStar<Graph, Node, Edge>::Path AStar<Graph, Node, Edge>::Find(
+    const Graph& graph, const Node& from, const Node& into,
+    std::function<double(const Node&)> appraise) {
   structure::tree::BinaryHeap<Runner, Comparator> open_queue;
   std::unordered_map<const Node*, double> open_map;
   std::unordered_map<const Node*, Runner> closed;

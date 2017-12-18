@@ -31,6 +31,14 @@ class Dijkstra {
   }
 
  private:
+  typedef std::pair<std::size_t, const Node*> Runner;
+
+  struct Comparator {
+    bool operator()(const Runner& one, const Runner& another) const {
+      return one.first < another.first;
+    }
+  };
+
   std::unordered_map<const Node*, std::size_t> scores_;
   std::unordered_map<const Node*, const Edge*> sources_;
 };
@@ -40,12 +48,6 @@ Dijkstra<Graph, Node, Edge>::Dijkstra(const Graph& graph, const Node& from) {
   static_assert(std::is_unsigned<typename std::remove_reference<decltype(
                     std::declval<Edge>().Value())>::type>::value,
                 "Dijkstra requires unsigned integers");
-  typedef std::pair<std::size_t, const Node*> Runner;
-  struct Comparator {
-    bool operator()(const Runner& one, const Runner& another) const {
-      return one.first < another.first;
-    }
-  };
   structure::tree::BinaryHeap<Runner, Comparator> open;
   scores_[&from] = 0;
   open.Push({0, &from});
