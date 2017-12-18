@@ -74,6 +74,10 @@ class AdjacencyList<N, E>::Node {
     return I();
   }
 
+  bool operator==(const Node& other) const {
+    return this == &other;
+  }
+
  private:
   Node(N value) : value_(std::move(value)) {}
 
@@ -107,10 +111,6 @@ class AdjacencyList<N, E>::Node {
                                  });
     if (iterator == children_.end()) return nullptr;
     else return iterator->get();
-  }
-
-  bool operator==(const Node& other) const {
-    return this == &other;
   }
 
   N value_;
