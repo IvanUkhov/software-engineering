@@ -32,6 +32,7 @@ class Visitor {
 
 template <typename T>
 void BinaryTree(std::vector<T>& data) {
+  if (data.empty()) return;
   internal::Tree<T> tree;
   for (auto value : data) tree.Insert(value);
   internal::Visitor<T> visitor(data);
