@@ -46,11 +46,11 @@ Dijkstra<Graph, Node, Edge>::Dijkstra(const Graph& graph, const Node& from) {
       return one.first < another.first;
     }
   };
-  structure::tree::BinaryHeap<Runner, Comparator> remaining;
+  structure::tree::BinaryHeap<Runner, Comparator> open;
   scores_[&from] = 0;
-  remaining.Push({0, &from});
-  while (!remaining.IsEmpty()) {
-    auto current = remaining.Pop();
+  open.Push({0, &from});
+  while (!open.IsEmpty()) {
+    auto current = open.Pop();
     if (current.first > scores_[current.second]) continue;
     for (auto& edge : current.second->Edges()) {
       auto destination = &edge->Into();
@@ -59,7 +59,7 @@ Dijkstra<Graph, Node, Edge>::Dijkstra(const Graph& graph, const Node& from) {
           score < scores_[destination]) {
         scores_[destination] = score;
         sources_[destination] = &*edge;
-        remaining.Push({score, destination});
+        open.Push({score, destination});
       }
     }
   }
