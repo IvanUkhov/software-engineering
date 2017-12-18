@@ -14,11 +14,17 @@ const std::size_t kCount = 100;
 
 template <typename T>
 void Assess(void perform(std::vector<T>&), const std::vector<T> data) {
-  std::vector<T> expected(data);
-  std::sort(expected.begin(), expected.end());
-  std::vector<T> actual(data);
-  perform(actual);
-  ASSERT_EQ(actual, expected);
+  {
+    std::vector<T> actual;
+    perform(actual);
+  }
+  {
+    std::vector<T> expected(data);
+    std::sort(expected.begin(), expected.end());
+    std::vector<T> actual(data);
+    perform(actual);
+    ASSERT_EQ(actual, expected);
+  }
 }
 
 template <typename T>
