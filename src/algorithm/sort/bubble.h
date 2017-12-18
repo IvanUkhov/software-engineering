@@ -1,6 +1,7 @@
 #ifndef ALGORITHM_SORT_BUBBLE_H_
 #define ALGORITHM_SORT_BUBBLE_H_
 
+#include <cstddef>
 #include <utility>
 #include <vector>
 
@@ -10,9 +11,9 @@ template <typename T>
 void Bubble(std::vector<T>& data) {
   using std::swap;
   auto size = data.size();
-  for (int i = 1; i < size; ++i) {
+  for (std::size_t i = 1; i < size; ++i) {
     bool swapped = false;
-    for (int j = 0; j < size - i; ++j) {
+    for (std::size_t j = 0; i + j < size; ++j) {
       if (data[j] > data[j + 1]) {
         swap(data[j], data[j + 1]);
         swapped = true;
