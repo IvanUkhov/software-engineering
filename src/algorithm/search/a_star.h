@@ -66,11 +66,7 @@ typename AStar<Graph, Node, Edge>::Path AStar<Graph, Node, Edge>::Find(
         break;
       }
       Runner new_runner = {
-        current_runner.past + edge->Value(),
-        appraise(node),
-        &node,
-        &*edge,
-      };
+        current_runner.past + edge->Value(), appraise(node), &node, &*edge};
       if (open_map.count(&node) > 0 &&
           open_map[&node] < new_runner.Score()) continue;
       if (closed.count(&node) > 0 &&

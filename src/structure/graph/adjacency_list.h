@@ -85,8 +85,8 @@ class AdjacencyList<N, E>::Node {
     auto edge = FindEdge(into);
     if (edge) edge->value_ = std::move(value);
     else {
-      children_.push_back(std::unique_ptr<Edge>(new Edge(*this, into,
-                                                         std::move(value))));
+      children_.push_back(std::unique_ptr<Edge>(
+            new Edge(*this, into, std::move(value))));
       edge = children_.back().get();
       into.parents_.push_back(edge);
     }
