@@ -16,6 +16,12 @@ double Euclidean(double x1, double y1, double x2, double y2) {
   return std::sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
 }
 
+double Heuristic(const Graph::Node& node) {
+  auto row = (node.Value() - 1) / 4 + 1;
+  auto column = node.Value() - 4 * (row - 1);
+  return Euclidean(row, column, 4, 4);
+}
+
 TEST(SearchTest, AStar) {
   Graph graph;
   auto& node1 = graph.AddNode(1);
@@ -52,11 +58,6 @@ TEST(SearchTest, AStar) {
 
   Itinerary::Path expected = {
     &edge15, &edge59, &edge913, &edge1314, &edge1415, &edge1516};
-  auto actual = Itinerary::Find(
-      graph, node1, node16, [](const auto& node) {
-        auto row = (node.Value() - 1) / 4 + 1;
-        auto column = node.Value() - 4 * (row - 1);
-        return Euclidean(row, column, 4, 4);
-      });
+  auto actual = Itinerary::Find(graph, node1, node16, Heuristic);
   ASSERT_EQ(actual, expected);
 }
