@@ -55,27 +55,24 @@ typename AStar<Graph, Node, Edge>::Path AStar<Graph, Node, Edge>::Find(
   std::unordered_map<const Node*, Runner> closed;
   open_queue.Push({0.0, 0.0, &from, nullptr});
   open_map[&from] = 0.0;
-  while (!open_queue.IsEmpty()) {
+  const Edge* found = nullptr;
+  while (!found && !open_queue.IsEmpty()) {
     auto current_runner = open_queue.Pop();
     open_map.erase(current_runner.node);
     for (auto& edge : current_runner.node->Edges()) {
       auto& node = edge->Into();
       if (node == into) {
-        std::list<const Edge*> path;
-        const auto* parent = &*edge;
-        while (parent) {
-          path.push_front(parent);
-          parent = closed[&parent->From()].edge;
-        }
-        return path;
+        found = &*edge;
+        break;
       }
       Runner new_runner = {
-        current_runner.past + (double)edge->Value(),
+        current_runner.past + edge->Value(),
         appraise(node),
         &node,
         &*edge,
       };
-      if (open_map[&node] < new_runner.Score()) continue;
+      if (open_map.count(&node) > 0 &&
+          open_map[&node] < new_runner.Score()) continue;
       if (closed.count(&node) > 0 &&
           closed[&node].Score() < new_runner.Score()) continue;
       open_map[&node] = new_runner.Score();
@@ -83,7 +80,12 @@ typename AStar<Graph, Node, Edge>::Path AStar<Graph, Node, Edge>::Find(
     }
     closed[current_runner.node] = std::move(current_runner);
   }
-  return {};
+  std::list<const Edge*> path;
+  while (found) {
+    path.push_front(found);
+    found = closed[&found->From()].edge;
+  }
+  return path;
 }
 
 } } // namespace algorithm::search
