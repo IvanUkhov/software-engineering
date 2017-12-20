@@ -33,7 +33,7 @@ void Quick(std::vector<T>& data, int left, int right) {
 
 template <typename T>
 void Quick(std::vector<T>& data) {
-  internal::Quick(data, 0, int(data.size()) - 1);
+  internal::Quick(data, 0, static_cast<int>(data.size()) - 1);
 }
 
 } } // namespace algorithm::sort

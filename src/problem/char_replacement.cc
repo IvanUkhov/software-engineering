@@ -5,8 +5,8 @@ void problem::CharReplacement(std::string& string, std::size_t length) {
   for (int i = 0; i < length; ++i) {
     if (string[i] == ' ') ++count;
   }
-  int j = int(length) - count + 3 * count - 1;
-  for (int i = int(length) - 1; i >= 0; --i) {
+  int j = static_cast<int>(length) - count + 3 * count - 1;
+  for (int i = static_cast<int>(length) - 1; i >= 0; --i) {
     if (string[i] != ' ') {
       string[j--] = string[i];
     } else {
