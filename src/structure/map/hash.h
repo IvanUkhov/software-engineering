@@ -20,7 +20,7 @@ class Hash {
   void Set(K key, V value);
 
   double Load() const {
-    return static_cast<double>(Size()) / static_cast<double>(Length());
+    return static_cast<double>(Size()) / Length();
   }
 
   std::size_t Length() const {
