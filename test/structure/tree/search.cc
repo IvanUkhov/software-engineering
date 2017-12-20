@@ -13,7 +13,7 @@ struct Value {
   const char* string;
 };
 
-typedef structure::tree::BinarySearch<Value> Tree;
+using Tree = structure::tree::BinarySearch<Value>;
 
 void Populate(Tree& tree) {
   tree.Insert({8, "a"});

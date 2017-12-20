@@ -3,7 +3,7 @@
 
 const std::size_t kCount = 100;
 
-typedef structure::stack::Array<int> Stack;
+using Stack = structure::stack::Array<int>;
 
 TEST(StackTest, ArrayPushPop) {
   Stack stack;

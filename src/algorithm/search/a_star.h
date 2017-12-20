@@ -16,7 +16,7 @@ template <typename Graph,
           typename Edge = typename Graph::Edge>
 class AStar {
  public:
-  typedef std::list<const Edge*> Path;
+  using Path = std::list<const Edge*>;
 
   static Path Find(const Graph& graph, const Node& from, const Node& into,
                    std::function<double(const Node&)> appraise);

@@ -33,7 +33,7 @@ class List {
   }
 
  private:
-  typedef structure::list::Forward<T> Node;
+  using Node = structure::list::Forward<T>;
 
   std::unique_ptr<Node> head_;
 };

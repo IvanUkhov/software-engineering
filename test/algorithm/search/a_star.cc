@@ -4,8 +4,8 @@
 #include "gtest/gtest.h"
 #include "structure/graph/adjacency_list.h"
 
-typedef structure::graph::AdjacencyList<unsigned, double> Graph;
-typedef algorithm::search::AStar<Graph, Graph::Node, Graph::Edge> Itinerary;
+using Graph = structure::graph::AdjacencyList<unsigned, double>;
+using Itinerary = algorithm::search::AStar<Graph, Graph::Node, Graph::Edge>;
 
 const double kHorizontal = 1.0;
 const double kVertical = 1.0;

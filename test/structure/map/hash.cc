@@ -5,7 +5,7 @@
 
 const std::size_t kCount = 100;
 
-typedef structure::map::Hash<std::string, int> Map;
+using Map = structure::map::Hash<std::string, int>;
 
 TEST(MapTest, HashOverwrite) {
   Map map;

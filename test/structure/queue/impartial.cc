@@ -3,7 +3,7 @@
 
 const std::size_t kCount = 100;
 
-typedef structure::queue::Impartial<int> Queue;
+using Queue = structure::queue::Impartial<int>;
 
 TEST(QueueTest, ImpartialEnqueueDequeue) {
   Queue queue;

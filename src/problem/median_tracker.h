@@ -26,7 +26,7 @@ class MedianTracker {
   }
 
  private:
-  typedef structure::tree::BinarySearch<T> Tree;
+  using Tree = structure::tree::BinarySearch<T>;
   struct Visitor;
 
   std::size_t count_;

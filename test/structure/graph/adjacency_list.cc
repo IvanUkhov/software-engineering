@@ -3,7 +3,7 @@
 
 namespace structure { namespace graph {
 
-typedef AdjacencyList<int, int> Graph;
+using Graph = AdjacencyList<int, int>;
 
 TEST(GraphTest, AdjacencyListManipulate) {
   assess::Manipulate<Graph>();

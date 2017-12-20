@@ -7,7 +7,7 @@
 
 namespace problem {
 
-typedef structure::tree::BinarySearch<int> Tree;
+using Tree = structure::tree::BinarySearch<int>;
 
 // Given a sorted (increasing order) array with unique integer elements, write
 // an algorithm to create a binary search tree with minimal height.

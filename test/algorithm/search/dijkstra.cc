@@ -2,8 +2,8 @@
 #include "gtest/gtest.h"
 #include "structure/graph/adjacency_list.h"
 
-typedef structure::graph::AdjacencyList<unsigned, unsigned> Graph;
-typedef algorithm::search::Dijkstra<Graph, Graph::Node, Graph::Edge> Itinerary;
+using Graph = structure::graph::AdjacencyList<unsigned, unsigned>;
+using Itinerary = algorithm::search::Dijkstra<Graph, Graph::Node, Graph::Edge>;
 
 TEST(SearchTest, Dijkstra) {
   Graph graph;

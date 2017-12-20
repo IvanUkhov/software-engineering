@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 #include "problem/multi_stack.h"
 
-typedef problem::MultiStack<int> Stack;
+using Stack = problem::MultiStack<int>;
 
 std::vector<int> Drain(Stack& stack, std::size_t index) {
   std::vector<int> data;

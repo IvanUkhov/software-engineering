@@ -5,7 +5,7 @@
 
 const std::size_t kCount = 1 << 20;
 
-typedef structure::list::Forward<int> Node;
+using Node = structure::list::Forward<int>;
 
 std::vector<int> Collect(Node& head) {
   std::vector<int> data;

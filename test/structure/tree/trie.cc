@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 #include "structure/tree/trie.h"
 
-typedef structure::tree::Trie<int> Tree;
+using Tree = structure::tree::Trie<int>;
 
 void Populate(Tree& tree) {
   tree.Insert("A", 15);

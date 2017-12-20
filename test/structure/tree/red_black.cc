@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 #include "structure/tree/red_black.h"
 
-typedef structure::tree::RedBlack<int> Tree;
+using Tree = structure::tree::RedBlack<int>;
 
 TEST(TreeTest, RedBlackRotateLeft) {
   Tree tree;

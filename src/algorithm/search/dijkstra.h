@@ -16,7 +16,7 @@ template <typename Graph,
           typename Edge = typename Graph::Edge>
 class Dijkstra {
  public:
-  typedef std::list<const Edge*> Path;
+  using Path = std::list<const Edge*>;
 
   Dijkstra(const Graph& graph, const Node& from);
 
@@ -31,7 +31,7 @@ class Dijkstra {
   }
 
  private:
-  typedef std::pair<std::size_t, const Node*> Runner;
+  using Runner = std::pair<std::size_t, const Node*>;
 
   struct Comparator {
     bool operator()(const Runner& one, const Runner& another) const {

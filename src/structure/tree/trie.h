@@ -11,13 +11,13 @@ namespace structure { namespace tree {
 template <typename T>
 class Trie {
  public:
-  typedef std::string Key;
+  using Key = std::string;
 
   void Insert(const Key& key, T value);
   T* Find(const Key& key);
 
  private:
-  typedef std::string::value_type Symbol;
+  using Symbol = std::string::value_type;
 
   struct Node {
     Node() = default;
