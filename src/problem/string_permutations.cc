@@ -13,7 +13,7 @@ void StringPermutations(std::string& string, size_t begin, size_t end,
                         std::ostream& output) {
   using std::swap;
   if (begin + 1 == end) {
-    output << string << std::endl;
+    output << string << '\n';
     return;
   }
   for (size_t i = begin; i < end; ++i) {

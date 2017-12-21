@@ -13,7 +13,7 @@ using std::size_t;
 size_t Print(size_t a, size_t b, size_t c, size_t d, std::ostream& output) {
   size_t count = 0;
   auto print = [&output, &count](size_t a, size_t b, size_t c, size_t d) {
-    output << a << " " << b << " " << c << " " << d << std::endl;
+    output << a << " " << b << " " << c << " " << d << '\n';
     ++count;
   };
   print(a, b, c, d);
