@@ -52,6 +52,7 @@ add_executable(
   problem/palindrome_permutations.cc
   problem/string_combinations.cc
   problem/string_permutations.cc
+  problem/unique_chars.cc
   structure/graph/adjacency_list.cc
   structure/list/forward.cc
   structure/map/hash.cc
