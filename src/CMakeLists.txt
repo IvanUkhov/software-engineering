@@ -15,5 +15,6 @@ add_library(
   problem/palindrome_permutations.cc
   problem/string_combinations.cc
   problem/string_permutations.cc
+  problem/two_permutations.cc
   problem/unique_chars.cc
   )
