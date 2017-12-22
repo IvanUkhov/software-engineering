@@ -49,6 +49,7 @@ add_executable(
   problem/minimal_tree.cc
   problem/multi_stack.cc
   problem/nested_permutations.cc
+  problem/one_away.cc
   problem/palindrome_permutations.cc
   problem/string_combinations.cc
   problem/string_permutations.cc

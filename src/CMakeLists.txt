@@ -12,6 +12,7 @@ add_library(
   problem/four_cubes.cc
   problem/minimal_tree.cc
   problem/nested_permutations.cc
+  problem/one_away.cc
   problem/palindrome_permutations.cc
   problem/string_combinations.cc
   problem/string_permutations.cc
