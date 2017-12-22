@@ -17,14 +17,14 @@ class Trie {
   T* Find(const Key& key);
 
  private:
-  using Symbol = std::string::value_type;
+  using Glyph = std::string::value_type;
 
   struct Node {
     Node() = default;
     Node(T value) : value(std::move(value)) {}
 
     T value;
-    std::unordered_map<Symbol, std::unique_ptr<Node>> children;
+    std::unordered_map<Glyph, std::unique_ptr<Node>> children;
   };
 
   Node root;
@@ -34,8 +34,8 @@ template <typename T>
 void Trie<T>::Insert(const Key& key, T value) {
   using std::swap;
   auto current = &root;
-  for (auto symbol : key) {
-    auto& child = current->children[symbol];
+  for (auto glyph : key) {
+    auto& child = current->children[glyph];
     if (!child) child = std::unique_ptr<Node>(new Node());
     current = child.get();
   }
@@ -45,8 +45,8 @@ void Trie<T>::Insert(const Key& key, T value) {
 template <typename T>
 T* Trie<T>::Find(const Key& key) {
   auto current = &root;
-  for (auto symbol : key) {
-    auto child = current->children.find(symbol);
+  for (auto glyph : key) {
+    auto child = current->children.find(glyph);
     if (child == current->children.end()) return nullptr;
     current = child->second.get();
   }
