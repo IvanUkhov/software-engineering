@@ -56,6 +56,7 @@ add_executable(
   problem/string_permutations.cc
   problem/two_permutations.cc
   problem/unique_chars.cc
+  problem/zero_matrix.cc
   structure/graph/adjacency_list.cc
   structure/list/forward.cc
   structure/map/hash.cc
