@@ -3,7 +3,7 @@
 #include "gtest/gtest.h"
 #include "problem/minimal_tree.h"
 
-const std::size_t kCount = 20;
+const std::size_t kRoundCount = 20;
 
 template <typename T>
 std::size_t Depth(const T* node) {
@@ -32,7 +32,7 @@ TEST(ProblemTest, MinimalDepth) {
 }
 
 TEST(ProblemTest, MinimalTree) {
-  for (std::size_t i = 0; i < kCount; ++i) {
+  for (std::size_t i = 0; i < kRoundCount; ++i) {
     std::vector<int> data(i);
     std::iota(data.begin(), data.end(), 0);
     auto tree = problem::MinimalTree(data);
