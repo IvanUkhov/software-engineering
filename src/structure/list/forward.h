@@ -35,7 +35,7 @@ class Forward {
     return *current->next_;
   }
 
-  std::unique_ptr<Forward> RemoveAfter() {
+  std::unique_ptr<Forward> BreakAfter() {
     return std::move(next_);
   }
 
@@ -48,6 +48,10 @@ class Forward {
 
   T& Value() {
     return this->value_;
+  }
+
+  Forward* Next() {
+    return next_.get();
   }
 
  private:

@@ -20,7 +20,7 @@ class List {
 
   T Pop() {
     auto node = std::move(head_);
-    head_ = node->RemoveAfter();
+    head_ = node->BreakAfter();
     return node->Value();
   }
 

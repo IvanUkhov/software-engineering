@@ -8,6 +8,7 @@ TEST(ProblemTest, ListDuplicates) {
   Node head(0);
   head.InsertAfter(1)
       .InsertAfter(2)
+      .InsertAfter(2)
       .InsertAfter(1)
       .InsertAfter(0)
       .InsertAfter(3)
