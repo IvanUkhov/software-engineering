@@ -11,8 +11,19 @@ namespace problem {
 // list.
 template <typename T>
 structure::list::Forward<T>* ListTail(structure::list::Forward<T>& head,
-                                      std::size_t k) {
-  return nullptr;
+                                      std::size_t position) {
+  auto fast = &head;
+  while (position > 0) {
+    fast = fast->Next();
+    if (!fast) return nullptr;
+    --position;
+  }
+  auto slow = &head;
+  while (fast->Next()) {
+    fast = fast->Next();
+    slow = slow->Next();
+  }
+  return slow;
 }
 
 } // namespace problem

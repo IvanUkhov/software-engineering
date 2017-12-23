@@ -4,7 +4,7 @@
 
 using Node = structure::list::Forward<int>;
 
-TEST(ProblemTest, ListTail) {
+TEST(ProblemTest, ListTailFound) {
   Node head(0);
   head.InsertAfter(1)
       .InsertAfter(2)
@@ -16,4 +16,10 @@ TEST(ProblemTest, ListTail) {
       .InsertAfter(8)
       .InsertAfter(9);
   ASSERT_EQ(problem::ListTail(head, 3)->Value(), 6);
+}
+
+TEST(ProblemTest, ListTailNotFound) {
+  Node head(0);
+  head.InsertAfter(1).InsertAfter(2);
+  ASSERT_EQ(problem::ListTail(head, 3), nullptr);
 }
