@@ -44,6 +44,7 @@ add_executable(
   problem/factorial_zeros.cc
   problem/fixed_difference.cc
   problem/four_cubes.cc
+  problem/list_duplicates.cc
   problem/matrix_rotation.cc
   problem/median_tracker.cc
   problem/minimal_tree.cc
