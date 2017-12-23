@@ -54,6 +54,7 @@ add_executable(
   problem/string_combinations.cc
   problem/string_compression.cc
   problem/string_permutations.cc
+  problem/string_rotation.cc
   problem/two_permutations.cc
   problem/unique_chars.cc
   problem/zero_matrix.cc
