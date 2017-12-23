@@ -45,6 +45,7 @@ add_executable(
   problem/fixed_difference.cc
   problem/four_cubes.cc
   problem/list_duplicates.cc
+  problem/list_tail.cc
   problem/matrix_rotation.cc
   problem/median_tracker.cc
   problem/minimal_tree.cc

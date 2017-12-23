@@ -9,10 +9,10 @@ namespace problem {
 
 // Write code to remove duplicates from an unsorted linked list.
 template <typename T>
-void ListDuplicates(structure::list::Forward<T>& list) {
+void ListDuplicates(structure::list::Forward<T>& head) {
   std::unordered_set<T> seen;
-  seen.insert(list.Value());
-  auto current = &list;
+  seen.insert(head.Value());
+  auto current = &head;
   while (current->Next()) {
     auto& value = current->Next()->Value();
     if (seen.count(value) > 0) {
