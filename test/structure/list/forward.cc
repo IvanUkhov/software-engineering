@@ -1,22 +1,16 @@
 #include <cstddef>
 
 #include "gtest/gtest.h"
-#include "structure/list/forward.h"
+#include "structure/list/assess.h"
 
 const std::size_t kCount = 1 << 20;
 
 using Node = structure::list::Forward<int>;
 
-std::vector<int> Collect(Node& head) {
-  std::vector<int> data;
-  for (Node& node : head) data.push_back(node.Value());
-  return data;
-}
-
 TEST(ListTest, ForwardInsertAfter) {
   Node head(1);
   head.InsertAfter(2).InsertAfter(3).InsertAfter(4).InsertAfter(5);
-  ASSERT_EQ(Collect(head), std::vector<int>({1, 2, 3, 4, 5}));
+  ASSERT_EQ(structure::list::Collect(head), std::vector<int>({1, 2, 3, 4, 5}));
 }
 
 TEST(ListTest, ForwardPushBack) {
@@ -25,7 +19,8 @@ TEST(ListTest, ForwardPushBack) {
   auto head2 = std::unique_ptr<Node>(new Node(4));
   head2->InsertAfter(5).InsertAfter(6);
   tail1.InsertAfter(std::move(head2)).PushBack(7);
-  ASSERT_EQ(Collect(head1), std::vector<int>({1, 2, 3, 4, 5, 6, 7}));
+  ASSERT_EQ(structure::list::Collect(head1),
+            std::vector<int>({1, 2, 3, 4, 5, 6, 7}));
 }
 
 TEST(DISABLED_ListTest, ForwardPrune) {
