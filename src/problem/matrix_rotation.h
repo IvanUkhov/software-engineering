@@ -10,7 +10,6 @@ namespace problem {
 // place?
 template <typename T>
 void MatrixRotation(T** data, std::size_t size) {
-  if (size == 0) return;
   for (std::size_t i1 = 0; i1 < size; ++i1) {
     for (std::size_t j1 = i1; j1 < size - i1 - 1; ++j1) {
       int i2 = j1, j2 = size - i1 - 1;
