@@ -1,5 +1,6 @@
 #include "problem/string_rotation.h"
 
 bool problem::StringRotation(const std::string& s1, const std::string& s2) {
-  return false;
+  if (s1.size() != s2.size()) return false;
+  return (s1 + s1).find(s2) != std::string::npos;
 }
