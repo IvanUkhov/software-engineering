@@ -12,6 +12,7 @@ add_library(
   problem/fibonacci.cc
   problem/fixed_difference.cc
   problem/four_cubes.cc
+  problem/meter_jump.cc
   problem/minimal_tree.cc
   problem/nested_permutations.cc
   problem/one_away.cc

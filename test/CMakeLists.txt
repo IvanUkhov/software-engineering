@@ -50,6 +50,7 @@ add_executable(
   problem/list_tail.cc
   problem/matrix_rotation.cc
   problem/median_tracker.cc
+  problem/meter_jump.cc
   problem/minimal_tree.cc
   problem/multi_stack.cc
   problem/nested_permutations.cc
