@@ -42,7 +42,7 @@ std::size_t problem::FibonacciLinear(std::size_t number) {
 
 std::size_t problem::FibonacciLogarithmic(std::size_t number) {
   if (number == 0) return 0;
-  internal::Quadratic result = {};
+  internal::Quadratic result;
   internal::Power(internal::kFibonacci, number - 1, result);
   return result[0][0];
 }
