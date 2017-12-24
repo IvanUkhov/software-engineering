@@ -1,7 +1,6 @@
 #ifndef ALGORITHM_SORT_QUICK_H_
 #define ALGORITHM_SORT_QUICK_H_
 
-#include <cstddef>
 #include <utility>
 #include <vector>
 
@@ -13,19 +12,20 @@ template <typename T>
 int Partition(std::vector<T>& data, int begin, int end) {
   using std::swap;
   T pivot = data[begin];
-  int i = begin - 1, j = end;
+  auto i = begin - 1, j = end;
   while (true) {
     while (data[++i] < pivot) {}
     while (data[--j] > pivot) {}
-    if (i < j) swap(data[i], data[j]);
-    else return j + 1;
+    if (i >= j) break;
+    swap(data[i], data[j]);
   }
+  return j + 1;
 }
 
 template <typename T>
-void Quick(std::vector<T>& data, std::size_t begin, std::size_t end) {
-  if (begin + 2 > end) return;
-  int middle = Partition(data, begin, end);
+void Quick(std::vector<T>& data, int begin, int end) {
+  if (end - begin < 2) return;
+  auto middle = Partition(data, begin, end);
   Quick(data, begin, middle);
   Quick(data, middle, end);
 }
