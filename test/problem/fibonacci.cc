@@ -19,3 +19,7 @@ void Test(std::size_t (*compute)(std::size_t)) {
 TEST(ProblemTest, FibonacciLinear) {
   internal::Test(problem::FibonacciLinear);
 }
+
+TEST(ProblemTest, FibonacciLogarithmic) {
+  internal::Test(problem::FibonacciLogarithmic);
+}

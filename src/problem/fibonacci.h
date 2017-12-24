@@ -5,7 +5,11 @@
 
 namespace problem {
 
+// Compute the Fibonacci numbers in linear time.
 std::size_t FibonacciLinear(std::size_t number);
+
+// Compute the Fibonacci numbers in logarithmic time.
+std::size_t FibonacciLogarithmic(std::size_t number);
 
 } // namespace problem
 
