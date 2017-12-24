@@ -5,7 +5,8 @@
 
 namespace problem {
 
-// Find the longest common subsequence between two arrays.
+// How would you find the length of the longest common subsequence of elements
+// in two arrays by using dynamic programming?
 std::string CommonSubsequence(const std::string& one, const std::string& other);
 
 } // namespace problem
