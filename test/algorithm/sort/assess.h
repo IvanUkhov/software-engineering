@@ -19,6 +19,14 @@ void Assess(void perform(std::vector<T>&), const std::vector<T> data) {
     perform(actual);
   }
   {
+    std::vector<T> actual(1);
+    perform(actual);
+  }
+  {
+    std::vector<T> actual(2);
+    perform(actual);
+  }
+  {
     std::vector<T> expected(data);
     std::sort(expected.begin(), expected.end());
     std::vector<T> actual(data);

@@ -26,7 +26,7 @@ void Merge(std::vector<T>& input, std::size_t begin, std::size_t middle,
 template <typename T>
 void SplitMerge(std::vector<T>& input, std::size_t begin, std::size_t end,
                 std::vector<T>& output) {
-  if (end - begin < 2) return;
+  if (begin + 2 > end) return;
   std::size_t middle = (end + begin) / 2;
   SplitMerge(output, begin, middle, input);
   SplitMerge(output, middle, end, input);
