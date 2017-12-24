@@ -16,16 +16,15 @@ int Partition(std::vector<T>& data, int begin, int end) {
   while (true) {
     while (data[++i] < pivot) {}
     while (data[--j] > pivot) {}
-    if (i >= j) break;
+    if (i >= j) return j;
     swap(data[i], data[j]);
   }
-  return j + 1;
 }
 
 template <typename T>
 void Quick(std::vector<T>& data, int begin, int end) {
   if (end - begin < 2) return;
-  auto middle = Partition(data, begin, end);
+  auto middle = Partition(data, begin, end) + 1;
   Quick(data, begin, middle);
   Quick(data, middle, end);
 }
