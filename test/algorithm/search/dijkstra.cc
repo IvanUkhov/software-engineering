@@ -3,7 +3,7 @@
 #include "structure/graph/adjacency_list.h"
 
 using Graph = structure::graph::AdjacencyList<unsigned, unsigned>;
-using Itinerary = algorithm::search::Dijkstra<Graph, Graph::Node, Graph::Edge>;
+using Itinerary = algorithm::search::Dijkstra<Graph>;
 
 TEST(SearchTest, Dijkstra) {
   Graph graph;

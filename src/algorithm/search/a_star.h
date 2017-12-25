@@ -11,11 +11,11 @@
 
 namespace algorithm { namespace search {
 
-template <typename Graph,
-          typename Node = typename Graph::Node,
-          typename Edge = typename Graph::Edge>
+template <typename Graph>
 class AStar {
  public:
+  using Node = typename Graph::Node;
+  using Edge = typename Graph::Edge;
   using Path = std::list<const Edge*>;
 
   static Path Search(const Graph& graph, const Node& from, const Node& into,
@@ -46,8 +46,8 @@ class AStar {
   }
 };
 
-template <typename Graph, typename Node, typename Edge>
-typename AStar<Graph, Node, Edge>::Path AStar<Graph, Node, Edge>::Search(
+template <typename Graph>
+typename AStar<Graph>::Path AStar<Graph>::Search(
     const Graph& graph, const Node& from, const Node& into,
     std::function<double(const Node&)> appraise) {
   structure::tree::BinaryHeap<Runner, Comparator> open_queue;

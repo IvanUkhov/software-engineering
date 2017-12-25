@@ -5,7 +5,7 @@
 #include "structure/graph/adjacency_list.h"
 
 using Graph = structure::graph::AdjacencyList<unsigned, double>;
-using Itinerary = algorithm::search::AStar<Graph, Graph::Node, Graph::Edge>;
+using Itinerary = algorithm::search::AStar<Graph>;
 
 const double kHorizontal = 1.0;
 const double kVertical = 1.0;

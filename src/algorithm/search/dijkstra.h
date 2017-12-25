@@ -11,11 +11,11 @@
 
 namespace algorithm { namespace search {
 
-template <typename Graph,
-          typename Node = typename Graph::Node,
-          typename Edge = typename Graph::Edge>
+template <typename Graph>
 class Dijkstra {
  public:
+  using Node = typename Graph::Node;
+  using Edge = typename Graph::Edge;
   using Path = std::list<const Edge*>;
 
   Dijkstra(const Graph& graph, const Node& from);
@@ -43,8 +43,8 @@ class Dijkstra {
   std::unordered_map<const Node*, const Edge*> sources_;
 };
 
-template <typename Graph, typename Node, typename Edge>
-Dijkstra<Graph, Node, Edge>::Dijkstra(const Graph& graph, const Node& from) {
+template <typename Graph>
+Dijkstra<Graph>::Dijkstra(const Graph& graph, const Node& from) {
   static_assert(std::is_unsigned<typename std::remove_reference<decltype(
                     std::declval<Edge>().Value())>::type>::value,
                 "Dijkstra requires unsigned integers");
