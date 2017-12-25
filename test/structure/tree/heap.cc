@@ -4,8 +4,8 @@
 #include "gtest/gtest.h"
 #include "structure/tree/heap.h"
 
-using structure::tree::MaxHeap;
-using structure::tree::MinHeap;
+using MaxHeap = structure::tree::MaxHeap<int>;
+using MinHeap = structure::tree::MinHeap<int>;
 
 const std::size_t kCount = 100;
 
@@ -21,7 +21,7 @@ TEST(TreeTest, MaxHeapNew) {
   std::vector<int> expected(data);
   std::sort(expected.begin(), expected.end(), std::greater<int>());
 
-  MaxHeap<int> tree(std::move(data));
+  MaxHeap tree(std::move(data));
   auto actual = Drain(tree);
   ASSERT_EQ(actual, expected);
 }
@@ -31,7 +31,7 @@ TEST(TreeTest, MaxHeapPush) {
   std::vector<int> expected(data);
   std::sort(expected.begin(), expected.end(), std::greater<int>());
 
-  MaxHeap<int> tree;
+  MaxHeap tree;
   for (std::size_t i = 0; i < kCount; ++i) tree.Push(data[i]);
   auto actual = Drain(tree);
   ASSERT_EQ(actual, expected);
@@ -42,7 +42,7 @@ TEST(TreeTest, MinHeapPush) {
   std::vector<int> expected(data);
   std::sort(expected.begin(), expected.end());
 
-  MinHeap<int> tree(std::move(data));
+  MinHeap tree(std::move(data));
   auto actual = Drain(tree);
   ASSERT_EQ(actual, expected);
 }
