@@ -1,9 +1,7 @@
 #include "gtest/gtest.h"
 #include "problem/fibonacci.h"
 
-namespace internal {
-
-void Test(std::size_t (*compute)(std::size_t)) {
+void Assess(std::size_t (*compute)(std::size_t)) {
   std::vector<std::size_t> expected = {0, 1, 1, 2, 3,
                                        5, 8, 13, 21, 34,
                                        55, 89, 144, 233, 377,
@@ -14,12 +12,10 @@ void Test(std::size_t (*compute)(std::size_t)) {
   ASSERT_EQ(actual, expected);
 }
 
-} // namespace internal
-
 TEST(ProblemTest, FibonacciLinear) {
-  internal::Test(problem::FibonacciLinear);
+  Assess(problem::FibonacciLinear);
 }
 
 TEST(ProblemTest, FibonacciLogarithmic) {
-  internal::Test(problem::FibonacciLogarithmic);
+  Assess(problem::FibonacciLogarithmic);
 }
