@@ -17,6 +17,6 @@ void Populate(Tree& tree) {
 TEST(TreeTest, TrieSearch) {
   Tree tree;
   Populate(tree);
-  ASSERT_EQ(*tree.Find("ten"), 12);
-  ASSERT_EQ(tree.Find("hello"), nullptr);
+  ASSERT_EQ(*tree.Search("ten"), 12);
+  ASSERT_EQ(tree.Search("hello"), nullptr);
 }

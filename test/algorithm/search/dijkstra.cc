@@ -34,6 +34,6 @@ TEST(SearchTest, Dijkstra) {
 
   Itinerary::Path expected = {&edge13, &edge36, &edge65};
   auto itinerary = Itinerary(graph, node1);
-  auto actual = itinerary.Find(node5);
+  auto actual = itinerary.Search(node5);
   ASSERT_EQ(actual, expected);
 }

@@ -58,6 +58,6 @@ TEST(SearchTest, AStar) {
 
   Itinerary::Path expected = {
     &edge15, &edge59, &edge913, &edge1314, &edge1415, &edge1516};
-  auto actual = Itinerary::Find(graph, node1, node16, Heuristic);
+  auto actual = Itinerary::Search(graph, node1, node16, Heuristic);
   ASSERT_EQ(actual, expected);
 }

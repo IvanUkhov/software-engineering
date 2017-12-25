@@ -14,7 +14,7 @@ class Trie {
   using Key = std::string;
 
   void Insert(const Key& key, T value);
-  T* Find(const Key& key);
+  T* Search(const Key& key);
 
  private:
   using Glyph = std::string::value_type;
@@ -43,7 +43,7 @@ void Trie<T>::Insert(const Key& key, T value) {
 }
 
 template <typename T>
-T* Trie<T>::Find(const Key& key) {
+T* Trie<T>::Search(const Key& key) {
   auto current = &root;
   for (auto glyph : key) {
     auto child = current->children.find(glyph);

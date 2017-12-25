@@ -20,7 +20,7 @@ class Dijkstra {
 
   Dijkstra(const Graph& graph, const Node& from);
 
-  Path Find(const Node& into) const {
+  Path Search(const Node& into) const {
     Path path;
     auto current = &into;
     while (sources_.count(current) > 0) {

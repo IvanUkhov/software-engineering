@@ -18,8 +18,8 @@ class AStar {
  public:
   using Path = std::list<const Edge*>;
 
-  static Path Find(const Graph& graph, const Node& from, const Node& into,
-                   std::function<double(const Node&)> appraise);
+  static Path Search(const Graph& graph, const Node& from, const Node& into,
+                     std::function<double(const Node&)> appraise);
 
  private:
   struct Runner {
@@ -47,7 +47,7 @@ class AStar {
 };
 
 template <typename Graph, typename Node, typename Edge>
-typename AStar<Graph, Node, Edge>::Path AStar<Graph, Node, Edge>::Find(
+typename AStar<Graph, Node, Edge>::Path AStar<Graph, Node, Edge>::Search(
     const Graph& graph, const Node& from, const Node& into,
     std::function<double(const Node&)> appraise) {
   structure::tree::BinaryHeap<Runner, Comparator> open_queue;

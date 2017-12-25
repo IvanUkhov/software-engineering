@@ -40,7 +40,7 @@ class AdjacencyList {
   }
 
   bool HasEdge(const Node& from, const Node& into) const {
-    return from.FindEdge(into) != nullptr;
+    return from.SearchEdge(into) != nullptr;
   }
 
  private:
@@ -82,7 +82,7 @@ class AdjacencyList<N, E>::Node {
   Node(N value) : value_(std::move(value)) {}
 
   Edge& AddEdge(Node& into, E value) {
-    auto edge = FindEdge(into);
+    auto edge = SearchEdge(into);
     if (edge) edge->value_ = std::move(value);
     else {
       children_.push_back(std::unique_ptr<Edge>(
@@ -104,7 +104,7 @@ class AdjacencyList<N, E>::Node {
     children_.erase(iterator);
   }
 
-  Edge* FindEdge(const Node& into) const {
+  Edge* SearchEdge(const Node& into) const {
     auto iterator = std::find_if(children_.begin(), children_.end(),
                                  [&into](const auto& edge) {
                                    return into == edge->into_;

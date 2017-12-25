@@ -21,7 +21,7 @@ class BinarySearch {
     Insert(std::unique_ptr<Node>(new Node(std::move(value))));
   }
 
-  Node* Find(const T& value) const;
+  Node* Search(const T& value) const;
 
  private:
   std::unique_ptr<Node> root_;
@@ -67,7 +67,7 @@ void BinarySearch<T>::Insert(std::unique_ptr<Node> node) {
 }
 
 template <typename T>
-typename BinarySearch<T>::Node* BinarySearch<T>::Find(const T& value) const {
+typename BinarySearch<T>::Node* BinarySearch<T>::Search(const T& value) const {
   auto current = this->root_.get();
   while (current) {
     if (value < current->value_) current = current->Left();

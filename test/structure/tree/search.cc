@@ -36,5 +36,5 @@ TEST(TreeTest, BinarySearchInsert) {
 TEST(TreeTest, BinarySearchSearch) {
   Tree tree;
   Populate(tree);
-  ASSERT_EQ(tree.Find({10})->Value().string, "g");
+  ASSERT_EQ(tree.Search({10})->Value().string, "g");
 }
