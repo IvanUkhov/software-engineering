@@ -145,7 +145,7 @@ private:
 template <typename T>
 typename RedBlack<T>::Node* RedBlack<T>::Insert(std::unique_ptr<Node> node) {
   Node* parent = nullptr;
-  auto* target = &root_;
+  auto target = &root_;
   while (*target) {
     parent = target->get();
     if (parent->value_ < node->value_) target = &parent->right_;
