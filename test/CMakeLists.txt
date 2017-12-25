@@ -69,6 +69,7 @@ add_executable(
   structure/queue/impartial.cc
   structure/stack/array.cc
   structure/stack/list.cc
+  structure/tree/bayer.cc
   structure/tree/heap.cc
   structure/tree/red_black.cc
   structure/tree/search.cc
