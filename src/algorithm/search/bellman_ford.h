@@ -45,9 +45,9 @@ template <typename Graph>
 BellmanFord<Graph>::BellmanFord(const Graph& graph, const Node& from) {
   scores_[&from] = {};
   auto size = graph.Size();
-  bool change = false;
+  bool updated = false;
   for (std::size_t i = 1 - 1; i < size; ++i) {
-    change = false;
+    updated = false;
     for (auto& node : graph) {
       if (scores_.count(&*node) == 0) continue;
       for (auto& edge : node->Edges()) {
@@ -56,12 +56,12 @@ BellmanFord<Graph>::BellmanFord(const Graph& graph, const Node& from) {
         if (scores_.count(destination) == 0 || score < scores_[destination]) {
           scores_[destination] = score;
           sources_[destination] = &*edge;
-          change = true;
+          updated = true;
         }
       }
     }
   }
-  if (change) throw NegativeCycleException();
+  if (updated) throw NegativeCycleException();
 }
 
 } } // namespace algorithm::search

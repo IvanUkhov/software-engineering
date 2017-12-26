@@ -12,14 +12,14 @@ void Bubble(std::vector<T>& data) {
   using std::swap;
   auto size = data.size();
   for (std::size_t i = 1; i < size; ++i) {
-    bool swapped = false;
+    bool updated = false;
     for (std::size_t j = 0; i + j < size; ++j) {
       if (data[j] > data[j + 1]) {
         swap(data[j], data[j + 1]);
-        swapped = true;
+        updated = true;
       }
     }
-    if (!swapped) return;
+    if (!updated) return;
   }
 }
 
