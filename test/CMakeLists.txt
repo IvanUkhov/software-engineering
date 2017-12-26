@@ -71,6 +71,7 @@ add_executable(
   structure/stack/array.cc
   structure/stack/list.cc
   structure/tree/bayer.cc
+  structure/tree/fenwick.cc
   structure/tree/heap.cc
   structure/tree/red_black.cc
   structure/tree/search.cc

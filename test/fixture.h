@@ -14,9 +14,7 @@ std::vector<T> Generate(std::size_t size) {
   Randomize();
   std::vector<T> data;
   data.reserve(size);
-  for (std::size_t i = 0; i < size; ++i) {
-    data.push_back(std::rand());
-  }
+  for (std::size_t i = 0; i < size; ++i) data.push_back(std::rand());
   return data;
 }
 
