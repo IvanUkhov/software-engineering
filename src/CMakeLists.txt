@@ -9,6 +9,7 @@ add_library(
   problem/char_replacement.cc
   problem/common_subsequence.cc
   problem/factorial_zeros.cc
+  problem/free_fields.cc
   problem/fibonacci.cc
   problem/fixed_difference.cc
   problem/four_cubes.cc
