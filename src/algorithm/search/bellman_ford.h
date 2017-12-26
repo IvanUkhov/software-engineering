@@ -3,10 +3,8 @@
 
 #include <cstddef>
 #include <exception>
-#include <limits>
 #include <list>
 #include <unordered_map>
-#include <utility>
 
 namespace algorithm { namespace search {
 
