@@ -1,7 +1,6 @@
 #ifndef ALGORITHM_SEARCH_DIJKSTRA_H_
 #define ALGORITHM_SEARCH_DIJKSTRA_H_
 
-#include <cstddef>
 #include <list>
 #include <type_traits>
 #include <unordered_map>
@@ -31,16 +30,17 @@ class Dijkstra {
   }
 
  private:
-  using Runner = std::pair<std::size_t, const Node*>;
+  using Score = typename std::remove_reference<
+    decltype(std::declval<Edge>().Value())>::type;
+  using Runner = std::pair<Score, const Node*>;
 
-  std::unordered_map<const Node*, std::size_t> scores_;
+  std::unordered_map<const Node*, Score> scores_;
   std::unordered_map<const Node*, const Edge*> sources_;
 };
 
 template <typename Graph>
 Dijkstra<Graph>::Dijkstra(const Graph& graph, const Node& from) {
-  static_assert(std::is_unsigned<typename std::remove_reference<decltype(
-                    std::declval<Edge>().Value())>::type>::value,
+  static_assert(std::is_unsigned<Score>::value,
                 "Dijkstra requires unsigned integers");
   structure::tree::MinHeap<Runner> open;
   scores_[&from] = 0;
