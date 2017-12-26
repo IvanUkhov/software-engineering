@@ -6,18 +6,41 @@
 
 namespace structure { namespace tree {
 
-template <typename T, typename SumType = T>
+template <typename T>
 class Fenwick {
  public:
-  Fenwick(std::vector<T> data) : data_(std::move(data)) {}
+  Fenwick(std::vector<T> data);
 
-  SumType Sum(std::size_t i, std::size_t j) const {
-    return {};
+  T Sum(std::size_t i) const {
+    T result = {};
+    for (; i > 0; i -= i & -i) result += data_[i - 1];
+    return result;
+  }
+
+  T Sum(std::size_t i, std::size_t j) const {
+    T result = {};
+    for (; j > i; j -= j & -j) result += data_[j - 1];
+    for (; i > j; i -= i & -i) result -= data_[i - 1];
+    return result;
+  }
+
+  void Add(std::size_t i, T delta) {
+    auto size = data_.size();
+    for (; i < size; i += (i + 1) & -(i + 1)) data_[i] += delta;
   }
 
  private:
   std::vector<T> data_;
 };
+
+template <typename T>
+Fenwick<T>::Fenwick(std::vector<T> data) : data_(std::move(data)) {
+  auto size = data_.size();
+  for (std::size_t i = 0; i < size; ++i) {
+    auto j = i + ((i + 1) & -(i + 1));
+    if (j < size) data_[j] += data_[i];
+  }
+}
 
 } } // namespace structure::tree
 
