@@ -56,6 +56,7 @@ BellmanFord<Graph>::BellmanFord(const Graph& graph, const Node& from) {
         }
       }
     }
+    if (!updated) return;
   }
   if (updated) throw NegativeCycleException();
 }
