@@ -1,6 +1,7 @@
 #ifndef ALGORITHM_SEARCH_A_STAR_H_
 #define ALGORITHM_SEARCH_A_STAR_H_
 
+#include <cmath>
 #include <functional>
 #include <list>
 #include <type_traits>
@@ -38,12 +39,6 @@ class AStar {
       return one.Score() < another.Score();
     }
   };
-
-  AStar() {
-    static_assert(std::is_unsigned<typename std::remove_reference<decltype(
-                      std::declval<Edge>().Value())>::type>::value,
-                  "AStart requires unsigned integers");
-  }
 };
 
 template <typename Graph>
@@ -66,7 +61,8 @@ typename AStar<Graph>::Path AStar<Graph>::Search(
         break;
       }
       Runner new_runner = {
-        current_runner.past + edge->Value(), appraise(node), &node, &*edge};
+        current_runner.past + std::abs(static_cast<double>(edge->Value())),
+        std::abs(appraise(node)), &node, &*edge};
       if (open_map.count(&node) > 0 &&
           open_map[&node] < new_runner.Score()) continue;
       if (closed.count(&node) > 0 &&
