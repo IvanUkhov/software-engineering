@@ -1,7 +1,11 @@
 #ifndef ALGORITHM_SEARCH_BELLMAN_FORD_H_
 #define ALGORITHM_SEARCH_BELLMAN_FORD_H_
 
+#include <cstddef>
+#include <limits>
 #include <list>
+#include <unordered_map>
+#include <utility>
 
 #include "structure/tree/heap.h"
 
@@ -17,12 +21,40 @@ class BellmanFord {
   BellmanFord(const Graph& graph, const Node& from);
 
   Path Search(const Node& into) const {
-    return {};
+    Path path;
+    auto current = &into;
+    while (sources_.count(current) > 0) {
+      path.push_front(sources_.at(current));
+      current = &path.front()->From();
+    }
+    return path;
   }
+
+ private:
+  using Score = typename std::remove_reference<
+    decltype(std::declval<Edge>().Value())>::type;
+
+  std::unordered_map<const Node*, Score> scores_;
+  std::unordered_map<const Node*, const Edge*> sources_;
 };
 
 template <typename Graph>
 BellmanFord<Graph>::BellmanFord(const Graph& graph, const Node& from) {
+  scores_[&from] = {};
+  auto size = graph.Size();
+  for (std::size_t i = 1; i < size; ++i) {
+    for (auto& node : graph) {
+      if (scores_.count(&*node) == 0) continue;
+      for (auto& edge : node->Edges()) {
+        auto destination = &edge->Into();
+        auto score = scores_[&*node] + edge->Value();
+        if (scores_.count(destination) == 0 || score < scores_[destination]) {
+          scores_[destination] = score;
+          sources_[destination] = &*edge;
+        }
+      }
+    }
+  }
 }
 
 } } // namespace algorithm::search

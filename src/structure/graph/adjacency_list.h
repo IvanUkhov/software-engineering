@@ -2,6 +2,7 @@
 #define STRUCTURE_GRAPH_ADJACENCY_LIST_H_
 
 #include <algorithm>
+#include <cstddef>
 #include <iterator>
 #include <list>
 #include <memory>
@@ -41,6 +42,18 @@ class AdjacencyList {
 
   bool HasEdge(const Node& from, const Node& into) const {
     return from.SearchEdge(into) != nullptr;
+  }
+
+  auto Size() const {
+    return nodes_.size();
+  }
+
+  auto begin() const {
+    return nodes_.begin();
+  }
+
+  auto end() const {
+    return nodes_.end();
   }
 
  private:

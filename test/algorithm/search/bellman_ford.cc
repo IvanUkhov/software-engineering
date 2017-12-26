@@ -2,7 +2,7 @@
 #include "gtest/gtest.h"
 #include "structure/graph/adjacency_list.h"
 
-using Graph = structure::graph::AdjacencyList<const char*, unsigned>;
+using Graph = structure::graph::AdjacencyList<const char*, int>;
 using Itinerary = algorithm::search::BellmanFord<Graph>;
 
 TEST(SearchTest, BellmanFord) {
@@ -20,4 +20,9 @@ TEST(SearchTest, BellmanFord) {
   auto& db = graph.AddEdge(d, b, 1);
   auto& dc = graph.AddEdge(d, c, 5);
   auto& ed = graph.AddEdge(e, d, -3);
+
+  Itinerary::Path expected = {&ab, &be, &ed};
+  auto itinerary = Itinerary(graph, a);
+  auto actual = itinerary.Search(d);
+  ASSERT_EQ(actual, expected);
 }

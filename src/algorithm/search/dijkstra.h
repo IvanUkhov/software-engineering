@@ -51,8 +51,7 @@ Dijkstra<Graph>::Dijkstra(const Graph& graph, const Node& from) {
     for (auto& edge : current.second->Edges()) {
       auto destination = &edge->Into();
       auto score = current.first + edge->Value();
-      if (scores_.count(destination) == 0 ||
-          score < scores_[destination]) {
+      if (scores_.count(destination) == 0 || score < scores_[destination]) {
         scores_[destination] = score;
         sources_[destination] = &*edge;
         open.Push({score, destination});
