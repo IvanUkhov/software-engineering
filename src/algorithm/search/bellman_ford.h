@@ -8,8 +8,6 @@
 #include <unordered_map>
 #include <utility>
 
-#include "structure/tree/heap.h"
-
 namespace algorithm { namespace search {
 
 template <typename Graph>
