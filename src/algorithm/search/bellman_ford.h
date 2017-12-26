@@ -2,6 +2,7 @@
 #define ALGORITHM_SEARCH_BELLMAN_FORD_H_
 
 #include <cstddef>
+#include <exception>
 #include <limits>
 #include <list>
 #include <unordered_map>
@@ -17,6 +18,8 @@ class BellmanFord {
   using Node = typename Graph::Node;
   using Edge = typename Graph::Edge;
   using Path = std::list<const Edge*>;
+
+  class NegativeCycleException : public std::exception {};
 
   BellmanFord(const Graph& graph, const Node& from);
 
@@ -42,7 +45,9 @@ template <typename Graph>
 BellmanFord<Graph>::BellmanFord(const Graph& graph, const Node& from) {
   scores_[&from] = {};
   auto size = graph.Size();
-  for (std::size_t i = 1; i < size; ++i) {
+  bool change = false;
+  for (std::size_t i = 1 - 1; i < size; ++i) {
+    change = false;
     for (auto& node : graph) {
       if (scores_.count(&*node) == 0) continue;
       for (auto& edge : node->Edges()) {
@@ -51,10 +56,12 @@ BellmanFord<Graph>::BellmanFord(const Graph& graph, const Node& from) {
         if (scores_.count(destination) == 0 || score < scores_[destination]) {
           scores_[destination] = score;
           sources_[destination] = &*edge;
+          change = true;
         }
       }
     }
   }
+  if (change) throw NegativeCycleException();
 }
 
 } } // namespace algorithm::search
