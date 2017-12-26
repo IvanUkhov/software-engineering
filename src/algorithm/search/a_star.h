@@ -20,7 +20,7 @@ class AStar {
   using Path = std::list<const Edge*>;
 
   static Path Search(const Graph& graph, const Node& from, const Node& into,
-                     std::function<double(const Node&)> appraise);
+                     std::function<double(const Node&)> estimate);
 
  private:
   struct Runner {
@@ -44,7 +44,7 @@ class AStar {
 template <typename Graph>
 typename AStar<Graph>::Path AStar<Graph>::Search(
     const Graph& graph, const Node& from, const Node& into,
-    std::function<double(const Node&)> appraise) {
+    std::function<double(const Node&)> estimate) {
   structure::tree::BinaryHeap<Runner, Comparator> open_queue;
   std::unordered_map<const Node*, double> open_map;
   std::unordered_map<const Node*, Runner> closed;
@@ -62,7 +62,7 @@ typename AStar<Graph>::Path AStar<Graph>::Search(
       }
       Runner new_runner = {
         current_runner.past + std::abs(static_cast<double>(edge->Value())),
-        std::abs(appraise(node)), &node, &*edge};
+        std::abs(estimate(node)), &node, &*edge};
       if (open_map.count(&node) > 0 &&
           open_map[&node] < new_runner.Score()) continue;
       if (closed.count(&node) > 0 &&
