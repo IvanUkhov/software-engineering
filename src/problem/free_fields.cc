@@ -5,17 +5,16 @@
 std::size_t problem::FreeFields(const std::vector<bool>& board,
                                 std::size_t rows, std::size_t columns) {
   std::size_t max_size = 0;
+  std::vector<std::size_t> sizes(rows * columns);
   for (std::size_t i = 0; i < rows; ++i) {
     for (std::size_t j = 0; j < columns; ++j) {
-      auto limit = std::min(rows - i, columns - j);
-      bool stop = limit < max_size;
-      for (std::size_t size = 1; !stop && size <= limit; ++size) {
-        for (auto k = 0; !stop && k < size; ++k) {
-          stop = !board[(i + size - 1) * columns + (j + k)] ||
-                 !board[(i + k) * columns + (j + size - 1)];
-        }
-        max_size = std::max(max_size, size - (stop ? 1 : 0));
-      }
+      if (!board[i * columns + j]) continue;
+      auto horizontal = i > 0 ? sizes[(i - 1) * columns + j] : 0;
+      auto vertical = j > 0 ? sizes[i * columns + (j - 1)] : 0;
+      auto diagonal = i > 0 && j > 0 ? sizes[(i - 1) * columns + (j + 1)] : 0;
+      sizes[i * columns + j] = 1 + std::min(std::min(horizontal, vertical),
+                                            diagonal);
+      max_size = std::max(max_size, sizes[i * columns + j]);
     }
   }
   return max_size;
