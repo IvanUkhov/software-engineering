@@ -2,12 +2,14 @@
 #define STRUCTURE_TREE_BAYER_H_
 
 #include <array>
+#include <cassert>
 #include <cstddef>
 #include <memory>
+#include <utility>
 
 namespace structure { namespace tree {
 
-template <typename K, typename V, std::size_t N>
+template <typename T, std::size_t N>
 class Bayer {
  public:
   class Node {
@@ -16,27 +18,77 @@ class Bayer {
    public:
 
    private:
-    Node() : leaf_(true), size_(0) {}
+    Node(bool leaf = true) : leaf_(leaf), size_(0) {}
+
+    Node(std::unique_ptr<Node> node) : leaf_(false), size_(0) {
+      children_[0] = std::move(node);
+    }
+
+    void Insert(T key);
+
+    void Split(std::size_t i);
+
+    bool IsFull() const {
+      return size_ == 2 * N - 1;
+    }
+
+    bool IsLeaf() const {
+      return leaf_;
+    }
 
     bool leaf_;
     std::size_t size_;
-    std::array<K, 2 * N - 1> keys_;
-    std::array<V, 2 * N - 1> values_;
+    std::array<T, 2 * N - 1> keys_;
     std::array<std::unique_ptr<Node>, 2 * N> children_;
   };
 
-  Bayer() {}
+  Bayer() : root_(std::unique_ptr<Node>(new Node())) {
+  }
 
-  void Insert(K key, V value);
+  void Insert(T key);
 
  private:
   std::unique_ptr<Node> root_;
 };
 
-template <typename K, typename V, std::size_t N>
-void Bayer<K, V, N>::Insert(K key, V value) {
-  auto& current = &root_;
-  current = std::unique_ptr<Node>(new Node());
+template <typename T, std::size_t N>
+void Bayer<T, N>::Insert(T key) {
+  using std::swap;
+  if (root_->IsFull()) {
+    root_ = std::unique_ptr<Node>(new Node(std::move(root_)));
+    root_.Split(0);
+  }
+  root_.Insert(std::move(key));
+}
+
+template <typename T, std::size_t N>
+void Bayer<T, N>::Node::Insert(T key) {
+}
+
+template <typename T, std::size_t N>
+void Bayer<T, N>::Node::Split(std::size_t i) {
+  using std::swap;
+  assert(!IsFull());
+  auto& child = children_[i];
+  assert(child->IsFull());
+  auto node = std::unique_ptr<Node>(new Node(child->IsLeaf()));
+  for (std::size_t j = 0; j < N - 1; ++j) {
+    swap(node->keys_[j], child->keys_[N + j]);
+  }
+  for (std::size_t j = 0; j < N; ++j) {
+    swap(node->children_[j], child->children_[N + j]);
+  }
+  node->size_ = N - 1;
+  child->size_ = N - 1;
+  for (std::size_t j = size_ + 1; j > i + 1; --j) {
+    swap(children_[j], children_[j - 1]);
+  }
+  swap(children_[i + 1], std::move(node));
+  for (std::size_t j = size_; j > i; --j) {
+    swap(keys_[j], keys_[j - 1]);
+  }
+  swap(keys_[i], child->keys_[N - 1]);
+  ++size_;
 }
 
 } } // namespace structure::tree
