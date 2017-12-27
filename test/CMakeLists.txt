@@ -44,10 +44,10 @@ add_executable(
   problem/char_replacement.cc
   problem/common_subsequence.cc
   problem/factorial_zeros.cc
-  problem/free_fields.cc
   problem/fibonacci.cc
   problem/fixed_difference.cc
   problem/four_cubes.cc
+  problem/free_fields.cc
   problem/list_duplicates.cc
   problem/list_tail.cc
   problem/matrix_rotation.cc
@@ -58,6 +58,7 @@ add_executable(
   problem/nested_permutations.cc
   problem/one_away.cc
   problem/palindrome_permutations.cc
+  problem/rectangle_intersection.cc
   problem/string_combinations.cc
   problem/string_compression.cc
   problem/string_permutations.cc
