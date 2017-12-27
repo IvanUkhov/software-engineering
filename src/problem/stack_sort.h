@@ -1,6 +1,8 @@
 #ifndef PROBLEM_STACK_SORT_H_
 #define PROBLEM_STACK_SORT_H_
 
+#include <utility>
+
 #include "structure/stack/list.h"
 
 namespace problem {
@@ -11,6 +13,15 @@ namespace problem {
 // following operations: push, pop, peek, and isEmpty.
 template <typename T, typename U = structure::stack::List<T>>
 void StackSort(U& stack) {
+  U temporary;
+  while (!stack.IsEmpty()) {
+    T value = stack.Pop();
+    while (!temporary.IsEmpty() && temporary.Peek() > value) {
+      stack.Push(temporary.Pop());
+    }
+    temporary.Push(std::move(value));
+  }
+  while (!temporary.IsEmpty()) stack.Push(temporary.Pop());
 }
 
 } // namespace problem
