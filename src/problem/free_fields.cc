@@ -12,8 +12,7 @@ std::size_t problem::FreeFields(const std::vector<bool>& board,
       auto diagonal = i > 0 && j > 0 ? sizes[(i - 1) * columns + (j + 1)] : 0;
       auto horizontal = i > 0 ? sizes[(i - 1) * columns + j] : 0;
       auto vertical = j > 0 ? sizes[i * columns + (j - 1)] : 0;
-      sizes[i * columns + j] =
-          1 + std::min(diagonal, std::min(horizontal, vertical));
+      sizes[i * columns + j] = 1 + std::min({diagonal, horizontal, vertical});
       max_size = std::max(max_size, sizes[i * columns + j]);
     }
   }
