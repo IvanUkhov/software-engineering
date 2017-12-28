@@ -18,7 +18,9 @@ class Bayer {
 
   using Location = std::pair<const Node*, std::size_t>;
 
-  Bayer() : root_(std::unique_ptr<Node>(new LeafNode())) {}
+  Bayer() : root_(std::unique_ptr<Node>(new LeafNode())) {
+    static_assert(N >= 2, "Bayer requires a degree more than or equal to 2");
+  }
 
   Location Insert(T key);
 
