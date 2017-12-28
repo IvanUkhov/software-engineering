@@ -12,19 +12,21 @@ namespace structure { namespace tree {
 template <typename T, std::size_t N>
 class Bayer {
  public:
+  class Node;
+
+  using Location = std::pair<const Node*, std::size_t>;
+
   class Node {
     friend class Bayer;
 
    public:
+    virtual ~Node() {}
 
-   private:
-    Node(bool leaf = true) : leaf_(leaf), size_(0) {}
+   protected:
+    virtual Node* New() const = 0;
+    virtual Location Insert(T key) = 0;
 
-    Node(std::unique_ptr<Node> node) : leaf_(false), size_(0) {
-      children_[0] = std::move(node);
-    }
-
-    void Insert(T key);
+    Location Search(T key) const;
 
     void Split(std::size_t i);
 
@@ -32,55 +34,56 @@ class Bayer {
       return size_ == 2 * N - 1;
     }
 
-    bool IsLeaf() const {
-      return leaf_;
-    }
-
-    bool leaf_;
-    std::size_t size_;
+    std::size_t size_ = 0;
     std::array<T, 2 * N - 1> keys_;
     std::array<std::unique_ptr<Node>, 2 * N> children_;
   };
 
-  Bayer() : root_(std::unique_ptr<Node>(new Node())) {
-  }
+  class BranchNode : public Node {
+   protected:
+    Node* New() const override {
+      return new BranchNode();
+    }
 
-  void Insert(T key);
+    Location Insert(T key) override;
+  };
+
+  class LeafNode : public Node {
+   protected:
+    Node* New() const override {
+      return new LeafNode();
+    }
+
+    Location Insert(T key) override;
+  };
+
+  Bayer() : root_(std::unique_ptr<Node>(new LeafNode())) {}
+
+  Location Insert(T key);
+
+  Location Search(T key) const {
+    return root_->Search(std::move(key));
+  }
 
  private:
   std::unique_ptr<Node> root_;
 };
 
 template <typename T, std::size_t N>
-void Bayer<T, N>::Insert(T key) {
+typename Bayer<T, N>::Location Bayer<T, N>::Insert(T key) {
   using std::swap;
   if (root_->IsFull()) {
-    root_ = std::unique_ptr<Node>(new Node(std::move(root_)));
-    root_.Split(0);
+    auto node = std::unique_ptr<Node>(new BranchNode());
+    swap(root_, node);
+    swap(node->children_[0], node);
+    root_->Split(0);
   }
-  root_.Insert(std::move(key));
+  return root_->Insert(std::move(key));
 }
 
 template <typename T, std::size_t N>
-void Bayer<T, N>::Node::Insert(T key) {
-  using std::swap;
-  if (IsLeaf()) {
-    auto i = size_;
-    while (i > 0 && keys_[i - 1] > key) {
-      swap(keys_[i], keys_[i - 1]);
-      --i;
-    }
-    swap(keys_[i], key);
-    ++size_;
-  } else {
-    auto i = size_;
-    while (i > 0 && keys_[i - 1] > key) --i;
-    if (children_[i + 1]->IsFull()) {
-      Split(i + 1);
-      if (keys_[i + 1] < key) ++i;
-    }
-    children_[i + 1]->Insert(std::move(key));
-  }
+typename Bayer<T, N>::Location Bayer<T, N>::Node::Search(T key) const {
+  return {nullptr, 0};
 }
 
 template <typename T, std::size_t N>
@@ -89,7 +92,7 @@ void Bayer<T, N>::Node::Split(std::size_t i) {
   assert(!IsFull());
   auto& child = children_[i];
   assert(child->IsFull());
-  auto node = std::unique_ptr<Node>(new Node(child->IsLeaf()));
+  auto node = std::unique_ptr<Node>(child->New());
   for (std::size_t j = 0; j < N - 1; ++j) {
     swap(node->keys_[j], child->keys_[N + j]);
   }
@@ -101,12 +104,38 @@ void Bayer<T, N>::Node::Split(std::size_t i) {
   for (std::size_t j = size_ + 1; j > i + 1; --j) {
     swap(children_[j], children_[j - 1]);
   }
-  swap(children_[i + 1], std::move(node));
+  swap(children_[i + 1], node);
   for (std::size_t j = size_; j > i; --j) {
     swap(keys_[j], keys_[j - 1]);
   }
   swap(keys_[i], child->keys_[N - 1]);
   ++size_;
+}
+
+template <typename T, std::size_t N>
+typename Bayer<T, N>::Location Bayer<T, N>::BranchNode::Insert(T key) {
+  using std::swap;
+  auto i = this->size_;
+  while (i > 0 && this->keys_[i - 1] > key) --i;
+  ++i;
+  if (this->children_[i]->IsFull()) {
+    this->Split(i);
+    if (this->keys_[i] < key) ++i;
+  }
+  return this->children_[i]->Insert(std::move(key));
+}
+
+template <typename T, std::size_t N>
+typename Bayer<T, N>::Location Bayer<T, N>::LeafNode::Insert(T key) {
+  using std::swap;
+  auto i = this->size_;
+  while (i > 0 && this->keys_[i - 1] > key) {
+    swap(this->keys_[i], this->keys_[i - 1]);
+    --i;
+  }
+  swap(this->keys_[i], key);
+  ++this->size_;
+  return {this, i};
 }
 
 } } // namespace structure::tree
