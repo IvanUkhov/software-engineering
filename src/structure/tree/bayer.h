@@ -63,6 +63,24 @@ void Bayer<T, N>::Insert(T key) {
 
 template <typename T, std::size_t N>
 void Bayer<T, N>::Node::Insert(T key) {
+  using std::swap;
+  if (IsLeaf()) {
+    auto i = size_;
+    while (i > 0 && keys_[i - 1] > key) {
+      swap(keys_[i], keys_[i - 1]);
+      --i;
+    }
+    swap(keys_[i], key);
+    ++size_;
+  } else {
+    auto i = size_;
+    while (i > 0 && keys_[i - 1] > key) --i;
+    if (children_[i + 1]->IsFull()) {
+      Split(i + 1);
+      if (keys_[i + 1] < key) ++i;
+    }
+    children_[i + 1]->Insert(std::move(key));
+  }
 }
 
 template <typename T, std::size_t N>
