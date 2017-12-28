@@ -42,9 +42,7 @@ class Bayer<T, N>::Node {
  protected:
   virtual Node* New() const = 0;
   virtual Location Insert(T key) = 0;
-
-  Location Search(T key) const;
-
+  virtual Location Search(T key) const = 0;
   void Split(std::size_t i);
 
   bool IsFull() const {
@@ -64,6 +62,7 @@ class Bayer<T, N>::BranchNode : public Node {
   }
 
   Location Insert(T key) override;
+  Location Search(T key) const override;
 };
 
 template <typename T, std::size_t N>
@@ -74,6 +73,7 @@ class Bayer<T, N>::LeafNode : public Node {
   }
 
   Location Insert(T key) override;
+  Location Search(T key) const override;
 };
 
 template <typename T, std::size_t N>
@@ -86,11 +86,6 @@ typename Bayer<T, N>::Location Bayer<T, N>::Insert(T key) {
     root_->Split(0);
   }
   return root_->Insert(std::move(key));
-}
-
-template <typename T, std::size_t N>
-typename Bayer<T, N>::Location Bayer<T, N>::Node::Search(T key) const {
-  return {nullptr, 0};
 }
 
 template <typename T, std::size_t N>
@@ -143,6 +138,22 @@ typename Bayer<T, N>::Location Bayer<T, N>::LeafNode::Insert(T key) {
   swap(this->keys_[i], key);
   ++this->size_;
   return {this, i};
+}
+
+template <typename T, std::size_t N>
+typename Bayer<T, N>::Location Bayer<T, N>::BranchNode::Search(T key) const {
+  std::size_t i = 0;
+  while (i < this->size_ && this->keys_[i] < key) ++i;
+  if (i < this->size_ && this->keys_[i] == key) return {this, i};
+  return this->children_[i]->Search(std::move(key));
+}
+
+template <typename T, std::size_t N>
+typename Bayer<T, N>::Location Bayer<T, N>::LeafNode::Search(T key) const {
+  std::size_t i = 0;
+  while (i < this->size_ && this->keys_[i] < key) ++i;
+  if (i < this->size_ && this->keys_[i] == key) return {this, i};
+  return {nullptr, 0};
 }
 
 } } // namespace structure::tree

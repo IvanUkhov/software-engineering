@@ -7,4 +7,5 @@ TEST(TreeTest, Bayer) {
   Tree tree;
   auto location1 = tree.Insert(42);
   auto location2 = tree.Search(42);
+  ASSERT_EQ(location1, location2);
 }
