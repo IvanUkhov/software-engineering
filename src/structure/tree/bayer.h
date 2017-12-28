@@ -13,49 +13,10 @@ template <typename T, std::size_t N>
 class Bayer {
  public:
   class Node;
+  class BranchNode;
+  class LeafNode;
 
   using Location = std::pair<const Node*, std::size_t>;
-
-  class Node {
-    friend class Bayer;
-
-   public:
-    virtual ~Node() {}
-
-   protected:
-    virtual Node* New() const = 0;
-    virtual Location Insert(T key) = 0;
-
-    Location Search(T key) const;
-
-    void Split(std::size_t i);
-
-    bool IsFull() const {
-      return size_ == 2 * N - 1;
-    }
-
-    std::size_t size_ = 0;
-    std::array<T, 2 * N - 1> keys_;
-    std::array<std::unique_ptr<Node>, 2 * N> children_;
-  };
-
-  class BranchNode : public Node {
-   protected:
-    Node* New() const override {
-      return new BranchNode();
-    }
-
-    Location Insert(T key) override;
-  };
-
-  class LeafNode : public Node {
-   protected:
-    Node* New() const override {
-      return new LeafNode();
-    }
-
-    Location Insert(T key) override;
-  };
 
   Bayer() : root_(std::unique_ptr<Node>(new LeafNode())) {}
 
@@ -67,6 +28,50 @@ class Bayer {
 
  private:
   std::unique_ptr<Node> root_;
+};
+
+template <typename T, std::size_t N>
+class Bayer<T, N>::Node {
+  friend class Bayer;
+
+ public:
+  virtual ~Node() {}
+
+ protected:
+  virtual Node* New() const = 0;
+  virtual Location Insert(T key) = 0;
+
+  Location Search(T key) const;
+
+  void Split(std::size_t i);
+
+  bool IsFull() const {
+    return size_ == 2 * N - 1;
+  }
+
+  std::size_t size_ = 0;
+  std::array<T, 2 * N - 1> keys_;
+  std::array<std::unique_ptr<Node>, 2 * N> children_;
+};
+
+template <typename T, std::size_t N>
+class Bayer<T, N>::BranchNode : public Node {
+ protected:
+  Node* New() const override {
+    return new BranchNode();
+  }
+
+  Location Insert(T key) override;
+};
+
+template <typename T, std::size_t N>
+class Bayer<T, N>::LeafNode : public Node {
+ protected:
+  Node* New() const override {
+    return new LeafNode();
+  }
+
+  Location Insert(T key) override;
 };
 
 template <typename T, std::size_t N>
