@@ -1,7 +1,5 @@
 #include "problem/fibonacci.h"
 
-namespace internal {
-
 using Quadratic = std::size_t[2][2];
 
 const Quadratic kFibonacci = {{1, 1}, {1, 0}};
@@ -28,8 +26,6 @@ void Power(const Quadratic factor, std::size_t number, Quadratic result) {
   }
 }
 
-}
-
 std::size_t problem::FibonacciLinear(std::size_t number) {
   if (number == 0) return 0;
   std::size_t penultimate = 0, ultimate = 1;
@@ -42,7 +38,7 @@ std::size_t problem::FibonacciLinear(std::size_t number) {
 
 std::size_t problem::FibonacciLogarithmic(std::size_t number) {
   if (number == 0) return 0;
-  internal::Quadratic result;
-  internal::Power(internal::kFibonacci, number - 1, result);
+  Quadratic result;
+  Power(kFibonacci, number - 1, result);
   return result[0][0];
 }

@@ -4,13 +4,9 @@
 
 #include "problem/string_combinations.h"
 
-namespace problem {
-
-namespace internal {
-
-void StringCombinations(
-    const std::string& string, std::size_t begin, std::size_t end,
-    std::string& work, std::ostream& output) {
+void StringCombinations(const std::string& string, std::size_t begin,
+                        std::size_t end, std::string& work,
+                        std::ostream& output) {
   for (std::size_t i = begin; i < end; ++i) {
     work.push_back(string[i]);
     output << work << '\n';
@@ -19,11 +15,8 @@ void StringCombinations(
   }
 }
 
-} // namespace internal
-
-void StringCombinations(const std::string& string, std::ostream& output) {
+void problem::StringCombinations(const std::string& string,
+                                 std::ostream& output) {
   std::string work;
-  internal::StringCombinations(string, 0, string.size(), work, output);
+  ::StringCombinations(string, 0, string.size(), work, output);
 }
-
-} // namespace problem

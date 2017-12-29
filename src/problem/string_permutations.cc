@@ -3,10 +3,6 @@
 
 #include "problem/string_permutations.h"
 
-namespace problem {
-
-namespace internal {
-
 using std::size_t;
 
 void StringPermutations(std::string& string, size_t begin, size_t end,
@@ -23,10 +19,6 @@ void StringPermutations(std::string& string, size_t begin, size_t end,
   }
 }
 
-} // namespace internal
-
-void StringPermutations(std::string string, std::ostream& output) {
-  internal::StringPermutations(string, 0, string.size(), output);
+void problem::StringPermutations(std::string string, std::ostream& output) {
+  ::StringPermutations(string, 0, string.size(), output);
 }
-
-} // namespace problem

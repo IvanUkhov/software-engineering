@@ -4,8 +4,6 @@
 
 namespace problem {
 
-namespace internal {
-
 void Insert(Tree& tree, const std::vector<int>& data,
             std::size_t begin, std::size_t end) {
   if (begin < end) {
@@ -16,11 +14,9 @@ void Insert(Tree& tree, const std::vector<int>& data,
   }
 }
 
-} // namespace internal
-
 Tree MinimalTree(const std::vector<int>& data) {
   Tree tree;
-  internal::Insert(tree, data, 0, data.size());
+  Insert(tree, data, 0, data.size());
   return tree;
 }
 

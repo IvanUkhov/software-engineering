@@ -4,10 +4,6 @@
 
 #include "problem/four_cubes.h"
 
-namespace problem {
-
-namespace internal {
-
 using std::size_t;
 
 size_t Print(size_t a, size_t b, size_t c, size_t d, std::ostream& output) {
@@ -23,10 +19,8 @@ size_t Print(size_t a, size_t b, size_t c, size_t d, std::ostream& output) {
   return count;
 }
 
-} // namespace internal
-
-std::size_t FourCubes(std::size_t begin, std::size_t end,
-                      std::ostream& output) {
+std::size_t problem::FourCubes(std::size_t begin, std::size_t end,
+                               std::ostream& output) {
   using Pair = std::pair<std::size_t, std::size_t>;
   std::unordered_map<std::size_t, std::list<Pair>> map;
   for (std::size_t i = begin; i <= end; ++i) {
@@ -39,12 +33,10 @@ std::size_t FourCubes(std::size_t begin, std::size_t end,
   for (auto& entry : map) {
     for (auto& pair1 : entry.second) {
       for (auto& pair2 : entry.second) {
-        count += internal::Print(pair1.first, pair1.second,
-                                 pair2.first, pair2.second, output);
+        count += Print(pair1.first, pair1.second,
+                       pair2.first, pair2.second, output);
       }
     }
   }
   return count;
 }
-
-} // namespace problem
