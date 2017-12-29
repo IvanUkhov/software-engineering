@@ -19,7 +19,7 @@ class Bayer {
   using Location = std::pair<const Node*, std::size_t>;
 
   Bayer() : root_(std::unique_ptr<Node>(new LeafNode())) {
-    static_assert(D >= 2, "Bayer requires a degree more than or equal to 2");
+    static_assert(D > 0, "Bayer requires a positive minimum degree");
   }
 
   Location Insert(T key);
@@ -46,12 +46,12 @@ class Bayer<T, D>::Node {
   void Split(std::size_t i);
 
   bool IsFull() const {
-    return size_ == 2 * D - 1;
+    return size_ == 2 * D;
   }
 
   std::size_t size_ = 0;
-  std::array<T, 2 * D - 1> keys_;
-  std::array<std::unique_ptr<Node>, 2 * D> children_;
+  std::array<T, 2 * D> keys_;
+  std::array<std::unique_ptr<Node>, 2 * D + 1> children_;
 };
 
 template <typename T, std::size_t D>
@@ -82,7 +82,7 @@ typename Bayer<T, D>::Location Bayer<T, D>::Insert(T key) {
   if (root_->IsFull()) {
     auto node = std::unique_ptr<Node>(new BranchNode());
     swap(root_, node);
-    swap(node->children_[0], node);
+    swap(root_->children_[0], node);
     root_->Split(0);
   }
   return root_->Insert(std::move(key));
@@ -95,22 +95,22 @@ void Bayer<T, D>::Node::Split(std::size_t i) {
   auto& child = children_[i];
   assert(child->IsFull());
   auto node = std::unique_ptr<Node>(child->New());
+  child->size_ = D;
+  node->size_ = D - 1;
   for (std::size_t j = 0; j < D - 1; ++j) {
-    swap(node->keys_[j], child->keys_[D + j]);
+    swap(node->keys_[j], child->keys_[D + 1 + j]);
   }
   for (std::size_t j = 0; j < D; ++j) {
-    swap(node->children_[j], child->children_[D + j]);
+    swap(node->children_[j], child->children_[D + 1 + j]);
   }
-  node->size_ = D - 1;
-  child->size_ = D - 1;
+  for (std::size_t j = size_; j > i; --j) {
+    swap(keys_[j], keys_[j - 1]);
+  }
+  swap(keys_[i], child->keys_[D]);
   for (std::size_t j = size_ + 1; j > i + 1; --j) {
     swap(children_[j], children_[j - 1]);
   }
   swap(children_[i + 1], node);
-  for (std::size_t j = size_; j > i; --j) {
-    swap(keys_[j], keys_[j - 1]);
-  }
-  swap(keys_[i], child->keys_[D - 1]);
   ++size_;
 }
 
@@ -119,7 +119,6 @@ typename Bayer<T, D>::Location Bayer<T, D>::BranchNode::Insert(T key) {
   using std::swap;
   auto i = this->size_;
   while (i > 0 && this->keys_[i - 1] > key) --i;
-  ++i;
   if (this->children_[i]->IsFull()) {
     this->Split(i);
     if (this->keys_[i] < key) ++i;
