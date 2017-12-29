@@ -9,7 +9,7 @@
 
 namespace structure { namespace tree {
 
-template <typename T, std::size_t N>
+template <typename T, std::size_t D>
 class Bayer {
  public:
   class Node;
@@ -19,7 +19,7 @@ class Bayer {
   using Location = std::pair<const Node*, std::size_t>;
 
   Bayer() : root_(std::unique_ptr<Node>(new LeafNode())) {
-    static_assert(N >= 2, "Bayer requires a degree more than or equal to 2");
+    static_assert(D >= 2, "Bayer requires a degree more than or equal to 2");
   }
 
   Location Insert(T key);
@@ -32,8 +32,8 @@ class Bayer {
   std::unique_ptr<Node> root_;
 };
 
-template <typename T, std::size_t N>
-class Bayer<T, N>::Node {
+template <typename T, std::size_t D>
+class Bayer<T, D>::Node {
   friend class Bayer;
 
  public:
@@ -46,16 +46,16 @@ class Bayer<T, N>::Node {
   void Split(std::size_t i);
 
   bool IsFull() const {
-    return size_ == 2 * N - 1;
+    return size_ == 2 * D - 1;
   }
 
   std::size_t size_ = 0;
-  std::array<T, 2 * N - 1> keys_;
-  std::array<std::unique_ptr<Node>, 2 * N> children_;
+  std::array<T, 2 * D - 1> keys_;
+  std::array<std::unique_ptr<Node>, 2 * D> children_;
 };
 
-template <typename T, std::size_t N>
-class Bayer<T, N>::BranchNode : public Node {
+template <typename T, std::size_t D>
+class Bayer<T, D>::BranchNode : public Node {
  protected:
   Node* New() const override {
     return new BranchNode();
@@ -65,8 +65,8 @@ class Bayer<T, N>::BranchNode : public Node {
   Location Search(T key) const override;
 };
 
-template <typename T, std::size_t N>
-class Bayer<T, N>::LeafNode : public Node {
+template <typename T, std::size_t D>
+class Bayer<T, D>::LeafNode : public Node {
  protected:
   Node* New() const override {
     return new LeafNode();
@@ -76,8 +76,8 @@ class Bayer<T, N>::LeafNode : public Node {
   Location Search(T key) const override;
 };
 
-template <typename T, std::size_t N>
-typename Bayer<T, N>::Location Bayer<T, N>::Insert(T key) {
+template <typename T, std::size_t D>
+typename Bayer<T, D>::Location Bayer<T, D>::Insert(T key) {
   using std::swap;
   if (root_->IsFull()) {
     auto node = std::unique_ptr<Node>(new BranchNode());
@@ -88,21 +88,21 @@ typename Bayer<T, N>::Location Bayer<T, N>::Insert(T key) {
   return root_->Insert(std::move(key));
 }
 
-template <typename T, std::size_t N>
-void Bayer<T, N>::Node::Split(std::size_t i) {
+template <typename T, std::size_t D>
+void Bayer<T, D>::Node::Split(std::size_t i) {
   using std::swap;
   assert(!IsFull());
   auto& child = children_[i];
   assert(child->IsFull());
   auto node = std::unique_ptr<Node>(child->New());
-  for (std::size_t j = 0; j < N - 1; ++j) {
-    swap(node->keys_[j], child->keys_[N + j]);
+  for (std::size_t j = 0; j < D - 1; ++j) {
+    swap(node->keys_[j], child->keys_[D + j]);
   }
-  for (std::size_t j = 0; j < N; ++j) {
-    swap(node->children_[j], child->children_[N + j]);
+  for (std::size_t j = 0; j < D; ++j) {
+    swap(node->children_[j], child->children_[D + j]);
   }
-  node->size_ = N - 1;
-  child->size_ = N - 1;
+  node->size_ = D - 1;
+  child->size_ = D - 1;
   for (std::size_t j = size_ + 1; j > i + 1; --j) {
     swap(children_[j], children_[j - 1]);
   }
@@ -110,12 +110,12 @@ void Bayer<T, N>::Node::Split(std::size_t i) {
   for (std::size_t j = size_; j > i; --j) {
     swap(keys_[j], keys_[j - 1]);
   }
-  swap(keys_[i], child->keys_[N - 1]);
+  swap(keys_[i], child->keys_[D - 1]);
   ++size_;
 }
 
-template <typename T, std::size_t N>
-typename Bayer<T, N>::Location Bayer<T, N>::BranchNode::Insert(T key) {
+template <typename T, std::size_t D>
+typename Bayer<T, D>::Location Bayer<T, D>::BranchNode::Insert(T key) {
   using std::swap;
   auto i = this->size_;
   while (i > 0 && this->keys_[i - 1] > key) --i;
@@ -127,8 +127,8 @@ typename Bayer<T, N>::Location Bayer<T, N>::BranchNode::Insert(T key) {
   return this->children_[i]->Insert(std::move(key));
 }
 
-template <typename T, std::size_t N>
-typename Bayer<T, N>::Location Bayer<T, N>::LeafNode::Insert(T key) {
+template <typename T, std::size_t D>
+typename Bayer<T, D>::Location Bayer<T, D>::LeafNode::Insert(T key) {
   using std::swap;
   auto i = this->size_;
   while (i > 0 && this->keys_[i - 1] > key) {
@@ -140,16 +140,16 @@ typename Bayer<T, N>::Location Bayer<T, N>::LeafNode::Insert(T key) {
   return {this, i};
 }
 
-template <typename T, std::size_t N>
-typename Bayer<T, N>::Location Bayer<T, N>::BranchNode::Search(T key) const {
+template <typename T, std::size_t D>
+typename Bayer<T, D>::Location Bayer<T, D>::BranchNode::Search(T key) const {
   std::size_t i = 0;
   while (i < this->size_ && this->keys_[i] < key) ++i;
   if (i < this->size_ && this->keys_[i] == key) return {this, i};
   return this->children_[i]->Search(std::move(key));
 }
 
-template <typename T, std::size_t N>
-typename Bayer<T, N>::Location Bayer<T, N>::LeafNode::Search(T key) const {
+template <typename T, std::size_t D>
+typename Bayer<T, D>::Location Bayer<T, D>::LeafNode::Search(T key) const {
   std::size_t i = 0;
   while (i < this->size_ && this->keys_[i] < key) ++i;
   if (i < this->size_ && this->keys_[i] == key) return {this, i};
