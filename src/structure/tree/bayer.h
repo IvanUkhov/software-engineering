@@ -22,6 +22,10 @@ class Bayer {
     static_assert(D > 0, "Bayer requires a positive minimum degree");
   }
 
+  auto& Root() const {
+    return *root_;
+  }
+
   Location Insert(T key);
 
   Location Search(T key) const {
@@ -38,6 +42,14 @@ class Bayer<T, D>::Node {
 
  public:
   virtual ~Node() {}
+
+  auto& Keys() const {
+    return keys_;
+  }
+
+  auto& Children() const {
+    return children_;
+  }
 
  protected:
   virtual Node* New() const = 0;
