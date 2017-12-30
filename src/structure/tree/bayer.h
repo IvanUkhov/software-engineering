@@ -43,6 +43,10 @@ class Bayer<T, D>::Node {
  public:
   virtual ~Node() {}
 
+  auto Size() const {
+    return size_;
+  }
+
   auto& Keys() const {
     return keys_;
   }
