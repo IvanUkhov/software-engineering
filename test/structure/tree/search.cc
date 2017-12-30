@@ -15,15 +15,15 @@ struct Value : public std::pair<int, const char*> {
 using Tree = structure::tree::BinarySearch<Value>;
 
 void Populate(Tree& tree) {
-  tree.Insert({8, "a"});
-  tree.Insert({3, "b"});
-  tree.Insert({1, "c"});
-  tree.Insert({6, "d"});
-  tree.Insert({4, "e"});
-  tree.Insert({7, "f"});
-  tree.Insert({10, "g"});
-  tree.Insert({14, "h"});
-  tree.Insert({13, "i"});
+  tree.Insert({8, "a"})
+      .Insert({3, "b"})
+      .Insert({1, "c"})
+      .Insert({6, "d"})
+      .Insert({4, "e"})
+      .Insert({7, "f"})
+      .Insert({10, "g"})
+      .Insert({14, "h"})
+      .Insert({13, "i"});
 }
 
 TEST(TreeTest, BinarySearchInsert) {

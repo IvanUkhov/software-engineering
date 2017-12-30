@@ -15,10 +15,10 @@ class BinarySearch {
     return root_.get();
   }
 
-  void Insert(std::unique_ptr<Node> node);
+  BinarySearch& Insert(std::unique_ptr<Node> node);
 
-  void Insert(T value) {
-    Insert(std::unique_ptr<Node>(new Node(std::move(value))));
+  BinarySearch& Insert(T value) {
+    return Insert(std::unique_ptr<Node>(new Node(std::move(value))));
   }
 
   Node* Search(const T& value) const;
@@ -56,7 +56,7 @@ class BinarySearch<T>::Node {
 };
 
 template <typename T>
-void BinarySearch<T>::Insert(std::unique_ptr<Node> node) {
+BinarySearch<T>& BinarySearch<T>::Insert(std::unique_ptr<Node> node) {
   auto* target = &root_;
   while (*target) {
     auto parent = target->get();
@@ -64,6 +64,7 @@ void BinarySearch<T>::Insert(std::unique_ptr<Node> node) {
     else target = &parent->left_;
   }
   *target = std::move(node);
+  return *this;
 }
 
 template <typename T>
