@@ -1,16 +1,15 @@
 #include <initializer_list>
+#include <utility>
 
 #include "gtest/gtest.h"
 #include "structure/tree/search.h"
 
-struct Value {
- public:
-  bool operator<(const Value& other) const {
-    return number < other.number;
-  }
+struct Value : public std::pair<int, const char*> {
+  Value(int first, const char* second = nullptr) : pair(first, second) {}
 
-  int number;
-  const char* string;
+  bool operator<(const Value& other) const {
+    return first < other.first;
+  }
 };
 
 using Tree = structure::tree::BinarySearch<Value>;
@@ -30,11 +29,11 @@ void Populate(Tree& tree) {
 TEST(TreeTest, BinarySearchInsert) {
   Tree tree;
   Populate(tree);
-  ASSERT_EQ(tree.Root()->Right()->Right()->Left()->Value().number, 13);
+  ASSERT_EQ(tree.Root()->Right()->Right()->Left()->Value().first, 13);
 }
 
 TEST(TreeTest, BinarySearchSearch) {
   Tree tree;
   Populate(tree);
-  ASSERT_EQ(tree.Search({10})->Value().string, "g");
+  ASSERT_EQ(tree.Search({10})->Value().second, "g");
 }
