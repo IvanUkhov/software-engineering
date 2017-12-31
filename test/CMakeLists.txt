@@ -42,6 +42,7 @@ add_executable(
   algorithm/sort/selection.cc
   algorithm/sort/tree.cc
   problem/balanced_tree.cc
+  problem/binary_search.cc
   problem/char_replacement.cc
   problem/common_subsequence.cc
   problem/factorial_zeros.cc
