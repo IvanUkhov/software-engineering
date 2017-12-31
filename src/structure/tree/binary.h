@@ -16,16 +16,16 @@ class Binary {
   }
 
  protected:
-  std::unique_ptr<Node>& RootOwned() {
-    return root_;
-  }
-
-  std::unique_ptr<Node>& LeftOwned(std::unique_ptr<Node>& node) const {
+  static std::unique_ptr<Node>& LeftOwned(std::unique_ptr<Node>& node) {
     return node->left_;
   }
 
-  std::unique_ptr<Node>& RightOwned(std::unique_ptr<Node>& node) const {
+  static std::unique_ptr<Node>& RightOwned(std::unique_ptr<Node>& node) {
     return node->right_;
+  }
+
+  std::unique_ptr<Node>& RootOwned() {
+    return root_;
   }
 
  private:
