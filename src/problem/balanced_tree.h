@@ -1,8 +1,6 @@
 #ifndef PROBLEM_BALANCED_TREE_H_
 #define PROBLEM_BALANCED_TREE_H_
 
-#include <algorithm>
-
 namespace problem {
 
 namespace internal {
