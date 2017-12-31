@@ -56,6 +56,10 @@ class AdjacencyList {
     return nodes_.end();
   }
 
+  Node& operator[](std::size_t index) {
+    return *nodes_[index];
+  }
+
  private:
   std::vector<std::unique_ptr<Node>> nodes_;
 };
@@ -73,7 +77,11 @@ class AdjacencyList<N, E>::Node {
     return value_;
   }
 
-  auto& Edges() const {
+  auto& Parents() const {
+    return parents_;
+  }
+
+  auto& Children() const {
     return children_;
   }
 

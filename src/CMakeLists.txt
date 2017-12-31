@@ -6,13 +6,14 @@ include_directories(
 
 add_library(
   interview
+  problem/build_order.cc
   problem/char_replacement.cc
   problem/common_subsequence.cc
   problem/factorial_zeros.cc
-  problem/free_fields.cc
   problem/fibonacci.cc
   problem/fixed_difference.cc
   problem/four_cubes.cc
+  problem/free_fields.cc
   problem/meter_jump.cc
   problem/minimal_tree.cc
   problem/nested_permutations.cc

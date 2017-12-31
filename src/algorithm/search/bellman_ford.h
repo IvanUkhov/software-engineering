@@ -46,7 +46,7 @@ BellmanFord<Graph>::BellmanFord(const Graph& graph, const Node& from) {
     updated = false;
     for (auto& node : graph) {
       if (scores_.count(&*node) == 0) continue;
-      for (auto& edge : node->Edges()) {
+      for (auto& edge : node->Children()) {
         auto destination = &edge->Into();
         auto score = scores_[&*node] + edge->Value();
         if (scores_.count(destination) == 0 || score < scores_[destination]) {

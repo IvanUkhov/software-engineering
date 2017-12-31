@@ -48,7 +48,7 @@ Dijkstra<Graph>::Dijkstra(const Graph& graph, const Node& from) {
   while (!open.IsEmpty()) {
     auto current = open.Pop();
     if (current.first > scores_[current.second]) continue;
-    for (auto& edge : current.second->Edges()) {
+    for (auto& edge : current.second->Children()) {
       auto destination = &edge->Into();
       auto score = current.first + edge->Value();
       if (scores_.count(destination) == 0 || score < scores_[destination]) {

@@ -54,7 +54,7 @@ typename AStar<Graph>::Path AStar<Graph>::Search(
   while (!found && !open_queue.IsEmpty()) {
     auto current_runner = open_queue.Pop();
     open_map.erase(current_runner.node);
-    for (auto& edge : current_runner.node->Edges()) {
+    for (auto& edge : current_runner.node->Children()) {
       auto& node = edge->Into();
       if (node == into) {
         found = &*edge;
