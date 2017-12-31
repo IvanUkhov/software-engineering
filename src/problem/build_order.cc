@@ -1,7 +1,6 @@
 #include <cassert>
 #include <deque>
 #include <unordered_map>
-#include <unordered_set>
 
 #include "problem/build_order.h"
 #include "structure/graph/adjacency_list.h"
