@@ -45,7 +45,7 @@ class BinarySearch<T>::Node {
   }
 
   template <typename U>
-  bool AcceptInOrder(U& visitor) const;
+  bool Accept(U& visitor) const;
 
  private:
   Node(T value) : value_(std::move(value)) {}
@@ -80,10 +80,10 @@ typename BinarySearch<T>::Node* BinarySearch<T>::Search(const T& value) const {
 
 template <typename T>
 template <typename U>
-bool BinarySearch<T>::Node::AcceptInOrder(U& visitor) const {
-  if (left_ && !left_->AcceptInOrder(visitor)) return false;
+bool BinarySearch<T>::Node::Accept(U& visitor) const {
+  if (left_ && !left_->Accept(visitor)) return false;
   if (!visitor.Visit(this)) return false;
-  if (right_ && !right_->AcceptInOrder(visitor)) return false;
+  if (right_ && !right_->Accept(visitor)) return false;
   return true;
 }
 

@@ -15,9 +15,7 @@ using Tree = structure::tree::BinarySearch<T>;
 template <typename T>
 class Visitor {
  public:
-  Visitor(std::vector<T>& data) : data_(data) {
-    data_.resize(0);
-  }
+  Visitor(std::vector<T>& data) : data_(data) {}
 
   bool Visit(const typename Tree<T>::Node* node) {
     data_.push_back(node->Value());
@@ -35,8 +33,9 @@ void BinaryTree(std::vector<T>& data) {
   if (data.empty()) return;
   internal::Tree<T> tree;
   for (auto value : data) tree.Insert(value);
+  data.resize(0);
   internal::Visitor<T> visitor(data);
-  tree.Root()->AcceptInOrder(visitor);
+  tree.Root()->Accept(visitor);
 }
 
 } } // namespace algorithm::sort

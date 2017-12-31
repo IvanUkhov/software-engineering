@@ -21,7 +21,7 @@ class MedianTracker {
 
   double Compute() const {
     Visitor visitor(count_);
-    tree_.Root()->AcceptInOrder(visitor);
+    tree_.Root()->Accept(visitor);
     return visitor.median;
   }
 
