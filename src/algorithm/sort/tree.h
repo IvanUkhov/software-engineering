@@ -17,8 +17,8 @@ class Visitor {
  public:
   Visitor(std::vector<T>& data) : data_(data) {}
 
-  bool Visit(const typename Tree<T>::Node* node) {
-    data_.push_back(node->Value());
+  bool Visit(const typename Tree<T>::Node& node) {
+    data_.push_back(node.Value());
     return true;
   }
 

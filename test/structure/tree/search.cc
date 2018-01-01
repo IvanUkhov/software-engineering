@@ -14,7 +14,10 @@ struct Value : public std::pair<int, const char*> {
 
 using Tree = structure::tree::BinarySearch<Value>;
 
-void Populate(Tree& tree) {
+namespace {
+
+Tree Create() {
+  Tree tree;
   tree.Insert({8, "a"})
       .Insert({3, "b"})
       .Insert({1, "c"})
@@ -24,16 +27,15 @@ void Populate(Tree& tree) {
       .Insert({10, "g"})
       .Insert({14, "h"})
       .Insert({13, "i"});
+  return tree;
 }
 
+} // namespace
+
 TEST(TreeTest, BinarySearchInsert) {
-  Tree tree;
-  Populate(tree);
-  ASSERT_EQ(tree.Root()->Right()->Right()->Left()->Value().first, 13);
+  ASSERT_EQ(Create().Root()->Right()->Right()->Left()->Value().first, 13);
 }
 
 TEST(TreeTest, BinarySearchSearch) {
-  Tree tree;
-  Populate(tree);
-  ASSERT_EQ(tree.Search({10})->Value().second, "g");
+  ASSERT_EQ(Create().Search({10})->Value().second, "g");
 }

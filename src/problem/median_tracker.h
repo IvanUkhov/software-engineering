@@ -40,9 +40,9 @@ struct MedianTracker<T>::Visitor {
         take(count % 2 == 0 ? 2 : 1),
         index(0), median(0.0) {}
 
-  bool Visit(const typename Tree::Node* node) {
+  bool Visit(const typename Tree::Node& node) {
     if (index >= begin) {
-      median += node->Value();
+      median += node.Value();
       if (--take == 0) {
         median /= index - begin + 1;
         return false;

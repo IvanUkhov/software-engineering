@@ -55,7 +55,7 @@ template <typename T>
 template <typename U>
 bool Binary<T>::Node::Accept(U& visitor) const {
   if (left_ && !left_->Accept(visitor)) return false;
-  if (!visitor.Visit(this)) return false;
+  if (!visitor.Visit(*this)) return false;
   if (right_ && !right_->Accept(visitor)) return false;
   return true;
 }
