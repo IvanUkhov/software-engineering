@@ -17,10 +17,10 @@ class BinarySearch: public Binary<T> {
 
 template <typename T>
 BinarySearch<T>& BinarySearch<T>::Insert(T value) {
-  auto target = &this->RootOwned();
+  auto target = &this->Root();
   while (*target) {
-    if ((*target)->Value() < value) target = &this->RightOwned(*target);
-    else target = &this->LeftOwned(*target);
+    if ((*target)->Value() < value) target = &(*target)->Right();
+    else target = &(*target)->Left();
   }
   *target = std::unique_ptr<Node>(new Node(std::move(value)));
   return *this;
@@ -28,10 +28,10 @@ BinarySearch<T>& BinarySearch<T>::Insert(T value) {
 
 template <typename T>
 typename BinarySearch<T>::Node* BinarySearch<T>::Search(const T& value) const {
-  auto current = this->Root();
+  auto current = &*this->Root();
   while (current) {
-    if (value < current->Value()) current = current->Left();
-    else if (current->Value() < value) current = current->Right();
+    if (value < current->Value()) current = &*current->Left();
+    else if (current->Value() < value) current = &*current->Right();
     else return current;
   }
   return nullptr;

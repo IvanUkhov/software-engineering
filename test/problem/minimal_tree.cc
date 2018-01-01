@@ -6,7 +6,7 @@
 const std::size_t kRoundCount = 20;
 
 template <typename T>
-std::size_t Depth(const T* node) {
+std::size_t Depth(const T& node) {
   if (!node) return 0;
   std::size_t left = Depth(node->Left());
   std::size_t right = Depth(node->Right());

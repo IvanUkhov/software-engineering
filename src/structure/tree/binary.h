@@ -11,20 +11,11 @@ class Binary {
  public:
   class Node;
 
-  auto Root() const {
-    return root_.get();
+  auto& Root() {
+    return root_;
   }
 
- protected:
-  static auto& LeftOwned(std::unique_ptr<Node>& node) {
-    return node->left_;
-  }
-
-  static auto& RightOwned(std::unique_ptr<Node>& node) {
-    return node->right_;
-  }
-
-  auto& RootOwned() {
+  auto& Root() const {
     return root_;
   }
 
@@ -43,12 +34,12 @@ class Binary<T>::Node {
     return value_;
   }
 
-  auto Left() const {
-    return left_.get();
+  auto& Left() {
+    return left_;
   }
 
-  auto Right() const {
-    return right_.get();
+  auto& Right() {
+    return right_;
   }
 
   template <typename U>

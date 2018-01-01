@@ -6,7 +6,7 @@ namespace problem {
 namespace internal {
 
 template <typename T, typename U>
-bool BinarySearch(const U* node, const T* minimum, const T* maximum) {
+bool BinarySearch(const U& node, const T* minimum, const T* maximum) {
   if (!node) return true;
   if (minimum && node->Value() <= *minimum) return false;
   if (maximum && node->Value() > *maximum) return false;

@@ -9,7 +9,7 @@ const int kAbort = -1;
 const int kDifference = 1;
 
 template <typename T>
-int BalancedTree(const T* node) {
+int BalancedTree(const T& node) {
   if (!node) return 0;
   int left = BalancedTree(node->Left());
   if (left == kAbort) return kAbort;
