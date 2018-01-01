@@ -15,7 +15,7 @@ TEST(ProblemTest, BalancedTreeFailure) {
       .Insert(10)
       .Insert(14)
       .Insert(13);
-  ASSERT_FALSE(problem::BalancedTree(tree));
+  ASSERT_FALSE(problem::BalancedTree(&*tree.Root()));
 }
 
 TEST(ProblemTest, BalancedTreeSuccess) {
@@ -28,5 +28,5 @@ TEST(ProblemTest, BalancedTreeSuccess) {
       .Insert(7)
       .Insert(10)
       .Insert(9);
-  ASSERT_TRUE(problem::BalancedTree(tree));
+  ASSERT_TRUE(problem::BalancedTree(&*tree.Root()));
 }

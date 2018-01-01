@@ -18,8 +18,8 @@ bool BinarySearch(const U& node, const T* minimum, const T* maximum) {
 
 // Implement a function to check if a binary tree is a binary search tree.
 template <typename T, typename U>
-bool BinarySearch(const U& tree) {
-  return internal::BinarySearch<T>(tree.Root(), nullptr, nullptr);
+bool BinarySearch(const U& node) {
+  return internal::BinarySearch<T>(node, nullptr, nullptr);
 }
 
 }

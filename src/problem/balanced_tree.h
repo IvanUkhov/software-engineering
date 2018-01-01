@@ -25,8 +25,8 @@ int BalancedTree(const T& node) {
 // of this question, a balanced tree is defined to be a tree such that the
 // heights of the two subtrees of any node never differ by more than one.
 template <typename T>
-bool BalancedTree(const T& tree) {
-  return internal::BalancedTree(tree.Root()) != internal::kAbort;
+bool BalancedTree(const T& node) {
+  return internal::BalancedTree(node) != internal::kAbort;
 }
 
 } // namespace problem

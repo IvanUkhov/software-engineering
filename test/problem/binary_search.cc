@@ -17,7 +17,7 @@ TEST(ProblemTest, BinarySearchFailure) {
       .Insert(14)
       .Insert(13);
   ten = 2;
-  ASSERT_FALSE(problem::BinarySearch<int>(tree));
+  ASSERT_FALSE(problem::BinarySearch<int>(&*tree.Root()));
 }
 
 TEST(ProblemTest, BinarySearchSuccess) {
@@ -31,5 +31,5 @@ TEST(ProblemTest, BinarySearchSuccess) {
       .Insert(10)
       .Insert(14)
       .Insert(13);
-  ASSERT_TRUE(problem::BinarySearch<int>(tree));
+  ASSERT_TRUE(problem::BinarySearch<int>(&*tree.Root()));
 }
