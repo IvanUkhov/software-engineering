@@ -28,10 +28,10 @@ BinarySearch<T>& BinarySearch<T>::Insert(T value) {
 
 template <typename T>
 typename BinarySearch<T>::Node* BinarySearch<T>::Search(const T& value) const {
-  auto current = &*this->Root();
+  auto current = this->Root().get();
   while (current) {
-    if (value < current->Value()) current = &*current->Left();
-    else if (current->Value() < value) current = &*current->Right();
+    if (value < current->Value()) current = current->Left().get();
+    else if (current->Value() < value) current = current->Right().get();
     else return current;
   }
   return nullptr;

@@ -38,4 +38,5 @@ TEST(TreeTest, BinarySearchInsert) {
 
 TEST(TreeTest, BinarySearchSearch) {
   ASSERT_EQ(Create().Search({10})->Value().second, "g");
+  ASSERT_EQ(Create().Search({42}), nullptr);
 }
