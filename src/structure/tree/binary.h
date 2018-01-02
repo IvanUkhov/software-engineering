@@ -38,12 +38,24 @@ class Binary<T>::Node {
     return left_;
   }
 
+  auto& Left() const {
+    return left_;
+  }
+
   auto& Right() {
+    return right_;
+  }
+
+  auto& Right() const {
     return right_;
   }
 
   template <typename U>
   bool Accept(U& visitor) const;
+
+  bool operator==(const Node& other) const {
+    return this == &other;
+  }
 
  private:
   T value_;

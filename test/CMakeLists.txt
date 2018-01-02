@@ -45,6 +45,7 @@ add_executable(
   problem/binary_search.cc
   problem/build_order.cc
   problem/char_replacement.cc
+  problem/common_ancestor.cc
   problem/common_subsequence.cc
   problem/factorial_zeros.cc
   problem/fibonacci.cc
