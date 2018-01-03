@@ -6,6 +6,7 @@ include_directories(
 
 add_library(
   interview
+  problem/bit_insertion.cc
   problem/build_order.cc
   problem/char_replacement.cc
   problem/common_subsequence.cc

@@ -43,6 +43,7 @@ add_executable(
   algorithm/sort/tree.cc
   problem/balanced_tree.cc
   problem/binary_search.cc
+  problem/bit_insertion.cc
   problem/build_order.cc
   problem/char_replacement.cc
   problem/common_ancestor.cc
