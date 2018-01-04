@@ -55,6 +55,7 @@ add_executable(
   problem/free_fields.cc
   problem/list_duplicates.cc
   problem/list_tail.cc
+  problem/magic_index.cc
   problem/matrix_rotation.cc
   problem/median_tracker.cc
   problem/meter_jump.cc
