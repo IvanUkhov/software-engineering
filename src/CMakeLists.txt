@@ -20,6 +20,7 @@ add_library(
   problem/nested_permutations.cc
   problem/one_away.cc
   problem/palindrome_permutations.cc
+  problem/robot_maze.cc
   problem/string_combinations.cc
   problem/string_compression.cc
   problem/string_permutations.cc

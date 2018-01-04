@@ -64,6 +64,7 @@ add_executable(
   problem/one_away.cc
   problem/palindrome_permutations.cc
   problem/rectangle_intersection.cc
+  problem/robot_maze.cc
   problem/stack_sort.cc
   problem/string_combinations.cc
   problem/string_compression.cc
