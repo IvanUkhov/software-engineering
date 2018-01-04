@@ -66,6 +66,7 @@ add_executable(
   problem/palindrome_permutations.cc
   problem/power_set.cc
   problem/rectangle_intersection.cc
+  problem/recursive_multiply.cc
   problem/robot_maze.cc
   problem/stack_sort.cc
   problem/string_combinations.cc
