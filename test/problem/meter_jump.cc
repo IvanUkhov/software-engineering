@@ -2,7 +2,7 @@
 #include "problem/meter_jump.h"
 
 TEST(ProblemTest, MeterJump) {
-  ASSERT_EQ(problem::MeterJump(0), 0);
+  ASSERT_EQ(problem::MeterJump(0), 1);
   ASSERT_EQ(problem::MeterJump(1), 1);
   ASSERT_EQ(problem::MeterJump(2), 2);
   ASSERT_EQ(problem::MeterJump(3), 4);
