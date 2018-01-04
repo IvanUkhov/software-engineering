@@ -73,7 +73,7 @@ T BinaryHeap<T, C>::Pop() {
 
 template <typename T, typename C>
 void BinaryHeap<T, C>::Push(T value) {
-  data_.push_back(value);
+  data_.push_back(std::move(value));
   Up(data_.data(), data_.size() - 1);
 }
 
