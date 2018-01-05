@@ -48,6 +48,7 @@ add_executable(
   problem/char_replacement.cc
   problem/common_ancestor.cc
   problem/common_subsequence.cc
+  problem/eight_queens.cc
   problem/factorial_zeros.cc
   problem/fibonacci.cc
   problem/fixed_difference.cc
