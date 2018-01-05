@@ -64,6 +64,7 @@ add_executable(
   problem/nested_permutations.cc
   problem/one_away.cc
   problem/palindrome_permutations.cc
+  problem/parenthesis_combinations.cc
   problem/power_set.cc
   problem/rectangle_intersection.cc
   problem/recursive_multiply.cc

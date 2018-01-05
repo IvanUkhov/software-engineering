@@ -21,6 +21,7 @@ add_library(
   problem/nested_permutations.cc
   problem/one_away.cc
   problem/palindrome_permutations.cc
+  problem/parenthesis_combinations.cc
   problem/recursive_multiply.cc
   problem/robot_maze.cc
   problem/string_combinations.cc
