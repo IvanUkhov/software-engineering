@@ -3,9 +3,9 @@
 #include "problem/string_combinations.h"
 
 TEST(ProblemTest, StringCombinations) {
-  std::stringstream buffer;
-  problem::StringCombinations("abc", buffer);
-  std::string actual = fixture::Sort(buffer.str());
+  std::stringstream output;
+  problem::StringCombinations("abc", output);
+  std::string actual = fixture::Sort(output.str());
   std::string expected = fixture::Clean(R"(
 a
 ab

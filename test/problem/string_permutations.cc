@@ -5,12 +5,10 @@
 namespace {
 
 template <typename T>
-void Assess(T process, const std::string& input, const std::string& output) {
-  std::stringstream buffer;
-  process(input, buffer);
-  std::string actual = fixture::Sort(buffer.str());
-  std::string expected = fixture::Clean(output);
-  ASSERT_EQ(actual, expected);
+void Assess(T process, const std::string& input, std::string expected) {
+  std::stringstream output;
+  process(input, output);
+  ASSERT_EQ(fixture::Sort(output.str()), fixture::Clean(expected));
 }
 
 }
