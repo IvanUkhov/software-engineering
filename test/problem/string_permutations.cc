@@ -6,14 +6,14 @@ TEST(ProblemTest, StringPermutationsUniqueChars) {
   std::stringstream buffer;
   problem::StringPermutationsUniqueChars("abc", buffer);
   std::string actual = fixture::Sort(buffer.str());
-  std::string expected = fixture::Sort(fixture::Clean(R"(
+  std::string expected = fixture::Clean(R"(
 abc
 acb
 bac
 bca
-cba
 cab
-)"));
+cba
+)");
   ASSERT_EQ(actual, expected);
 }
 
