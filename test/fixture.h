@@ -7,6 +7,9 @@
 
 namespace fixture {
 
+std::string Clean(const std::string& string);
+std::string Sort(const std::string& string);
+
 void Randomize();
 
 template <typename T>

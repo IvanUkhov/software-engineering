@@ -6,9 +6,12 @@
 
 namespace problem {
 
-// Design an algorithm to print all permutations of a string. For simplicity,
-// assume all characters are unique.
-void StringPermutations(std::string string, std::ostream& output);
+// Write a method to compute all permutations of a string of unique characters.
+void StringPermutationsUniqueChars(std::string string, std::ostream& output);
+
+// Write a method to compute all permutations of a string whose characters are
+// not necessarily unique. The list of permutations should not have duplicates.
+void StringPermutationsNonuniqueChars(std::string string, std::ostream& output);
 
 } // namespace problem
 

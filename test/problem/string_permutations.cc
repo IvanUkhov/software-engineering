@@ -1,18 +1,21 @@
-#include <sstream>
-
+#include "fixture.h"
 #include "gtest/gtest.h"
 #include "problem/string_permutations.h"
 
-TEST(ProblemTest, StringPermutations) {
-  std::stringstream actual;
-  problem::StringPermutations("abc", actual);
-  const std::string expected = R"(
+TEST(ProblemTest, StringPermutationsUniqueChars) {
+  std::stringstream buffer;
+  problem::StringPermutationsUniqueChars("abc", buffer);
+  std::string actual = fixture::Sort(buffer.str());
+  std::string expected = fixture::Sort(fixture::Clean(R"(
 abc
 acb
 bac
 bca
 cba
 cab
-)";
-  ASSERT_EQ(actual.str(), expected.substr(1));
+)"));
+  ASSERT_EQ(actual, expected);
+}
+
+TEST(ProblemTest, StringPermutationsNonuniqueChars) {
 }
