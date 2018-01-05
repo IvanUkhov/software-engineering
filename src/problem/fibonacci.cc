@@ -2,10 +2,11 @@
 
 using Quadratic = std::size_t[2][2];
 
-const Quadratic kFibonacci = {{1, 1}, {1, 0}};
-const Quadratic kIdentity = {{1, 0}, {0, 1}};
+static const Quadratic kFibonacci = {{1, 1}, {1, 0}};
+static const Quadratic kIdentity = {{1, 0}, {0, 1}};
 
-void Multiply(const Quadratic left, const Quadratic right, Quadratic result) {
+static void Multiply(const Quadratic left, const Quadratic right,
+                     Quadratic result) {
   auto result00 = left[0][0] * right[0][0] + left[0][1] * right[1][0];
   auto result01 = left[0][0] * right[0][1] + left[0][1] * right[1][1];
   auto result10 = left[1][0] * right[0][0] + left[1][1] * right[1][0];
@@ -16,7 +17,8 @@ void Multiply(const Quadratic left, const Quadratic right, Quadratic result) {
   result[1][1] = result11;
 }
 
-void Power(const Quadratic factor, std::size_t number, Quadratic result) {
+static void Power(const Quadratic factor, std::size_t number,
+                  Quadratic result) {
   if (number == 0) Multiply(kIdentity, kIdentity, result);
   else if (number == 1) Multiply(factor, kIdentity, result);
   else {

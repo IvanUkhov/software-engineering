@@ -7,8 +7,9 @@
 
 using Graph = structure::graph::AdjacencyList<std::size_t, bool>;
 
-Graph Convert(const std::vector<std::size_t>& nodes,
-              const std::vector<std::pair<std::size_t, std::size_t>>& edges) {
+static Graph Convert(
+    const std::vector<std::size_t>& nodes,
+    const std::vector<std::pair<std::size_t, std::size_t>>& edges) {
   Graph graph;
   auto size = nodes.size();
   std::unordered_map<std::size_t, std::size_t> mapping;

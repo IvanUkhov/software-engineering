@@ -2,10 +2,10 @@
 
 #include "problem/minimal_tree.h"
 
-namespace problem {
+using problem::Tree;
 
-void Insert(Tree& tree, const std::vector<int>& data,
-            std::size_t begin, std::size_t end) {
+static void Insert(Tree& tree, const std::vector<int>& data,
+                   std::size_t begin, std::size_t end) {
   if (begin < end) {
     auto i = (begin + end) / 2;
     tree.Insert(data[i]);
@@ -14,10 +14,8 @@ void Insert(Tree& tree, const std::vector<int>& data,
   }
 }
 
-Tree MinimalTree(const std::vector<int>& data) {
+Tree problem::MinimalTree(const std::vector<int>& data) {
   Tree tree;
   Insert(tree, data, 0, data.size());
   return tree;
 }
-
-} // namespace problem

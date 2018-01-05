@@ -4,9 +4,9 @@
 
 #include "problem/string_combinations.h"
 
-void StringCombinations(const std::string& string, std::size_t begin,
-                        std::size_t end, std::string& work,
-                        std::ostream& output) {
+static void StringCombinations(const std::string& string, std::size_t begin,
+                               std::size_t end, std::string& work,
+                               std::ostream& output) {
   for (std::size_t i = begin; i < end; ++i) {
     work.push_back(string[i]);
     output << work << '\n';

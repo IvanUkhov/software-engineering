@@ -1,6 +1,6 @@
 #include "problem/factorial_zeros.h"
 
-std::size_t Count(std::size_t dividend, std::size_t dividor) {
+static std::size_t Count(std::size_t dividend, std::size_t dividor) {
   std::size_t count = 0;
   while (dividend % dividor == 0) {
     ++count;

@@ -3,9 +3,8 @@
 
 #include "problem/robot_maze.h"
 
-namespace problem {
-
-namespace internal {
+using problem::Maze;
+using problem::Path;
 
 bool RobotMaze(const Maze& maze, std::size_t rows, std::size_t columns,
                std::size_t i, std::size_t j, Path& path,
@@ -29,14 +28,11 @@ bool RobotMaze(const Maze& maze, std::size_t rows, std::size_t columns,
   return false;
 }
 
-} // namespace internal
-
-Path RobotMaze(const Maze& maze, std::size_t rows, std::size_t columns) {
+Path problem::RobotMaze(const Maze& maze, std::size_t rows,
+                        std::size_t columns) {
   assert(rows > 0 && columns > 0);
   Path path;
   std::unordered_set<std::size_t> cache;
-  internal::RobotMaze(maze, rows, columns, rows - 1, columns - 1, path, cache);
+  ::RobotMaze(maze, rows, columns, rows - 1, columns - 1, path, cache);
   return path;
 }
-
-} // namespace problem

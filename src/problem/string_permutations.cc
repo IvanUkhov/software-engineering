@@ -4,8 +4,9 @@
 
 #include "problem/string_permutations.h"
 
-void StringPermutationsUniqueChars(std::string& string, std::size_t begin,
-                                   std::size_t end, std::ostream& output) {
+static void StringPermutationsUniqueChars(
+    std::string& string, std::size_t begin, std::size_t end,
+    std::ostream& output) {
   using std::swap;
   for (std::size_t i = begin; i < end; ++i) {
     swap(string[begin], string[i]);
@@ -15,7 +16,7 @@ void StringPermutationsUniqueChars(std::string& string, std::size_t begin,
   }
 }
 
-void StringPermutationsNonuniqueChars(
+static void StringPermutationsNonuniqueChars(
     std::string& string, std::size_t begin, std::size_t end,
     std::unordered_map<char, std::size_t>& choice, std::ostream& output) {
   for (auto& pair : choice) {

@@ -2,7 +2,7 @@
 
 #include "problem/one_away.h"
 
-bool OneAway(const std::string& a, const std::string& b) {
+static bool OneAway(const std::string& a, const std::string& b) {
   auto a_size = a.size();
   auto b_size = b.size();
   switch (b_size - a_size) {
