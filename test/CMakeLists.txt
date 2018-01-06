@@ -60,7 +60,6 @@ add_executable(
   problem/magic_index.cc
   problem/matrix_rotation.cc
   problem/median_tracker.cc
-  problem/meter_jump.cc
   problem/minimal_tree.cc
   problem/multi_stack.cc
   problem/nested_permutations.cc
@@ -76,6 +75,7 @@ add_executable(
   problem/string_compression.cc
   problem/string_permutations.cc
   problem/string_rotation.cc
+  problem/triple_step.cc
   problem/two_permutations.cc
   problem/unique_chars.cc
   problem/zero_matrix.cc

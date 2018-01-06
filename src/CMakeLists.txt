@@ -17,7 +17,6 @@ add_library(
   problem/free_fields.cc
   problem/hanoi_towers.cc
   problem/magic_index.cc
-  problem/meter_jump.cc
   problem/minimal_tree.cc
   problem/nested_permutations.cc
   problem/one_away.cc
@@ -29,6 +28,7 @@ add_library(
   problem/string_compression.cc
   problem/string_permutations.cc
   problem/string_rotation.cc
+  problem/triple_step.cc
   problem/two_permutations.cc
   problem/unique_chars.cc
   )
