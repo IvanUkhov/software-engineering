@@ -1,6 +1,6 @@
 #include "problem/hanoi_towers.h"
 
-void problem::HanoiTowers(std::size_t count, Stack& a, Stack& b, Stack& c) {
+void problem::HanoiTowers(Stack& a, Stack& b, Stack& c) {
   auto slide = [](Stack& one, Stack& other) {
     if (one.IsEmpty() && other.IsEmpty()) return;
     else if (one.IsEmpty()) one.Push(other.Pop());

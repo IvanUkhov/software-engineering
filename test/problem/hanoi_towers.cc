@@ -19,7 +19,7 @@ void Assess(std::size_t count) {
     a.Push(count - i);
     expected.push_back(i + 1);
   }
-  problem::HanoiTowers(count, a, b, c);
+  problem::HanoiTowers(a, b, c);
   ASSERT_EQ(Drain(a), Vector());
   ASSERT_EQ(Drain(b), Vector());
   ASSERT_EQ(Drain(c), expected);

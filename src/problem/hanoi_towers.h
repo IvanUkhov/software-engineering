@@ -20,7 +20,7 @@ using Stack = structure::stack::List<std::size_t>;
 //
 // Write a program to move the disks from the first tower to the last using
 // Stacks.
-void HanoiTowers(std::size_t count, Stack& a, Stack& b, Stack& c);
+void HanoiTowers(Stack& a, Stack& b, Stack& c);
 
 } // namespace problem
 
