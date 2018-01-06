@@ -22,12 +22,10 @@ static void StringPermutationsNonuniqueChars(
   for (auto& pair : choice) {
     if (pair.second == 0) continue;
     string[begin] = pair.first;
+    --pair.second;
     if (begin + 1 >= end) output << string << '\n';
-    else {
-      --pair.second;
-      StringPermutationsNonuniqueChars(string, begin + 1, end, choice, output);
-      ++pair.second;
-    }
+    StringPermutationsNonuniqueChars(string, begin + 1, end, choice, output);
+    ++pair.second;
   }
 }
 
