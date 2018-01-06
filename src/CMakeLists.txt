@@ -15,6 +15,7 @@ add_library(
   problem/fixed_difference.cc
   problem/four_cubes.cc
   problem/free_fields.cc
+  problem/hanoi_towers.cc
   problem/magic_index.cc
   problem/meter_jump.cc
   problem/minimal_tree.cc
