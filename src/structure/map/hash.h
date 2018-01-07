@@ -57,12 +57,10 @@ class Hash {
 
 template <typename K, typename V, typename H>
 V* Hash<K, V, H>::Get(K key) const {
-  const auto* current_ptr = &nodes_[hash_(key) % Breadth()];
-  while (true) {
-    const auto& current = *current_ptr;
-    if (!current) break;
-    if (current->key == key) return &current->value;
-    current_ptr = &current->next;
+  auto* current = &nodes_[hash_(key) % Breadth()];
+  while (*current) {
+    if ((*current)->key == key) return &(*current)->value;
+    current = &(*current)->next;
   }
   return nullptr;
 }
@@ -77,20 +75,16 @@ void Hash<K, V, H>::Set(K key, V value) {
 template <typename K, typename V, typename H>
 void Hash<K, V, H>::Set(std::unique_ptr<Node> candidate) {
   using std::swap;
-  auto* current_ptr = &nodes_[candidate->hash % Breadth()];
-  while (true) {
-    auto& current = *current_ptr;
-    if (!current) {
-      swap(current, candidate);
-      ++size_;
+  auto* current = &nodes_[candidate->hash % Breadth()];
+  while (*current) {
+    if ((*current)->key == candidate->key) {
+      swap(*current, candidate);
       return;
     }
-    if (current->key == candidate->key) {
-      swap(current, candidate);
-      return;
-    }
-    current_ptr = &current->next;
+    current = &(*current)->next;
   }
+  swap(*current, candidate);
+  ++size_;
 }
 
 template <typename K, typename V, typename H>
