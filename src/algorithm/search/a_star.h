@@ -35,8 +35,8 @@ class AStar {
   };
 
   struct Comparator {
-    bool operator()(const Runner& one, const Runner& another) const {
-      return one.Score() < another.Score();
+    bool operator()(const Runner& one, const Runner& other) const {
+      return one.Score() < other.Score();
     }
   };
 };

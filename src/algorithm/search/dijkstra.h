@@ -34,6 +34,12 @@ class Dijkstra {
     decltype(std::declval<Edge>().Value())>::type;
   using Runner = std::pair<Score, const Node*>;
 
+  struct Comparator {
+    bool operator()(const Runner& one, const Runner& other) const {
+      return one.first < other.first;
+    }
+  };
+
   std::unordered_map<const Node*, Score> scores_;
   std::unordered_map<const Node*, const Edge*> sources_;
 };
@@ -42,9 +48,9 @@ template <typename Graph>
 Dijkstra<Graph>::Dijkstra(const Graph& graph, const Node& from) {
   static_assert(std::is_unsigned<Score>::value,
                 "Dijkstra requires unsigned integers");
-  structure::tree::MinHeap<Runner> open;
-  scores_[&from] = 0;
-  open.Push({0, &from});
+  structure::tree::BinaryHeap<Runner, Comparator> open;
+  scores_[&from] = {};
+  open.Push({{}, &from});
   while (!open.IsEmpty()) {
     auto current = open.Pop();
     if (current.first > scores_[current.second]) continue;
