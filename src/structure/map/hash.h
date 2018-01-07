@@ -8,13 +8,13 @@
 
 namespace structure { namespace map {
 
-const std::size_t kStartBreadth = 1 << 7;
+const std::size_t kInitialBreadth = 1 << 7;
 const double kResizeThreshold = 0.8;
 
 template <typename K, typename V, typename H = std::hash<K>>
 class Hash {
  public:
-  Hash() : size_(0), nodes_(kStartBreadth) {}
+  Hash() : size_(0), nodes_(kInitialBreadth) {}
 
   V* Get(K key) const;
   void Set(K key, V value);
