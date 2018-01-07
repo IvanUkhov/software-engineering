@@ -16,6 +16,7 @@ add_library(
   problem/four_cubes.cc
   problem/free_fields.cc
   problem/hanoi_towers.cc
+  problem/last_lines.cc
   problem/magic_index.cc
   problem/minimal_tree.cc
   problem/nested_permutations.cc

@@ -55,6 +55,7 @@ add_executable(
   problem/four_cubes.cc
   problem/free_fields.cc
   problem/hanoi_towers.cc
+  problem/last_lines.cc
   problem/list_duplicates.cc
   problem/list_tail.cc
   problem/magic_index.cc
