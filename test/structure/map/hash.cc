@@ -27,9 +27,9 @@ TEST(MapTest, HashNotFound) {
 
 TEST(MapTest, HashResize) {
   Map map;
-  ASSERT_EQ(map.Length(), 1 << 7);
+  ASSERT_EQ(map.Breadth(), 1 << 7);
   for (std::size_t i = 0; i < 2 * kCount; i++) {
     map.Set("key" + std::to_string(i), i);
   }
-  ASSERT_EQ(map.Length(), 1 << 8);
+  ASSERT_EQ(map.Breadth(), 1 << 8);
 }

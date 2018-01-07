@@ -20,10 +20,10 @@ class Hash {
   void Set(K key, V value);
 
   double Load() const {
-    return static_cast<double>(Size()) / Length();
+    return static_cast<double>(Size()) / Breadth();
   }
 
-  std::size_t Length() const {
+  std::size_t Breadth() const {
     return nodes_.size();
   }
 
@@ -57,7 +57,7 @@ class Hash {
 
 template <typename K, typename V, typename H>
 V* Hash<K, V, H>::Get(K key) const {
-  const auto* current_ptr = &nodes_[hash_(key) % Length()];
+  const auto* current_ptr = &nodes_[hash_(key) % Breadth()];
   while (true) {
     const auto& current = *current_ptr;
     if (!current) break;
@@ -77,7 +77,7 @@ void Hash<K, V, H>::Set(K key, V value) {
 template <typename K, typename V, typename H>
 void Hash<K, V, H>::Set(std::unique_ptr<Node> candidate) {
   using std::swap;
-  auto* current_ptr = &nodes_[candidate->hash % Length()];
+  auto* current_ptr = &nodes_[candidate->hash % Breadth()];
   while (true) {
     auto& current = *current_ptr;
     if (!current) {
@@ -95,11 +95,11 @@ void Hash<K, V, H>::Set(std::unique_ptr<Node> candidate) {
 
 template <typename K, typename V, typename H>
 void Hash<K, V, H>::Resize() {
-  auto size = Length();
-  std::vector<std::unique_ptr<Node>> nodes(2 * size);
+  auto breadth = Breadth();
+  std::vector<std::unique_ptr<Node>> nodes(2 * breadth);
   std::swap(nodes, nodes_);
   size_ = 0;
-  for (auto i = 0; i < size; ++i) {
+  for (auto i = 0; i < breadth; ++i) {
     while (nodes[i]) {
       auto candidate = std::unique_ptr<Node>(nodes[i].release());
       nodes[i].reset(candidate->next.release());
