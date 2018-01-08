@@ -28,9 +28,8 @@ void Count(std::vector<V>& data, K range,
   for (auto& value : data) ++counts[key(value)];
   K total = {};
   for (auto& count : counts) {
-    K old = total;
     total += count;
-    count = old;
+    count = total - count;
   }
   std::vector<V> work(total);
   for (auto& value : data) swap(value, work[counts[key(value)]++]);
