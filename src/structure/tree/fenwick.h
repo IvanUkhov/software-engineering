@@ -26,7 +26,7 @@ class Fenwick {
 
   void Add(std::size_t i, T delta) {
     auto size = data_.size();
-    for (; i < size; i += (i + 1) & -(i + 1)) data_[i] += delta;
+    for (++i; i <= size; i += i & -i) data_[i - 1] += delta;
   }
 
  private:
@@ -36,9 +36,9 @@ class Fenwick {
 template <typename T>
 Fenwick<T>::Fenwick(std::vector<T> data) : data_(std::move(data)) {
   auto size = data_.size();
-  for (std::size_t i = 0; i < size; ++i) {
-    auto j = i + ((i + 1) & -(i + 1));
-    if (j < size) data_[j] += data_[i];
+  for (std::size_t i = 1; i <= size; ++i) {
+    auto j = i + (i & -i);
+    if (j <= size) data_[j - 1] += data_[i - 1];
   }
 }
 
