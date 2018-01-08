@@ -12,8 +12,8 @@ namespace algorithm { namespace sort {
 
 namespace internal {
 
-template <typename V>
-V ValueKey(const V& value) {
+template <typename T>
+T ValueKey(const T& value) {
   return value;
 }
 
