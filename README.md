@@ -1,4 +1,4 @@
-# Interview [![Build][build-img]][build-url]
+# Playground [![Build][build-img]][build-url]
 
-[build-img]: https://travis-ci.org/IvanUkhov/interview.svg?branch=cc
-[build-url]: https://travis-ci.org/IvanUkhov/interview
+[build-img]: https://travis-ci.org/IvanUkhov/playground-cc.svg?branch=master
+[build-url]: https://travis-ci.org/IvanUkhov/playground-cc
