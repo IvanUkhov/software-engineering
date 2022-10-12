@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <cmath>
 #include <cstddef>
+#include <random>
 #include <vector>
 
 #include "gtest/gtest.h"
@@ -11,8 +12,10 @@ const std::size_t kRoundCount = 10;
 
 template <typename T>
 void Assess(std::vector<T> data, double median) {
+  std::random_device device;
+  std::mt19937 generator(device());
   for (std::size_t i = 0; i < kRoundCount; ++i) {
-    std::random_shuffle(data.begin(), data.end());
+    std::shuffle(data.begin(), data.end(), generator);
     problem::MedianTracker<T> tracker;
     for (auto number : data) tracker.Consume(number);
     ASSERT_LT(std::abs(tracker.Compute() - median), kEpsilon);
