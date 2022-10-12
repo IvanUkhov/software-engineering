@@ -1,4 +1,4 @@
 # Software Engineering [![Build][build-img]][build-url]
 
-[build-img]: https://travis-ci.org/IvanUkhov/software-engineering.svg?branch=master
-[build-url]: https://travis-ci.org/IvanUkhov/software-engineering
+[build-img]: https://github.com/IvanUkhov/software-engineering/workflows/build/badge.svg
+[build-url]: https://github.com/IvanUkhov/software-engineering/actions/workflows/build.yml
